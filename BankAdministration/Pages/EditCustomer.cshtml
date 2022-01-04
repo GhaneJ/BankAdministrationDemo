@@ -1,0 +1,123 @@
+﻿@page
+@model BankAdministration.Pages.EditCustomerModel
+@{
+}
+
+<div class="row">
+    <div class="col-lg-12 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h6 text-uppercase mb-0">Ändra kunduppgifter</h3>
+            </div>
+
+            <div class="card-body">
+                <form method="post">
+
+
+                    <div class="form-group">
+                        <label asp-for="Givenname">Förnamn</label>
+                        <input class="form-control" asp-for="Givenname">
+                        <span asp-validation-for="Givenname" class="field-validation-error"></span>
+                    </div>
+
+                    @*<div class="form-group">
+                        <label asp-for="AllSuppliers">Leverantörtyp</label>
+                        <select class="form-control" asp-for="AllSuppliers" asp-items=@Model.AllSuppliers></select>
+                        <span asp-validation-for="AllSuppliers" class="field-validation-error"></span>
+                    </div>*@
+
+                    <div class="form-group">
+                        <label asp-for="Surname">Efternamn</label>
+                        <input class="form-control" asp-for="Surname">
+                        <span asp-validation-for="Surname" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Gender">Kön</label>
+                        <input class="form-control" asp-for="Gender">
+                        <span asp-validation-for="Gender" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Streetaddress">Gatuadress</label>
+                        <input asp-for="Streetaddress" class="form-control" />
+                        <span asp-validation-for="Streetaddress" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Zipcode">Postnummer</label>
+                        <input asp-for="Zipcode" class="form-control" />
+                        <span asp-validation-for="Zipcode" class="field-validation-error"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="City">Postort</label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <hr/>
+                        <label asp-for="Country">Land</label>
+                        <input asp-for="Country" class="form-control"/>
+                        <span asp-validation-for="Country" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <hr/>
+                        <label asp-for="CountryCode">Landskod</label>
+                        <input asp-for="CountryCode" class="form-control"/>
+                        <span asp-validation-for="CountryCode" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <hr/>
+                        <label asp-for="Birthday">Födelsedatum</label>
+                        <input asp-for="Birthday" class="form-control"/>
+                        <span asp-validation-for="Birthday" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <hr/>
+                        <label asp-for="NationalId">Personnummer</label>
+                        <input asp-for="NationalId" class="form-control"/>
+                        <span asp-validation-for="NationalId" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <hr/>
+                        <label asp-for="Telephonecountrycode">Landsnummer</label>
+                        <input asp-for="Telephonecountrycode" class="form-control"/>
+                        <span asp-validation-for="Telephonecountrycode" class="field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <hr/>
+                        <label asp-for="Telephonenumber">Telefonnummer</label>
+                        <input asp-for="Telephonenumber" class="form-control"/>
+                        <span asp-validation-for="Telephonenumber" class="field-validation-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <hr/>
+                        <label asp-for="Emailaddress">E-post</label>
+                        <input asp-for="Emailaddress" class="form-control"/>
+                        <span asp-validation-for="Emailaddress" class="field-validation-error"></span>
+                    </div>
+
+                   <div class="form-group">
+                       <hr/>
+                        <label asp-for="Active">Är kunden aktiv?</label>
+                        <input asp-for="Active" class="form-control" />
+                        <span asp-validation-for="Active" class="field-validation-error"></span><br>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Spara</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />

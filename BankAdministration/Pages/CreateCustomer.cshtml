@@ -1,0 +1,79 @@
+﻿@page
+@model BankAdministration.Pages.CreateCustomerModel
+@{
+}
+
+<div class="row">
+    <div class="col-lg-12 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h6 text-uppercase mb-0">Registrera en ny kund</h3>
+            </div>
+
+            <div class="card-body">
+
+                <form method="post">
+                    <div>
+                        <label asp-for="Givenname">Förnamn</label>
+                        <input class="form-control" asp-for="Givenname">
+                    </div>
+                    <div>
+                        <label asp-for="Surname">Efternamn</label>
+                        <input class="form-control" asp-for="Surname">
+                    </div>
+                    <div>
+                        <label asp-for="Gender">Kön</label>
+                        <input class="form-control" asp-for="Gender">
+                    </div>
+                    <div>
+                        <label asp-for="Streetaddress">Gatuadress</label>
+                        <input class="form-control" asp-for="Streetaddress">
+                    </div>
+                    <div>
+                        <label asp-for="Zipcode">Postnummer</label>
+                        <input class="form-control" asp-for="Zipcode">
+                    </div>
+
+                    <div>
+                        <label asp-for="City">Postort</label>
+                        <input class="form-control" asp-for="City">
+                    </div>
+
+                    <div>
+                        <label asp-for="Country">Land</label>
+                        <input class="form-control" asp-for="Country">
+                    </div>
+                    
+                    <div>
+                        <label asp-for="City">Stad</label>
+                        <input class="form-control" asp-for="City">
+                    </div>
+                    <div>
+                        <label asp-for="Country">land</label>
+                        <input class="form-control" asp-for="Country">
+                    </div>
+                    <div>
+                        <label asp-for="CountryCode">Landkod</label>
+                        <input class="form-control" asp-for="CountryCode">
+                    </div>
+                    <div>
+                        <label asp-for="Birthday">Födelsedatum</label>
+                        <input class="form-control" asp-for="Birthday">
+                    </div>
+                    <div>
+                        <label asp-for="Telephonenumber">Telefonnummer</label>
+                        <input class="form-control" asp-for="Telephonenumber"><br />
+                    </div>
+                    <div>
+                        <label asp-for="Emailaddress">E-post</label>
+                        <input class="form-control" asp-for="Emailaddress"><br />
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Registrera</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
