@@ -14,4 +14,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\vendor\choices.js\src\" />
+    <Folder Include="wwwroot\vendor\choices.js\types\" />
+    <Folder Include="wwwroot\vendor\imagesloaded\test\" />
+  </ItemGroup>
+
 </Project>

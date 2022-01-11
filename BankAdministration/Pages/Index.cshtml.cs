@@ -1,23 +1,71 @@
 ﻿using BankAdministration.Models;
+using BankAdministration.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankAdministration.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly BankContext _context;
-        public IndexModel(BankContext context)
+        private readonly IStatisticsService _statisticsService;
+        private readonly ICustomerService _customerService;
+
+        public class Item
         {
-            _context = context;
+            public int Id { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string Address { get; set; }
+            public string City { get; set; }
         }
-        //We always create what we're going to show in our razor view,
-        //even expressions like count()
-        public string availableCustomers { get; set; }
-        public List<Customer> Customers { get; set; }
-        public void OnGet()
+        
+
+        //Pagination
+        public int CurrentPage { get; set; }
+        public string SortColumn { get; set; }
+        public string SortOrder { get; set; }
+        public string SearchWord { get; set; }
+        public int PageCount { get; set; }
+
+        //Statistics
+        public int CustomerId { get; set; }
+        public string ActiveCustomers { get; set; }
+        public string AvailableAccounts { get; set; }
+        public string SumOfBalances { get; set; }
+        public List<Item> Items { get; set; }
+
+        public IndexModel(IStatisticsService statisticsService, ICustomerService customerService)
         {
-            availableCustomers = _context.Customers.Count().ToString();
+            _statisticsService = statisticsService;
+            _customerService = customerService;
+        }
+
+        public void OnGet(int customerId, string sortColumn, string sortOrder, int pageno, string searchWord)
+        {
+            ActiveCustomers = _statisticsService.activeCustomers();
+            AvailableAccounts = _statisticsService.availabAccounts();
+            SumOfBalances = _statisticsService.sumOfAccountBalances();
+
+            SortColumn = sortColumn;
+            SortOrder = sortOrder;
+            SearchWord = searchWord;
+            if (pageno == 0)
+            {
+                pageno = 1;
+            }
+            CurrentPage = pageno;
+            CustomerId = customerId;
+            var pageResult = _customerService.ListCustomers(customerId, sortColumn, sortOrder, CurrentPage, searchWord);
+            PageCount = pageResult.PageCount;
+            Items = pageResult.Results.Select(e => new Item
+            {
+                Id = e.CustomerId,
+                FirstName = e.Givenname,
+                LastName = e.Surname,
+                Address = e.Streetaddress,
+                City = e.City
+            }).ToList();
         }
     }
 }
