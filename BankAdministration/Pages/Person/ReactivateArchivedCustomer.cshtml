@@ -1,48 +1,7 @@
 ﻿@page
-@model IndexModel
+@model BankAdministration.Pages.Person.ReactivateArchivedCustomerModel
 @{
-    ViewData["Title"] = "Home page";
 }
-
-<!-- Statistics Section -->
-<section class="card py-5">
-    <div class="container-fluid">
-        <div class="row d-flex align-items-center justify-content-around p-3 mb-3">
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-                <div class="d-flex">
-                   <i class="far fa-2x fa-user"></i>
-                    <div class="ms-2">
-                        <h3 class="h4 text-dark fw-normal">Aktiva kunder</h3>
-                        <p class="display-6 mb-0">@Model.ActiveCustomers</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-                <div class="d-flex">
-                    <i class="fas fa-2x fa-money-check"></i>
-                    <div class="ms-2">
-                        <h3 class="h4 text-dark fw-normal">Aktiva konton</h3>
-                        <p class="display-6 mb-0">@Model.AvailableAccounts</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-                <div class="d-flex">
-                    <i class="fas fa-2x fa-dollar-sign"></i>
-                    <div class="ms-2">
-                        <h3 class="h4 text-dark fw-normal">Summan</h3>
-                        <p class="display-6 mb-0">@Model.SumOfBalances</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 
 <!-- Search Section -->
 <section class="card py-5">
@@ -65,14 +24,14 @@
                     <tr>
                         <th>
                             Namn
-                            <a asp-page="/Index"
+                            <a asp-page="/Person/Customers"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="Givenname"
                                asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
-                            <a asp-page="/Index"
+                            <a asp-page="/Person/Customers"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="Givenname"
@@ -82,14 +41,14 @@
                         </th>
                         <th>
                             Adress
-                            <a asp-page="/Index"
+                            <a asp-page="/Person/Customers"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="streetaddress"
                                asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
-                            <a asp-page="/Index"
+                            <a asp-page="/Person/Customers"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="streetaddress"
@@ -99,14 +58,14 @@
                         </th>
                         <th>
                             Stad
-                            <a asp-page="/Index"
+                            <a asp-page="/Person/Customers"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="City"
                                asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
-                            <a asp-page="/Index"
+                            <a asp-page="/Person/Customers"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="City"
@@ -125,6 +84,10 @@
                             <td>@item.Address</td>
                             <td>@item.City</td>
                             @*<td><a asp-page="/Supplier" asp-route-bajskorv="@item.Id" class="btn btn-primary">View</a></td>*@
+                            <td>
+                                <a asp-page="/Person/EditCustomer" asp-route-id="@item.Id">
+                                <i class="bx bx-edit bx-md"></i></a>
+                            </td>
                         </tr>
                     }
                     <tr>
@@ -132,7 +95,7 @@
                             @if (@Model.CurrentPage != 1)
                             {
                                 <a class="btn btn-secondary"
-                               asp-page="/Index"
+                               asp-page="/Person/Customers"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="@Model.SortColumn"
@@ -153,7 +116,7 @@
                                 }
 
                                 <a class="btn @theClass"
-                               asp-page="/Index"
+                               asp-page="/Person/Customers"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="@Model.SortColumn"
@@ -167,7 +130,7 @@
                             @if (@Model.CurrentPage < @Model.PageCount)
                             {
                                 <a class="btn btn-secondary"
-                               asp-page="/Index"
+                               asp-page="/Person/Customers"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-sortColumn="@Model.SortColumn"
                                asp-route-sortOrder="@Model.SortOrder"

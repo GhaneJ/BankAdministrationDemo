@@ -11,6 +11,8 @@ builder.Services.AddDbContext<BankContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IStatisticsService, StatisticsService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
+builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IRealAccountService, RealAccountService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

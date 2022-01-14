@@ -1,0 +1,147 @@
+﻿@page
+@model BankAdministration.Pages.CreateCustomerModel
+@{
+}
+
+<div class="row">
+    <div class="col-lg-12 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h6 text-uppercase mb-0">Registrera en ny kund</h3>
+            </div>
+
+            <div class="card-body">
+
+                <form method="post">
+                    <div>
+                        <label asp-for="FirstName">Förnamn</label>
+                        <input class="form-control" asp-for="FirstName">
+                    </div>
+                    <div>
+                        <label asp-for="LastName">Efternamn</label>
+                        <input class="form-control" asp-for="LastName">
+                    </div>
+                    <div>
+                        <label asp-for="CGender">Kön</label>
+                        <input class="form-control" asp-for="CGender">
+                    </div>
+                    <div>
+                        <label asp-for="Address">Gatuadress</label>
+                        <input class="form-control" asp-for="Address">
+                    </div>
+                    <div>
+                        <label asp-for="PostalCode">Postnummer</label>
+                        <input class="form-control" asp-for="PostalCode">
+                    </div>
+
+                    <div>
+                        <label asp-for="City">Postort</label>
+                        <input class="form-control" asp-for="City">
+                    </div>
+
+                    <div>
+                        <label asp-for="Country">Land</label>
+                        <input class="form-control" asp-for="Country">
+                    </div>
+                    <div>
+                        <label asp-for="CCountryCode">Landkod</label>
+                        <input class="form-control" asp-for="CCountryCode">
+                    </div>
+                    <div>
+                        <label asp-for="BirthDate">Födelsedatum</label>
+                        <input class="form-control" asp-for="BirthDate">
+                    </div>
+                    <div>
+                        <label asp-for="Phonenumber">Telefonnummer</label>
+                        <input class="form-control" asp-for="Phonenumber"><br />
+                    </div>
+                    <div>
+                        <label asp-for="PhoneCountryCode">Telefonnummer</label>
+                        <input class="form-control" asp-for="PhoneCountryCode"><br />
+                    </div>
+                    <div>
+                        <label asp-for="CNID">Personnummer</label>
+                        <input class="form-control" asp-for="CNID"><br />
+                    </div>
+                    <div>
+                        <label asp-for="Email">E-post</label>
+                        <input class="form-control" asp-for="Email"><br />
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Registrera</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*div class="card">
+    <div class="card-header">
+        <h1>Ny person</h1>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name">Namn</label>
+                <input class="form-control" asp-for="Name">
+                <span asp-validation-for="Name" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input class="form-control" asp-for="Email">
+                <span asp-validation-for="Email" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetAddress">Gatuadress</label>
+                <input class="form-control" asp-for="StreetAddress">
+                <span asp-validation-for="StreetAddress" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostalCode">Postnr</label>
+                <input class="form-control" asp-for="PostalCode">
+                <span asp-validation-for="PostalCode" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City">Stad</label>
+                <input class="form-control" asp-for="City">
+                <span asp-validation-for="City" class="field-validation-error"></span>
+            </div>
+            
+            
+            <div class="form-group">
+                <label asp-for="CountryId">Country </label>
+                <select asp-for="CountryId" asp-items="@Model.Countries" >
+
+                </select>
+                <span asp-validation-for="CountryId" class="field-validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Position">Position </label>
+                <select asp-for="Position" asp-items="@Model.PlayerPositions" >
+
+                </select>
+                <span asp-validation-for="Position" class="field-validation-error"></span>
+            </div>
+            
+            
+
+            <div class="form-group">
+                <label asp-for="Salary">Lön</label>
+                <input class="form-control" asp-for="Salary">
+                <span asp-validation-for="Salary" class="field-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarCount">Antal bilar</label>
+                <input class="form-control" asp-for="CarCount">
+                <span asp-validation-for="CarCount" class="field-validation-error"></span>
+            </div>
+        
+            <button type="submit" class="btn">Save</button>
+        </form>
+
+
+    </div>
+</div>*@

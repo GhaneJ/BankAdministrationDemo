@@ -15234,11 +15234,11 @@ a.text-hover-paleBlue:focus, a.text-hover-paleBlue:hover {
 }
 
 .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
-  background: #288b46;
+  background: #343a40;
 }
 
 .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle:hover, .os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle:focus {
-  background: #288b46;
+  background: #343a40;
 }
 
 /*

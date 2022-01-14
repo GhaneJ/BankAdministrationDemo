@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Account\" />
     <Folder Include="wwwroot\vendor\choices.js\src\" />
     <Folder Include="wwwroot\vendor\choices.js\types\" />
     <Folder Include="wwwroot\vendor\imagesloaded\test\" />

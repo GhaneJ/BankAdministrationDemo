@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankAdministration.Pages
 {
-    public class CreateCustomerModel : PageModel
+    public class EditCustomerModel : PageModel
     {
         private readonly BankContext _context;
         [BindProperty]
         public int Id { get; set; }
         [BindProperty]
-        public string Gender { get; set; }
-        [BindProperty]
         public string Givenname { get; set; }
         [BindProperty]
         public string Surname { get; set; }
+        [BindProperty]
+        public string Gender { get; set; }
         [BindProperty]
         public string Streetaddress { get; set; }
         [BindProperty]
@@ -28,7 +28,7 @@ namespace BankAdministration.Pages
         public string CountryCode { get; set; }
         [BindProperty]
         public DateTime Birthday { get; set; }
-        [BindProperty]
+        
         public string NationalId { get; set; }
         [BindProperty]
         public string Telephonecountrycode { get; set; }
@@ -36,10 +36,12 @@ namespace BankAdministration.Pages
         public string Telephonenumber { get; set; }
         [BindProperty]
         public string Emailaddress { get; set; }
+        [BindProperty]
+        public bool Active { get; set; }
 
         public List<SelectListItem> AllCustomers { get; set; }
 
-        public CreateCustomerModel(BankContext context)
+        public EditCustomerModel(BankContext context)
         {
             _context = context;
         }
@@ -48,11 +50,10 @@ namespace BankAdministration.Pages
         {
             if (ModelState.IsValid)
             {
-                var c = new Customer();
-                _context.Customers.Add(c);
-                c.Gender = Gender;
+                var c = _context.Customers.First(c => c.CustomerId == id);
                 c.Givenname = Givenname;
                 c.Surname = Surname;
+                c.Gender = Gender;
                 c.Streetaddress = Streetaddress;
                 c.Zipcode = Zipcode;
                 c.City = City;
@@ -63,9 +64,10 @@ namespace BankAdministration.Pages
                 c.Telephonecountrycode = Telephonecountrycode;
                 c.Telephonenumber = Telephonenumber;
                 c.Emailaddress = Emailaddress;
+                c.Active = Active;
 
                 _context.SaveChanges();
-                return RedirectToPage("Index");
+                return RedirectToPage("Customers");
             }
             AllCustomers = _context.Customers.Select(e => new SelectListItem
             {
@@ -75,13 +77,23 @@ namespace BankAdministration.Pages
             return Page();
         }
 
-        public void OnGet()
+        public void OnGet(int id)
         {
-            AllCustomers = _context.Customers.Select(e => new SelectListItem
-            {
-                Text = e.Givenname,
-                Value = e.CustomerId.ToString(),
-            }).ToList();
+            var c = _context.Customers.Where(r=>r.Active == true || r.Active == false).First(c => c.CustomerId == id);
+            Givenname = c.Givenname;
+            Surname = c.Surname;
+            Gender = c.Gender;
+            Streetaddress = c.Streetaddress;
+            Zipcode = c.Zipcode;
+            City = c.City;
+            Country = c.Country;
+            CountryCode = c.CountryCode;
+            Birthday = c.Birthday.Value;
+            NationalId = c.NationalId;
+            Telephonecountrycode = c.Telephonecountrycode;
+            Telephonenumber = c.Telephonenumber;
+            Emailaddress = c.Emailaddress;
+            Active = c.Active;
         }
     }
 }
