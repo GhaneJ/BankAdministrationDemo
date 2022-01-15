@@ -3,84 +3,6 @@
 @{
 }
 
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-                <a asp-page="/Customers" asp-route-sortColumn="Givenname" asp-route-sortOrder="asc">
-                    <i class="fas fa-angle-up"></i>
-                </a>
-                <a asp-page="/Customers" asp-route-sortColumn="Givenname" asp-route-sortOrder="desc">
-                    <i class="fas fa-angle-down"></i>
-                </a>
-            </th>
-            <th>
-                Adress
-                <a asp-page="/Customers" asp-route-sortColumn="Streetaddress" asp-route-sortOrder="asc">
-                    <i class="fas fa-angle-up"></i>
-                </a>
-                <a asp-page="/Customers" asp-route-sortColumn="Streetaddress" asp-route-sortOrder="desc">
-                    <i class="fas fa-angle-down"></i>
-                </a>
-            </th>
-            <th>
-                Postnummer
-                <a asp-page="/Customers" asp-route-sortColumn="Zipcode" asp-route-sortOrder="asc">
-                    <i class="fas fa-angle-up"></i>
-                </a>
-                <a asp-page="/Customers" asp-route-sortColumn="Zipcode" asp-route-sortOrder="desc">
-                    <i class="fas fa-angle-down"></i>
-                </a>
-            </th>
-            <th>
-                Postort
-                <a asp-page="/Customers" asp-route-sortColumn="City" asp-route-sortOrder="asc">
-                    <i class="fas fa-angle-up"></i>
-                </a>
-                <a asp-page="/Customers" asp-route-sortColumn="City" asp-route-sortOrder="desc">
-                    <i class="fas fa-angle-down"></i>
-                </a>
-            </th>
-            <th>
-                Land
-                <a asp-page="/Customers" asp-route-sortColumn="Country"  asp-route-sortOrder="asc">
-                    <i class="fas fa-angle-up"></i>
-                </a>
-                <a asp-page="/Customers" asp-route-sortColumn="Country" asp-route-sortOrder="desc">
-                    <i class="fas fa-angle-down"></i>
-                </a>
-            </th>
-            <th>
-                E-post
-                <a asp-page="/Customers" asp-route-sortColumn="Emailaddress" asp-route-sortOrder="asc">
-                    <i class="fas fa-angle-up"></i>
-                </a>
-                <a asp-page="/Customers" asp-route-sortColumn="Emailaddress" asp-route-sortOrder="desc">
-                    <i class="fas fa-angle-down"></i>
-                </a>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Customers)
-        {
-            <tr>
-                <td>@item.Givenname @item.Surname</td>
-                <td>@item.Streetaddress</td>
-                <td>@item.Zipcode</td>
-                <td>@item.City</td>
-                <td>@item.Country</td>
-                <td>@item.Emailaddress</td>
-                <td>
-                    <a asp-page="/Person/EditCustomer" asp-route-id="@item.CustomerId"><i class="bx bx-edit bx-md"></i></a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>*@
-
-
 <!-- Search Section -->
 <section class="card py-5">
     <div class="container-fluid">
@@ -95,8 +17,7 @@
 
 
 
-
-            @*<div class="table-responsive pb-3">*@
+            
             <table class="table">
                 <thead>
                     <tr>
@@ -161,7 +82,6 @@
                             <td>@item.FirstName @item.LastName</td>
                             <td>@item.Address</td>
                             <td>@item.City</td>
-                            @*<td><a asp-page="/Supplier" asp-route-bajskorv="@item.Id" class="btn btn-primary">View</a></td>*@
                             <td>
                                 <a asp-page="/Person/EditCustomer" asp-route-id="@item.Id">
                                 <i class="bx bx-edit bx-md"></i></a>

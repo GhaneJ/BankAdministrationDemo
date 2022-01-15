@@ -2,14 +2,13 @@ using BankAdministration.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankAdministration.Pages
 {
     public class EditCustomerModel : PageModel
     {
         private readonly BankContext _context;
-        [BindProperty]
-        public int Id { get; set; }
         [BindProperty]
         public string Givenname { get; set; }
         [BindProperty]
@@ -23,10 +22,6 @@ namespace BankAdministration.Pages
         [BindProperty]
         public string City { get; set; }
         [BindProperty]
-        public string Country { get; set; }
-        [BindProperty]
-        public string CountryCode { get; set; }
-        [BindProperty]
         public DateTime Birthday { get; set; }
         
         public string NationalId { get; set; }
@@ -39,6 +34,9 @@ namespace BankAdministration.Pages
         [BindProperty]
         public bool Active { get; set; }
 
+        public int CountryId { get; set; }
+
+        public List<SelectListItem> Countries { get; set; }
         public List<SelectListItem> AllCustomers { get; set; }
 
         public EditCustomerModel(BankContext context)
@@ -50,21 +48,20 @@ namespace BankAdministration.Pages
         {
             if (ModelState.IsValid)
             {
-                var c = _context.Customers.First(c => c.CustomerId == id);
-                c.Givenname = Givenname;
-                c.Surname = Surname;
-                c.Gender = Gender;
-                c.Streetaddress = Streetaddress;
-                c.Zipcode = Zipcode;
-                c.City = City;
-                c.Country = Country;
-                c.CountryCode = CountryCode;
-                c.Birthday = Birthday;
-                c.NationalId = NationalId;
-                c.Telephonecountrycode = Telephonecountrycode;
-                c.Telephonenumber = Telephonenumber;
-                c.Emailaddress = Emailaddress;
-                c.Active = Active;
+                var person = _context.Customers.First(c => c.CustomerId == id);
+                person.Givenname = Givenname;
+                person.Surname = Surname;
+                person.Gender = Gender;
+                person.Streetaddress = Streetaddress;
+                person.Zipcode = Zipcode;
+                person.City = City;
+                person.Country = _context.Countries.First(e => e.Id == CountryId);
+                person.Birthday = Birthday;
+                person.NationalId = NationalId;
+                person.Telephonecountrycode = Telephonecountrycode;
+                person.Telephonenumber = Telephonenumber;
+                person.Emailaddress = Emailaddress;
+                person.Active = Active;
 
                 _context.SaveChanges();
                 return RedirectToPage("Customers");
@@ -74,26 +71,36 @@ namespace BankAdministration.Pages
                 Text = e.Givenname,
                 Value = e.CustomerId.ToString()
             }).ToList();
+            FillCountryList();
             return Page();
         }
 
         public void OnGet(int id)
         {
-            var c = _context.Customers.Where(r=>r.Active == true || r.Active == false).First(c => c.CustomerId == id);
-            Givenname = c.Givenname;
-            Surname = c.Surname;
-            Gender = c.Gender;
-            Streetaddress = c.Streetaddress;
-            Zipcode = c.Zipcode;
-            City = c.City;
-            Country = c.Country;
-            CountryCode = c.CountryCode;
-            Birthday = c.Birthday.Value;
-            NationalId = c.NationalId;
-            Telephonecountrycode = c.Telephonecountrycode;
-            Telephonenumber = c.Telephonenumber;
-            Emailaddress = c.Emailaddress;
-            Active = c.Active;
+            var person = _context.Customers.Where(r=>r.Active == true || r.Active == false).Include(e=>e.Country).First(c => c.CustomerId == id);
+            Givenname = person.Givenname;
+            Surname = person.Surname;
+            Gender = person.Gender;
+            Streetaddress = person.Streetaddress;
+            Zipcode = person.Zipcode;
+            City = person.City;
+            Birthday = person.Birthday.Value;
+            NationalId = person.NationalId;
+            Telephonecountrycode = person.Telephonecountrycode;
+            Telephonenumber = person.Telephonenumber;
+            Emailaddress = person.Emailaddress;
+            Active = (bool)person.Active;
+            CountryId = person.Country.Id;
+            FillCountryList();
+        }
+
+        private void FillCountryList()
+        {
+            Countries = _context.Countries.Select(e => new SelectListItem
+            {
+                Text = e.CountryName,
+                Value = e.Id.ToString(),
+            }).ToList();
         }
     }
 }

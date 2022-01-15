@@ -58,59 +58,35 @@
 
 
 
+            <!-- Show all customers sortably -->
 
-            @*<div class="table-responsive pb-3">*@
             <table class="table">
                 <thead>
                     <tr>
                         <th>
                             Namn
-                            <a asp-page="/Index"
-                               asp-route-customerId="@Model.CustomerId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="Givenname"
-                               asp-route-sortOrder="asc">
+                            <a asp-page="/Index" asp-route-sortColumn="Givenname" asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
-                            <a asp-page="/Index"
-                               asp-route-customerId="@Model.CustomerId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="Givenname"
-                               asp-route-sortOrder="desc">
+                            <a asp-page="/Index" asp-route-sortColumn="Givenname" asp-route-sortOrder="desc">
                                 <i class="fa-solid fa-angle-down"></i>
                             </a>
                         </th>
                         <th>
                             Adress
-                            <a asp-page="/Index"
-                               asp-route-customerId="@Model.CustomerId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="streetaddress"
-                               asp-route-sortOrder="asc">
+                            <a asp-page="/Index" asp-route-sortColumn="streetaddress" asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
-                            <a asp-page="/Index"
-                               asp-route-customerId="@Model.CustomerId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="streetaddress"
-                               asp-route-sortOrder="desc">
+                            <a asp-page="/Index" asp-route-sortColumn="streetaddress" asp-route-sortOrder="desc">
                                 <i class="fa-solid fa-angle-down"></i>
                             </a>
                         </th>
                         <th>
-                            Stad
-                            <a asp-page="/Index"
-                               asp-route-customerId="@Model.CustomerId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="City"
-                               asp-route-sortOrder="asc">
+                            Ort
+                            <a asp-page="/Index" asp-route-sortColumn="City" asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
-                            <a asp-page="/Index"
-                               asp-route-customerId="@Model.CustomerId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="City"
-                               asp-route-sortOrder="desc">
+                            <a asp-page="/Index" asp-route-sortColumn="City" asp-route-sortOrder="desc">
                                 <i class="fa-solid fa-angle-down"></i>
                             </a>
                         </th>
@@ -121,10 +97,10 @@
                     @foreach (var item in Model.Items)
                     {
                         <tr>
-                            <td>@item.FirstName @item.LastName</td>
+                            <td>@item.FirstName</td>
                             <td>@item.Address</td>
                             <td>@item.City</td>
-                            @*<td><a asp-page="/Supplier" asp-route-bajskorv="@item.Id" class="btn btn-primary">View</a></td>*@
+                            <td><a asp-page="/Person/Customer" asp-route-uniqueId="@item.Id" class="btn btn-primary">View</a></td>
                         </tr>
                     }
                     <tr>
@@ -179,7 +155,6 @@
                     </tr>
                 </tbody>
             </table>
-           @* </div>*@
         </div>
     </div>
 </section>

@@ -5,15 +5,31 @@ namespace BankAdministration.Data
 {
     public class DataInitializer
     {
-        private readonly BankContext _Context;
+        private readonly BankContext _context;
         public DataInitializer(BankContext context)
         {
-            _Context = context;
+            _context = context;
         }
         public void SeedData()
         {
-            _Context.Database.Migrate();
+            _context.Database.Migrate();
             SeedAccounts();
+            SeedCountries();
+        }
+
+        private void SeedCountries()
+        {
+            AddCountryIfNotExists("FI", "Finland");
+            AddCountryIfNotExists("SE", "Sverige");
+            AddCountryIfNotExists("DK", "Danmark");
+            AddCountryIfNotExists("NO", "Norge");
+        }
+
+        private void AddCountryIfNotExists(string code, string name)
+        {
+            if (_context.Countries.Any(r => r.CountryCode == code)) return;
+            _context.Countries.Add(new Country { CountryCode = code, CountryName = name });
+            _context.SaveChanges();
         }
 
         private void SeedAccounts()
@@ -24,13 +40,13 @@ namespace BankAdministration.Data
 
         private void AddAccountIfNotExists(int accountId)
         {
-            if (_Context.Accounts.Any(e => e.AccountId == accountId)) return;
-            _Context.Accounts.Add(new Account
+            if (_context.Accounts.Any(e => e.AccountId == accountId)) return;
+            _context.Accounts.Add(new Account
             {
                 AccountId = accountId,
                 Balance = 1000
             });
-            _Context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 }

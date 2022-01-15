@@ -18,6 +18,7 @@ namespace BankAdministration.Models
 
         public virtual DbSet<Account> Accounts { get; set; } = null!;
         public virtual DbSet<Card> Cards { get; set; } = null!;
+        public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Disposition> Dispositions { get; set; } = null!;
         public virtual DbSet<Loan> Loans { get; set; } = null!;
@@ -70,15 +71,20 @@ namespace BankAdministration.Models
                     .HasConstraintName("FK_Cards_Dispositions");
             });
 
+            modelBuilder.Entity<Country>(entity =>
+            {
+                entity.Property(e => e.CountryCode).HasMaxLength(2);
+
+                entity.Property(e => e.CountryName).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.Birthday).HasColumnType("date");
 
                 entity.Property(e => e.City).HasMaxLength(100);
 
-                entity.Property(e => e.Country).HasMaxLength(100);
-
-                entity.Property(e => e.CountryCode).HasMaxLength(2);
+                entity.Property(e => e.CountryId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Emailaddress).HasMaxLength(100);
 
@@ -97,6 +103,12 @@ namespace BankAdministration.Models
                 entity.Property(e => e.Telephonenumber).HasMaxLength(25);
 
                 entity.Property(e => e.Zipcode).HasMaxLength(15);
+
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.Customers)
+                    .HasForeignKey(d => d.CountryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Customers_Countries");
             });
 
             modelBuilder.Entity<Disposition>(entity =>
