@@ -9,6 +9,7 @@ namespace BankAdministration.Pages
     public class EditCustomerModel : PageModel
     {
         private readonly BankContext _context;
+        public int CustomerId { get; set; }
         [BindProperty]
         public string Givenname { get; set; }
         [BindProperty]
