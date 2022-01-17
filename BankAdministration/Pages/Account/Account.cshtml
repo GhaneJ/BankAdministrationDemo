@@ -2,7 +2,7 @@
 @model BankAdministration.Pages.Account.AccountModel
 @{
 }
-<section class="card py-5">
+@*<section class="card py-5">
     <div class="container-fluid">
         <div class="row d-flex align-items-center justify-content-around p-3 mb-3">
             <div class="row">
@@ -12,8 +12,45 @@
                     <p>Saldo: @Model.Balance</p>
                     <p>Skapat: @Model.Created</p>
                     <p>Frekvens: @Model.Frequency</p>
+
                 </div>
             </div>
         </div>
     </div>
-</section>
+</section>*@
+
+<div class="card">
+    <div class="card-header">
+        <h1>Alla konton</h1>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <tr>
+                <th>Nummer</th>
+                <th>Saldo</th>
+                <th></th>
+                <th></th>
+            </tr>
+            
+                <tr>
+                    <td>@Model.AccountId</td>
+                    <td>@Model.Balance</td>
+                    <td>@Model.CreateDate</td>
+                    <td>
+                        <a asp-page="Withdraw" asp-route-uniqueId="@Model.AccountId">
+                            Withdraw
+                            <i class='bx bx-money-withdraw'></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-page="Deposit" asp-route-accountId="@Model.AccountId">
+                            <i class='bx bx-money' ></i>
+                        </a>
+
+                    </td>
+                </tr>
+        </table>
+        
+
+    </div>
+</div>

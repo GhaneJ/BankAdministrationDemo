@@ -3,14 +3,17 @@
 @{
 }
 
-
-<form method="post">
-    
-    <div class="form-group">
-        <label asp-for="Amount">Belopp</label>
-        <input class="form-control" asp-for="Amount" />
-        <span class="field-validation-error" asp-validation-for="Amount"></span>
+<section class="card py-5">
+    <div class="container-fluid">
+        <div class="row">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Amount">Belopp</label>
+                    <input class="form-control" asp-for="Amount" />
+                    <span class="field-validation-error" asp-validation-for="Amount"></span>
+                </div>
+                <button type="submit" class="btn">Ta ut</button>
+            </form>
+        </div>
     </div>
-
-    <button type="submit" class="btn">Deposit</button>
-</form>
+</section>
