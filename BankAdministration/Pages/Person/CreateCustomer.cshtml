@@ -40,6 +40,12 @@
                     </div>
 
                     <div class="form-group">
+                <label asp-for="CountryId">Country </label>
+                <select asp-for="CountryId" asp-items="@Model.Countries" >
+
+                </select>
+            </div>
+                    <div class="form-group">
                         <hr/>
                         <label asp-for="CountryId">Landskod</label>
                         <select asp-for="CountryId" asp-items="@Model.Countries">

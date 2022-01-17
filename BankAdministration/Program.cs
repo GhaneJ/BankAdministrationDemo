@@ -1,4 +1,3 @@
-using BankAdministration.Data;
 using BankAdministration.Models;
 using BankAdministration.Services;
 using Microsoft.EntityFrameworkCore;
@@ -14,15 +13,7 @@ builder.Services.AddTransient<IStatisticsService, StatisticsService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IRealAccountService, RealAccountService>();
-builder.Services.AddTransient<DataInitializer>();
-
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    scope.ServiceProvider.GetService<DataInitializer>().SeedData();
-}
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

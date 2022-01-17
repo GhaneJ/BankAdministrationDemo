@@ -34,6 +34,7 @@ namespace BankAdministration.Models
                 optionsBuilder.UseSqlServer("Server=localhost;Database=Bank;Trusted_Connection=True;");
             }
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>(entity =>
@@ -83,7 +84,7 @@ namespace BankAdministration.Models
 
                 entity.Property(e => e.City).HasMaxLength(100);
 
-// entity.Property(e => eCountryId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.CountryId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Emailaddress).HasMaxLength(100);
 
@@ -103,11 +104,11 @@ namespace BankAdministration.Models
 
                 entity.Property(e => e.Zipcode).HasMaxLength(15);
 
-                //entity.HasOne(d => d.Country)
-                //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.CountryId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Customers_Countries");
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.Customers)
+                    .HasForeignKey(d => d.CountryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Customers_Countries");
             });
 
             modelBuilder.Entity<Disposition>(entity =>
@@ -211,6 +212,7 @@ namespace BankAdministration.Models
 
             OnModelCreatingPartial(modelBuilder);
         }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

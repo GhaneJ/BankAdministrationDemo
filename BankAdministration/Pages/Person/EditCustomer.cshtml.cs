@@ -9,6 +9,7 @@ namespace BankAdministration.Pages
     public class EditCustomerModel : PageModel
     {
         private readonly BankContext _context;
+        [BindProperty]
         public int CustomerId { get; set; }
         [BindProperty]
         public string Givenname { get; set; }
@@ -24,7 +25,6 @@ namespace BankAdministration.Pages
         public string City { get; set; }
         [BindProperty]
         public DateTime Birthday { get; set; }
-        
         [BindProperty]
         public string NationalId { get; set; }
         [BindProperty]
@@ -35,7 +35,6 @@ namespace BankAdministration.Pages
         public string Emailaddress { get; set; }
         [BindProperty]
         public bool Active { get; set; }
-
         [BindProperty]
         public int CountryId { get; set; }
 
@@ -58,14 +57,13 @@ namespace BankAdministration.Pages
                 person.Streetaddress = Streetaddress;
                 person.Zipcode = Zipcode;
                 person.City = City;
-                person.TheCountry = _context.Countries.First(e => e.Id == CountryId);
+                person.Country = _context.Countries.First(e => e.Id == CountryId);
                 person.Birthday = Birthday;
                 person.NationalId = NationalId;
                 person.Telephonecountrycode = Telephonecountrycode;
                 person.Telephonenumber = Telephonenumber;
                 person.Emailaddress = Emailaddress;
                 person.Active = Active;
-                
 
                 _context.SaveChanges();
                 return RedirectToPage("Customers");
@@ -81,7 +79,7 @@ namespace BankAdministration.Pages
 
         public void OnGet(int id)
         {
-            var person = _context.Customers.Where(r=>r.Active == true || r.Active == false).Include(e=>e.TheCountry).First(c => c.CustomerId == id);
+            var person = _context.Customers.Where(r => r.Active == true || r.Active == false).Include(e => e.Country).First(c => c.CustomerId == id);
             Givenname = person.Givenname;
             Surname = person.Surname;
             Gender = person.Gender;
@@ -94,7 +92,7 @@ namespace BankAdministration.Pages
             Telephonenumber = person.Telephonenumber;
             Emailaddress = person.Emailaddress;
             Active = (bool)person.Active;
-            CountryId = person.TheCountry.Id;
+            CountryId = person.Country.Id;
             FillCountryList();
         }
 

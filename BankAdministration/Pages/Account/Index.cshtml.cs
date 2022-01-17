@@ -11,7 +11,7 @@ namespace BankAdministration.Pages.Account
 
         public class KontoViewModel
         {
-            public int Id { get; set; }       
+            public int Id { get; set; }
             public string AccountNo { get; set; }
             public decimal Balance { get; set; }
         }

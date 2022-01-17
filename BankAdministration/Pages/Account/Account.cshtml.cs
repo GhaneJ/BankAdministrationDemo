@@ -9,12 +9,12 @@ namespace BankAdministration.Pages.Account
     {
         private readonly BankContext _context;
 
-        
-            public int AccountId { get; set; }
-            public string Frequency { get; set; }
+
+        public int AccountId { get; set; }
+        public string Frequency { get; set; }
         public DateTime CreateDate { get; set; }
         public decimal Balance { get; set; }
-        
+
         //public List<Item> Items { get; set; }
 
         public AccountModel(BankContext context)

@@ -51,7 +51,7 @@ namespace BankAdministration.Pages.Person
             Birthdate = (DateTime)e.Birthday;
             Email = e.Emailaddress;
             Status = (bool)e.Active;
-            
+
             AccountId = b.AccountId;
             Frequency = b.Frequency;
             Created = b.Created;

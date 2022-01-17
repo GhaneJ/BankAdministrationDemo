@@ -23,8 +23,8 @@ public class AccountService : IAccountService
         _context.SaveChanges();
     }
 
-    public Account GetAccount(int uniqueId)
+    public Account GetAccount(int id)
     {
-        return _context.Accounts.First(e => e.AccountId == uniqueId);
+        return _context.Accounts.First(e => e.AccountId == id);
     }
 }

@@ -56,7 +56,7 @@ namespace BankAdministration.Pages
                 Text = e.CountryName,
                 Value = e.Id.ToString(),
             }).ToList();
-            Countries.Insert(0,new SelectListItem
+            Countries.Insert(0, new SelectListItem
             {
                 Text = "Var god välj...",
                 Value = "0"
@@ -69,14 +69,13 @@ namespace BankAdministration.Pages
             {
                 var person = new Customer
                 {
-
                     Gender = CGender,
                     Givenname = FirstName,
                     Surname = LastName,
                     Streetaddress = Address,
                     Emailaddress = Email,
                     City = City,
-                    TheCountry = _context.Countries.First(r=>r.Id == CountryId),
+                    Country = _context.Countries.First(r => r.Id == CountryId),
                     Zipcode = PostalCode,
                     Birthday = BirthDate,
                     Telephonenumber = Phonenumber,

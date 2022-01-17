@@ -27,7 +27,7 @@ namespace BankAdministration.Pages
             public DateTime Created { get; set; }
             public string Frequency { get; set; }
         }
-        
+
 
 
         //Pagination
@@ -71,17 +71,17 @@ namespace BankAdministration.Pages
             var pageResult = _customerService.ListCustomers(customerId, sortColumn, sortOrder, CurrentPage, searchWord);
             PageCount = pageResult.PageCount;
             Items = pageResult.Results.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
-                (cu, di) => new {cu, di})
-                .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new {ac, acc })
+                (cu, di) => new { cu, di })
+                .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc })
                 .Select(e => new Item
-            {
-                Id = e.ac.cu.CustomerId,
-                AccountId = e.ac.di.AccountId,
-                FirstName = e.ac.cu.Givenname,
-                LastName = e.ac.cu.Surname,
-                Address = e.ac.cu.Streetaddress,
-                City = e.ac.cu.City,
-            }).ToList();
+                {
+                    Id = e.ac.cu.CustomerId,
+                    AccountId = e.ac.di.AccountId,
+                    FirstName = e.ac.cu.Givenname,
+                    LastName = e.ac.cu.Surname,
+                    Address = e.ac.cu.Streetaddress,
+                    City = e.ac.cu.City,
+                }).ToList();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BankAdministration.Pages.Account
     {
         private readonly IAccountService _accountService;
 
-        [Range(10,3000)]
+        [Range(10, 3000)]
         public int Amount { get; set; }
 
         public DateTime DateWhen { get; set; }
@@ -26,7 +26,7 @@ namespace BankAdministration.Pages.Account
             _accountService = accountService;
         }
 
-        public void OnGet(int accountId )
+        public void OnGet(int accountId)
         {
             DateWhen = DateTime.Now.AddDays(1).Date;
             Amount = 100;
@@ -37,7 +37,7 @@ namespace BankAdministration.Pages.Account
         {
             if (DateWhen < DateTime.Now.AddDays(1).Date)  //2022-01-11 00:00
             {
-                ModelState.AddModelError("DateWhen","Datum måste vara minst en dag fram ");
+                ModelState.AddModelError("DateWhen", "Datum måste vara minst en dag fram ");
             }
             if (ModelState.IsValid)
             {

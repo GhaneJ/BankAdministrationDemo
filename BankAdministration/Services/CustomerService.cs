@@ -48,34 +48,33 @@ namespace BankAdministration.Services
             if (sortColumn == "Givenname")
             {
                 if (sortOrder == "desc")
-                    query = query.OrderByDescending(p=>p.Givenname);
+                    query = query.OrderByDescending(p => p.Givenname);
                 else
-                    query = query.OrderBy(p=>p.Givenname);
+                    query = query.OrderBy(p => p.Givenname);
             }
             if (sortColumn == "Streetaddress")
             {
                 if (sortOrder == "desc")
-                    query = query.OrderByDescending(p=>p.Streetaddress);
+                    query = query.OrderByDescending(p => p.Streetaddress);
                 else
-                    query = query.OrderBy(p=>p.Streetaddress);
+                    query = query.OrderBy(p => p.Streetaddress);
             }
             if (sortColumn == "City")
             {
                 if (sortOrder == "desc")
-                    query = query.OrderByDescending(p=>p.City);
+                    query = query.OrderByDescending(p => p.City);
                 else
-                    query = query.OrderBy(p=>p.City);
+                    query = query.OrderBy(p => p.City);
             }
             if (sortColumn == "AccountId")
             {
                 if (sortOrder == "desc")
-                    query = query.OrderByDescending(e => e.CustomerId);
-
+                    query = query.OrderByDescending(p => p.CustomerId);
                 else
-                    query = query.OrderBy(e => e.CustomerId);
+                    query = query.OrderBy(p => p.CustomerId);
             }
 
-            return query.Where(r=>r.Active == true).GetPaged(page, 25); //5 is the pagesize
+            return query.Where(r => r.Active == true).GetPaged(page, 25); //5 is the pagesize
         }
 
         public PagedResult<Customer> ListInactiveCustomers(int customerId, string sortColumn, string sortOrder, int page, string searchWord)
