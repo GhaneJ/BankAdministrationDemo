@@ -25,6 +25,7 @@ namespace BankAdministration.Pages
         [BindProperty]
         public DateTime Birthday { get; set; }
         
+        [BindProperty]
         public string NationalId { get; set; }
         [BindProperty]
         public string Telephonecountrycode { get; set; }
@@ -35,6 +36,7 @@ namespace BankAdministration.Pages
         [BindProperty]
         public bool Active { get; set; }
 
+        [BindProperty]
         public int CountryId { get; set; }
 
         public List<SelectListItem> Countries { get; set; }
@@ -56,13 +58,14 @@ namespace BankAdministration.Pages
                 person.Streetaddress = Streetaddress;
                 person.Zipcode = Zipcode;
                 person.City = City;
-                person.Country = _context.Countries.First(e => e.Id == CountryId);
+                person.TheCountry = _context.Countries.First(e => e.Id == CountryId);
                 person.Birthday = Birthday;
                 person.NationalId = NationalId;
                 person.Telephonecountrycode = Telephonecountrycode;
                 person.Telephonenumber = Telephonenumber;
                 person.Emailaddress = Emailaddress;
                 person.Active = Active;
+                
 
                 _context.SaveChanges();
                 return RedirectToPage("Customers");
@@ -78,7 +81,7 @@ namespace BankAdministration.Pages
 
         public void OnGet(int id)
         {
-            var person = _context.Customers.Where(r=>r.Active == true || r.Active == false).Include(e=>e.Country).First(c => c.CustomerId == id);
+            var person = _context.Customers.Where(r=>r.Active == true || r.Active == false).Include(e=>e.TheCountry).First(c => c.CustomerId == id);
             Givenname = person.Givenname;
             Surname = person.Surname;
             Gender = person.Gender;
@@ -91,7 +94,7 @@ namespace BankAdministration.Pages
             Telephonenumber = person.Telephonenumber;
             Emailaddress = person.Emailaddress;
             Active = (bool)person.Active;
-            CountryId = person.Country.Id;
+            CountryId = person.TheCountry.Id;
             FillCountryList();
         }
 

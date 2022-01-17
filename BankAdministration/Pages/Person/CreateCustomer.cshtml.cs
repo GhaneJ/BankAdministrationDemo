@@ -69,13 +69,14 @@ namespace BankAdministration.Pages
             {
                 var person = new Customer
                 {
+
                     Gender = CGender,
                     Givenname = FirstName,
                     Surname = LastName,
                     Streetaddress = Address,
                     Emailaddress = Email,
                     City = City,
-                    Country = _context.Countries.First(r=>r.Id == CountryId),
+                    TheCountry = _context.Countries.First(r=>r.Id == CountryId),
                     Zipcode = PostalCode,
                     Birthday = BirthDate,
                     Telephonenumber = Phonenumber,

@@ -69,13 +69,10 @@ namespace BankAdministration.Services
             if (sortColumn == "AccountId")
             {
                 if (sortOrder == "desc")
-                    query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
-                    (cu, di) => new { cu, di })
-                    .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc }).OrderByDescending(ac => ac.acc.AccountId);
+                    query = query.OrderByDescending(e => e.CustomerId);
+
                 else
-                    query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
-                    (cu, di) => new { cu, di })
-                    .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc }).OrderBy(ac => ac.acc.AccountId);
+                    query = query.OrderBy(e => e.CustomerId);
             }
 
             return query.Where(r=>r.Active == true).GetPaged(page, 25); //5 is the pagesize

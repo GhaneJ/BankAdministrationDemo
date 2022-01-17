@@ -23,9 +23,9 @@ namespace BankAdministration.Models
         public string? Telephonenumber { get; set; }
         public string? Emailaddress { get; set; }
         public bool? Active { get; set; }
-        public int CountryId { get; set; }
+        //public int CountryId { get; set; }
 
-        public virtual Country Country { get; set; }
+        public virtual Country TheCountry { get; set; }
         public virtual ICollection<Disposition> Dispositions { get; set; }
     }
 }
