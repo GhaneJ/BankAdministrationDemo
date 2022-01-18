@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BankAdministration.Models
 {
-    public partial class BankContext : DbContext
+    public partial class BankContext : IdentityDbContext<IdentityUser>
     {
         public BankContext()
         {
@@ -37,6 +39,8 @@ namespace BankAdministration.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Account>(entity =>
             {
                 entity.Property(e => e.Balance).HasColumnType("decimal(13, 2)");
