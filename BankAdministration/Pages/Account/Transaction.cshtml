@@ -1,0 +1,43 @@
+﻿@page
+@model BankAdministration.Pages.Account.TransactionModel
+@{
+}
+
+<section class="card py-5">
+    <div class="container-fluid">
+        <div class="row d-flex align-items-center justify-content-around p-3 mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <h1>Alla konton</h1>
+                </div>
+                <div class="col-md-4">
+                    <h2>Owner konto</h2>
+                </div>
+
+                <table class="table">
+                    <tr>
+                        <th>TransaktionsNr</th>
+                        <th>Kontotyp</th>
+                        <th>Saldo</th>
+                        <th>Konto</th>
+                        <th>Skapat datum</th>
+                    </tr>
+
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.TransactionId</td>
+                            <td>@item.Type</td>
+                            <td>@item.Balance</td>
+                            <td>@item.Account</td>
+                            <td>@item.Date</td>
+                        </tr>
+                    }
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

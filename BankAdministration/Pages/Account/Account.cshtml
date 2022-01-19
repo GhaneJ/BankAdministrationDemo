@@ -19,7 +19,9 @@
                         <th>Saldo</th>
                         <th>Skapat datum</th>
                         <th>Kontotyp</th>
-                        <th></th>
+                        <th>Sätta in</th>
+                        <th>Ta ut</th>
+                        <th>Transaktion</th>
                     </tr>
 
 
@@ -27,18 +29,22 @@
                     {
                         <tr>
                             <td>@item.CustomerId</td>
-                            <td>@item.Givenname @item.Surname</td>
                             <td>@item.Balance</td>
+                            <td>@item.CreateDate</td>
                             <td>@item.AccountType</td>
                             <td>
                                 <a asp-page="Withdraw" asp-route-accountId="@item.AccountId">
-                                    Withdraw
                                     <i class='bx bx-money-withdraw'></i>
                                 </a>
                             </td>
                             <td>
                                 <a asp-page="Deposit" asp-route-accountId="@item.AccountId">
-                                    <i class='bx bx-money'></i>
+                                    <i class="fas fa-coins"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-page="Transaction" asp-route-accountId="@item.AccountId">
+                                    <i class="fas fa-file-signature"></i>
                                 </a>
                             </td>
                         </tr>
