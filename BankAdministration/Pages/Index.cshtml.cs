@@ -11,12 +11,11 @@ namespace BankAdministration.Pages
     {
         private readonly IStatisticsService _statisticsService;
         private readonly ICustomerService _customerService;
-        private readonly BankContext _context;
 
 
         public class Item
         {
-            public int Id { get; set; }
+            public int CustomerId { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public string Address { get; set; }
@@ -44,11 +43,10 @@ namespace BankAdministration.Pages
         public string SumOfBalances { get; set; }
         public List<Item> Items { get; set; }
 
-        public IndexModel(IStatisticsService statisticsService, ICustomerService customerService, BankContext context)
+        public IndexModel(IStatisticsService statisticsService, ICustomerService customerService)
         {
             _statisticsService = statisticsService;
             _customerService = customerService;
-            _context = context;
         }
 
         public void OnGet(int customerId, string sortColumn, string sortOrder, int pageno, string searchWord)
@@ -66,22 +64,16 @@ namespace BankAdministration.Pages
             }
             CurrentPage = pageno;
             CustomerId = customerId;
-            CurrentPage = pageno;
-            CustomerId = customerId;
             var pageResult = _customerService.ListCustomers(customerId, sortColumn, sortOrder, CurrentPage, searchWord);
             PageCount = pageResult.PageCount;
-            Items = pageResult.Results.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
-                (cu, di) => new { cu, di })
-                .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc })
-                .Select(e => new Item
-                {
-                    Id = e.ac.cu.CustomerId,
-                    AccountId = e.ac.di.AccountId,
-                    FirstName = e.ac.cu.Givenname,
-                    LastName = e.ac.cu.Surname,
-                    Address = e.ac.cu.Streetaddress,
-                    City = e.ac.cu.City,
-                }).ToList();
+            Items = pageResult.Results.Select(e => new Item
+            {
+                CustomerId = e.CustomerId,
+                FirstName = e.Givenname,
+                LastName = e.Surname,
+                Address = e.Streetaddress,
+                City = e.City
+            }).ToList();
         }
     }
 }

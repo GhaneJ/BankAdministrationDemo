@@ -63,18 +63,18 @@
                 <thead>
                     <tr>
                         <th>
-                            KontoNr.
+                            KundNr.
                             <a asp-page="/Index"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="AccountId"
+                               asp-route-sortColumn="CustomerId"
                                asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
                             <a asp-page="/Index"
                                asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="AccountId"
+                               asp-route-sortColumn="CustomerId"
                                asp-route-sortOrder="desc">
                                 <i class="fa-solid fa-angle-down"></i>
                             </a>
@@ -137,12 +137,12 @@
                     @foreach (var item in Model.Items)
                     {
                         <tr>
-                            <td>@item.AccountId</td>
+                            <td>@item.CustomerId</td>
                             <td>@item.FirstName @item.LastName</td>
                             <td>@item.Address</td>
                             <td>@item.City</td>
-                            <td><a asp-page="/Person/Customer" asp-route-uniqueId="@item.Id" class="btn btn-primary">View</a></td>
-                            <td><a asp-page="/Account/Account" asp-route-uniqueId="@item.Id" class="btn btn-primary">Konton</a></td>
+                            <td><a asp-page="/Person/Customer" asp-route-uniqueId="@item.CustomerId" class="btn btn-primary">View</a></td>
+                            <td><a asp-page="/Account/Account" asp-route-uniqueId="@item.CustomerId" class="btn btn-primary">Konton</a></td>
                         </tr>
                     }
                     <tr>

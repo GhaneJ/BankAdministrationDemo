@@ -19,10 +19,14 @@ namespace BankAdministration.Services
 
             var query = _context.Customers.AsQueryable();
 
-            
+            query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
+                (cu, di) => new { cu, di })
+                .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc })
+                .Where(di => di.acc.AccountId.Equals(searchWord));
+
             if (!string.IsNullOrEmpty(searchWord))
             {
-                query = query.Where(r => r.Givenname.Contains(searchWord) || r.Streetaddress.Contains(searchWord) || r.City.Contains(searchWord));
+                query = query.Where(r => r.CustomerId.ToString().Equals(searchWord));
 
             }
             //By default, the result is sorted by Givenname and is ascending
@@ -58,9 +62,13 @@ namespace BankAdministration.Services
             if (sortColumn == "AccountId")
             {
                 if (sortOrder == "desc")
-                    query = query.OrderByDescending(p => p.CustomerId);
+                    query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
+                (cu, di) => new { cu, di })
+                .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc }).OrderByDescending(acc=>acc.ac.di.AccountId);
                 else
-                    query = query.OrderBy(p => p.CustomerId);
+                    query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
+                (cu, di) => new { cu, di })
+                .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc }).OrderBy(acc => acc.ac.di.AccountId);
             }
 
             return query.Where(r => r.Active == true).GetPaged(page, 25); //5 is the pagesize

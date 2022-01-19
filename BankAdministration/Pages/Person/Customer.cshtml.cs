@@ -38,7 +38,6 @@ namespace BankAdministration.Pages.Person
         public void OnGet(int uniqueId)
         {
             var e = _context.Customers.Include(e => e.Dispositions).ThenInclude(r => r.Account).First(e => e.CustomerId == uniqueId);
-            var b = _context.Accounts.First(e => e.AccountId == uniqueId);
             FirstName = e.Givenname;
             LastName = e.Surname;
             Gender = e.Gender;
@@ -51,17 +50,6 @@ namespace BankAdministration.Pages.Person
             Birthdate = (DateTime)e.Birthday;
             Email = e.Emailaddress;
             Status = (bool)e.Active;
-
-            AccountId = b.AccountId;
-            Frequency = b.Frequency;
-            Created = b.Created;
-            Balance = b.Balance;
-
-            //var result = from cu in _context.Customers
-            //             join di in _context.Dispositions on cu.CustomerId equals di.CustomerId
-            //             join ac in _context.Accounts on di.AccountId equals ac.AccountId
-            //             where ac.AccountId == uniqueId
-            //             select di;
         }
 
     }

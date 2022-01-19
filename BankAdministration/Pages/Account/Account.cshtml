@@ -2,55 +2,51 @@
 @model BankAdministration.Pages.Account.AccountModel
 @{
 }
-@*<section class="card py-5">
+<section class="card py-5">
     <div class="container-fluid">
         <div class="row d-flex align-items-center justify-content-around p-3 mb-3">
             <div class="row">
                 <div class="col-md-4">
-
-                    <p>Kontonummer: @Model.AccountId</p>
-                    <p>Saldo: @Model.Balance</p>
-                    <p>Skapat: @Model.Created</p>
-                    <p>Frekvens: @Model.Frequency</p>
-
+                    <h1>Alla konton</h1>
                 </div>
+                <div class="col-md-4">
+                    <h2>Owner konto</h2>
+                </div>
+
+                <table class="table">
+                    <tr>
+                        <th>Nummer</th>
+                        <th>Saldo</th>
+                        <th>Skapat datum</th>
+                        <th>Kontotyp</th>
+                        <th></th>
+                    </tr>
+
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.CustomerId</td>
+                            <td>@item.Givenname @item.Surname</td>
+                            <td>@item.Balance</td>
+                            <td>@item.AccountType</td>
+                            <td>
+                                <a asp-page="Withdraw" asp-route-CustomerId="@item.AccountId">
+                                    Withdraw
+                                    <i class='bx bx-money-withdraw'></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-page="Deposit" asp-route-CustomerId="@item.CustomerId">
+                                    <i class='bx bx-money'></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </table>
             </div>
         </div>
     </div>
-</section>*@
-
-<div class="card">
-    <div class="card-header">
-        <h1>Alla konton</h1>
-    </div>
-    <div class="card-body">
-        <table class="table">
-            <tr>
-                <th>Nummer</th>
-                <th>Saldo</th>
-                <th></th>
-                <th></th>
-            </tr>
-            
-                <tr>
-                    <td>@Model.AccountId</td>
-                    <td>@Model.Balance</td>
-                    <td>@Model.CreateDate</td>
-                    <td>
-                        <a asp-page="Withdraw" asp-route-accountId="@Model.AccountId">
-                            Withdraw
-                            <i class='bx bx-money-withdraw'></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a asp-page="Deposit" asp-route-accountId="@Model.AccountId">
-                            <i class='bx bx-money' ></i>
-                        </a>
-
-                    </td>
-                </tr>
-        </table>
-        
-
-    </div>
-</div>
+</section>

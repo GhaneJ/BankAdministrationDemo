@@ -2,6 +2,7 @@
 using BankAdministration.Data;
 using BankAdministration.Models;
 using BankAdministration.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankAdministration.Services;
 
@@ -25,6 +26,6 @@ public class AccountService : IAccountService
 
     public Account GetAccount(int id)
     {
-        return _context.Accounts.First(e => e.AccountId == id);
+        return _context.Accounts.Where(e=>e.AccountId == id).Include(e=>e.Dispositions).ThenInclude(e=>e.Customer).First(e => e.AccountId == id);
     }
 }

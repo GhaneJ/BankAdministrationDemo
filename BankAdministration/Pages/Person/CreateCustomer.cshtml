@@ -26,6 +26,10 @@
                         <input class="form-control" asp-for="CGender">
                     </div>
                     <div>
+                        <label asp-for="CNID">Personnummer</label>
+                        <input class="form-control" asp-for="CNID"><br />
+                    </div>
+                    <div>
                         <label asp-for="Address">Gatuadress</label>
                         <input class="form-control" asp-for="Address">
                     </div>
@@ -39,19 +43,18 @@
                         <input class="form-control" asp-for="City">
                     </div>
 
-                    <div class="form-group">
-                <label asp-for="CountryId">Country </label>
-                <select asp-for="CountryId" asp-items="@Model.Countries" >
-
-                </select>
-            </div>
+                    @*<div class="form-group">
+                        <label asp-for="CountryId">Country</label>
+                        <select class="form-control" asp-for="CountryId" asp-items="@Model.Countries">
+                        </select>
+                    </div>*@
                     <div class="form-group">
                         <hr/>
                         <label asp-for="CountryId">Landskod</label>
                         <select asp-for="CountryId" asp-items="@Model.Countries">
 
                         </select>
-                    </div>
+                        </div>
                     <div>
                         <label asp-for="BirthDate">Födelsedatum</label>
                         <input class="form-control" asp-for="BirthDate">
@@ -64,10 +67,7 @@
                         <label asp-for="PhoneCountryCode">riktnummer</label>
                         <input class="form-control" asp-for="PhoneCountryCode"><br />
                     </div>
-                    <div>
-                        <label asp-for="CNID">Personnummer</label>
-                        <input class="form-control" asp-for="CNID"><br />
-                    </div>
+                    
                     <div>
                         <label asp-for="Email">E-post</label>
                         <input class="form-control" asp-for="Email"><br />
