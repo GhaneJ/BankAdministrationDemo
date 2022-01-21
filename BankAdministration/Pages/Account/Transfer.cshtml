@@ -1,47 +1,7 @@
 ﻿@page
-@model IndexModel
+@model BankAdministration.Pages.Account.TransferModel
 @{
-    ViewData["Title"] = "Home page";
 }
-
-<!-- Statistics Section -->
-<section class="card py-5">
-    <div class="container-fluid">
-        <div class="row d-flex align-items-center justify-content-around p-3 mb-3">
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-                <div class="d-flex">
-                   <i class="far fa-2x fa-user"></i>
-                    <div class="ms-2">
-                        <h3 class="h4 text-dark fw-normal">Aktiva kunder</h3>
-                        <p class="display-6 mb-0">@Model.ActiveCustomers</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-                <div class="d-flex">
-                    <i class="fas fa-2x fa-money-check"></i>
-                    <div class="ms-2">
-                        <h3 class="h4 text-dark fw-normal">Aktiva konton</h3>
-                        <p class="display-6 mb-0">@Model.AvailableAccounts</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-                <div class="d-flex">
-                    <i class="fas fa-2x fa-dollar-sign"></i>
-                    <div class="ms-2">
-                        <h3 class="h4 text-dark fw-normal">Summan</h3>
-                        <p class="display-6 mb-0">@Model.SumOfBalances</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 
 <!-- Search Section -->
@@ -49,10 +9,10 @@
     <div class="container-fluid">
         <div class="row">
 
-            <h3>Sidan @Model.CurrentPage av @Model.PageCount</h3>
+            <h3>Ange kontonummer för att föra över till:</h3>
             <form method="get">
                 <input asp-for="@Model.SearchWord" />
-                <input type="hidden" asp-for="@Model.AccountId" />
+                <input type="hidden" asp-for="@Model.CustomerId" />
                 <input type="submit" value="Sök" />
             </form>
 
@@ -63,18 +23,18 @@
                 <thead>
                     <tr>
                         <th>
-                            KontoNr.
+                            KundNr.
                             <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="AccountId"
+                               asp-route-sortColumn="CustomerId"
                                asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
                             <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="AccountId"
+                               asp-route-sortColumn="CustomerId"
                                asp-route-sortOrder="desc">
                                 <i class="fa-solid fa-angle-down"></i>
                             </a>
@@ -82,14 +42,14 @@
                         <th>
                             Namn
                             <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="Givenname"
                                asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
                             <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="Givenname"
                                asp-route-sortOrder="desc">
@@ -99,14 +59,14 @@
                         <th>
                             Adress
                             <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="Streetaddress"
                                asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
                             <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="Streetaddress"
                                asp-route-sortOrder="desc">
@@ -116,14 +76,14 @@
                         <th>
                             Stad
                             <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="City"
                                asp-route-sortOrder="asc">
                                 <i class="fa-solid fa-angle-up"></i>
                             </a>
                             <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="City"
                                asp-route-sortOrder="desc">
@@ -137,12 +97,11 @@
                     @foreach (var item in Model.Items)
                     {
                         <tr>
-                            <td>@item.AccountId</td>
-                            <td>@item.Givenname @item.Surname</td>
-                            <td>@item.Streetaddress</td>
+                            <td>@item.CustomerId</td>
+                            <td>@item.FirstName @item.LastName</td>
+                            <td>@item.Address</td>
                             <td>@item.City</td>
-                            <td><a asp-page="/Person/Customer" asp-route-accountId="@item.AccountId" class="btn btn-primary">View</a></td>
-                            <td><a asp-page="/Account/Account" asp-route-accountId="@item.AccountId" class="btn btn-primary">Konton</a></td>
+                            <td><a asp-page="/Account/TransferForm" asp-route-accountId="@item.CustomerId" class="btn btn-primary">Överför</a></td>
                         </tr>
                     }
                     <tr>
@@ -151,7 +110,7 @@
                             {
                                 <a class="btn btn-secondary"
                                asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="@Model.SortColumn"
                                asp-route-sortOrder="@Model.SortOrder"
@@ -172,7 +131,7 @@
 
                                 <a class="btn @theClass"
                                asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-searchWord="@Model.SearchWord"
                                asp-route-sortColumn="@Model.SortColumn"
                                asp-route-sortOrder="@Model.SortOrder"
@@ -186,7 +145,7 @@
                             {
                                 <a class="btn btn-secondary"
                                asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
+                               asp-route-customerId="@Model.CustomerId"
                                asp-route-sortColumn="@Model.SortColumn"
                                asp-route-sortOrder="@Model.SortOrder"
                                asp-route-pageno="@(Model.CurrentPage + 1)">

@@ -24,13 +24,18 @@ namespace BankAdministration.Pages.Account
         
 
         public List<Item> Items { get; set; }
-
+        public int CurrentPage { get; set; }
+        public string SortColumn { get; set; }
+        public string SortOrder { get; set; }
+        public string SearchWord { get; set; }
+        public int PageCount { get; set; }
+        public int CustomerId { get; set; }
         public AccountModel(BankContext context)
         {
             _context = context;
         }
 
-        public void OnGet(int uniqueId)
+        public void OnGet(int accountId)
         {
             //Items = _context.Accounts.Where(c => c.AccountId == uniqueId).Join(_context.Dispositions, ac => ac.AccountId, di => di.AccountId, (ac, di) => new { ac, di }).Select(e=> new Item
             //{
@@ -41,7 +46,7 @@ namespace BankAdministration.Pages.Account
             //    AccountType = e.di.Type
             //}).ToList();
 
-            var c = _context.Customers.Include(e => e.Dispositions).ThenInclude(e => e.Account).First(e => e.CustomerId == uniqueId);
+            var c = _context.Accounts.Include(e => e.Dispositions).ThenInclude(e => e.Customers).First(e => e.AccountId == accountId);
             Items = new List<Item>();
 
             foreach(var disp in c.Dispositions)

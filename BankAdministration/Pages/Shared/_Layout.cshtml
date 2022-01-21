@@ -55,32 +55,27 @@
             </li>
 
 
-            <li class="nav-item">
-                <a class="sidebar-link" asp-area="" asp-page="/Index">Hem</a>
-            </li>
-            <li class="nav-item">
-                <a class="sidebar-link" asp-area="" asp-page="/Privacy">Sekretesspolicy</a>
-            </li>
+
         </ul>
 
         <ul class="list-unstyled navbar-nav flex-grow-1">
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#exampledropdownDropdown2" data-bs-toggle="collapse">
-                    Kund
+                    Konto
                 </a>
                 <ul class="collapse list-unstyled " id="exampledropdownDropdown2">
-                    <li><a class="sidebar-link" asp-area="" asp-page="/Person/CreateCustomer">Skapa ny kund</a></li>
-                    <li><a class="sidebar-link" asp-area="" asp-page="/Person/Customers">Redigera kund</a></li>
-                    <li><a class="sidebar-link" asp-area="" asp-page="/Person/ReactivateArchivedCustomer">Återaktivera kund</a></li>
+                    <li><a class="sidebar-link" asp-area="" asp-page="/Account/CreateAccount">Skapa nytt konto</a></li>
+                    <li><a class="sidebar-link" asp-area="" asp-page="/Account/EditAccount">Redigera konto</a></li>
+                    <li><a class="sidebar-link" asp-area="" asp-page="/Account/ReactivateArchivedAccount">Återaktivera konto</a></li>
                 </ul>
             </li>
-
-
+        </ul>
+        <ul>
             <li class="nav-item">
-                <a class="sidebar-link" asp-area="" asp-page="/Index">Hem</a>
+                <a class="sidebar-item" asp-area="" asp-page="/Index">Hem</a>
             </li>
             <li class="nav-item">
-                <a class="sidebar-link" asp-area="" asp-page="/Privacy">Sekretesspolicy</a>
+                <a class="sidebar-item" asp-area="" asp-page="/Privacy">Sekretesspolicy</a>
             </li>
         </ul>
 
@@ -97,9 +92,9 @@
                                     <use xlink:href="#menu-1"> </use>
                                 </svg>
                             </a>
-                                <div class="brand-text d-none d-md-inline-block text-uppercase letter-spacing-0">
-                                    <span class="text-white fw-normal text-xs">Bank Admin</span><strong class="text-primary text-sm">istration</strong>
-                                </div>
+                            <div class="brand-text d-none d-md-inline-block text-uppercase letter-spacing-0">
+                                <span class="text-white fw-normal text-xs">Bank Admin</span><strong class="text-primary text-sm">istration</strong>
+                            </div>
                         </div>
                         <ul class="nav-menu mb-0 list-unstyled d-flex flex-md-row align-items-md-center">
                             <!-- Notifications dropdown-->
@@ -228,7 +223,7 @@
             <div class="container-fluid">
                 <div class="row text-center gy-3">
                     <div class="col-sm-6 text-sm-start">
-                        <p class="mb-0 text-sm text-gray-600">Your company &copy; 2017-2021</p>
+                        <p class="mb-0 text-sm text-gray-600"> Banking Systems; 2021-2022</p>
                     </div>
                     <div class="col-sm-6 text-sm-end">
                         <p class="mb-0 text-sm text-gray-600">Design by <a href="https://bootstrapious.com/p/bootstrap-4-dashboard" class="external">Bootstrapious</a></p>

@@ -1,24 +1,24 @@
-﻿using BankAdministration.Models;
+using BankAdministration.Models;
 using BankAdministration.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
-namespace BankAdministration.Pages
+namespace BankAdministration.Pages.Account
 {
-    public class IndexModel : PageModel
+    public class TransferModel : PageModel
     {
+        private readonly BankContext _context;
         private readonly IStatisticsService _statisticsService;
-        private readonly IAccountService _accountService;
+        private readonly ICustomerService _customerService;
 
 
         public class Item
         {
             public int CustomerId { get; set; }
-            public string Givenname { get; set; }
-            public string Surname { get; set; }
-            public string Streetaddress { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string Address { get; set; }
             public string City { get; set; }
             public string Type { get; set; }
             public int AccountId { get; set; }
@@ -37,24 +37,20 @@ namespace BankAdministration.Pages
         public int PageCount { get; set; }
 
         //Statistics
-        public int AccountId { get; set; }
+        public int CustomerId { get; set; }
         public string ActiveCustomers { get; set; }
         public string AvailableAccounts { get; set; }
         public string SumOfBalances { get; set; }
         public List<Item> Items { get; set; }
 
-        public IndexModel(IStatisticsService statisticsService, IAccountService accountService)
+        public TransferModel(IStatisticsService statisticsService, ICustomerService customerService)
         {
             _statisticsService = statisticsService;
-            _accountService = accountService;
+            _customerService = customerService;
         }
 
-        public void OnGet(int accountId, string sortColumn, string sortOrder, int pageno, string searchWord)
+        public void OnGet(int customerId, string sortColumn, string sortOrder, int pageno, string searchWord)
         {
-            ActiveCustomers = _statisticsService.activeCustomers();
-            AvailableAccounts = _statisticsService.availabAccounts();
-            SumOfBalances = _statisticsService.sumOfAccountBalances();
-
             SortColumn = sortColumn;
             SortOrder = sortOrder;
             SearchWord = searchWord;
@@ -63,16 +59,16 @@ namespace BankAdministration.Pages
                 pageno = 1;
             }
             CurrentPage = pageno;
-            //AccountId = accountId;
-            var pageResult = _accountService.ListAccounts(accountId, sortColumn, sortOrder, CurrentPage, searchWord);
+            CustomerId = customerId;
+            var pageResult = _customerService.ListCustomers(customerId, sortColumn, sortOrder, CurrentPage, searchWord);
             PageCount = pageResult.PageCount;
             Items = pageResult.Results.Select(e => new Item
             {
-                AccountId = e.AccountId,
-                Givenname = e.Customers.Givenname,
-                Surname = e.Customers.Surname,
-                Streetaddress = e.Customers.Streetaddress,
-                City = e.Customers.City,
+                CustomerId = e.CustomerId,
+                FirstName = e.Givenname,
+                LastName = e.Surname,
+                Address = e.Streetaddress,
+                City = e.City
             }).ToList();
         }
     }

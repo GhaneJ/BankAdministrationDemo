@@ -19,7 +19,7 @@ namespace BankAdministration.Services
 
             var query = _context.Customers.AsQueryable();
 
-            query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
+           var a = query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
                 (cu, di) => new { cu, di })
                 .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc })
                 .Where(di => di.acc.AccountId.Equals(searchWord));
