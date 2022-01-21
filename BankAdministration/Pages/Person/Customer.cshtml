@@ -7,11 +7,13 @@
 <section class="card py-5">
     <div class="container-fluid">
         <div class="row d-flex align-items-center justify-content-around p-3 mb-3">
-            <h3>@Model.FirstName @Model.LastName</h3>
+            <h3></h3>
             <div class="row">
+                @foreach (var item in Model.Items){
                 <div class="col-md-4">
                     <div class="thumbnail">
-                        @if (@Model.Gender == "male")
+                        
+                        @if (@item.Gender == "male")
                         {
                             <img src="/img/man.png" alt="man" style="width:30%">
                         }
@@ -23,14 +25,14 @@
                         </div>
                     </div>
                 </div>
-                <p>Adress: @Model.Address</p>
-                <p>Postnummer: @Model.ZipCode</p>
-                <p>Postort: @Model.City</p>
-                <p>Personnummer: @Model.NID</p>
-                <p>Födelsedatum: @Model.Birthdate</p>
-                <p>Telefonnummer: @Model.AreaCode @Model.PhoneNumber</p>
-                <p>E-post: @Model.Email</p>
-                @if (@Model.Status)
+                <p>Adress: @item.Address</p>
+                <p>Postnummer: @item.ZipCode</p>
+                <p>Postort: @item.City</p>
+                <p>Personnummer: @item.NID</p>
+                <p>Födelsedatum: @item.Birthdate</p>
+                <p>Telefonnummer: @item.AreaCode @item.PhoneNumber</p>
+                <p>E-post: @item.Email</p>
+                @if (@item.Status)
                 {
                     <p>Status: <i class="fas fa-check"></i>(Active)</p>
                 }
@@ -38,7 +40,7 @@
                 {
                     <p>Status: <i class="far fa-times-circle"></i>(Archived)</p>
                 }
-
+                }
             </div>
         </div>
     </div>

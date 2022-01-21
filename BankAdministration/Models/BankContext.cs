@@ -125,7 +125,7 @@ namespace BankAdministration.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Dispositions_Accounts");
 
-                entity.HasOne(d => d.Customer)
+                entity.HasOne(d => d.Customers)
                     .WithMany(p => p.Dispositions)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
