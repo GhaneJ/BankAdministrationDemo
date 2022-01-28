@@ -31,7 +31,13 @@ public class AccountService : IAccountService
         return _context.Accounts.First(e => e.AccountId == id);
     }
 
+    public void Transfer(int fromAccount, int toAccount, int amount)
+    {
+        
+        var account = _context.Accounts.First(e => e.AccountId == fromAccount);
 
+
+    }
 
     public PagedResult<Disposition> ListAccounts(int accountId, string sortColumn, string sortOrder, int page, string searchWord)
     {

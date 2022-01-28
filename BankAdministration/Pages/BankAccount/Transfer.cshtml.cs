@@ -8,68 +8,42 @@ namespace BankAdministration.Pages.BankAccount
 {
     public class TransferModel : PageModel
     {
-        private readonly BankContext _context;
-        private readonly IStatisticsService _statisticsService;
-        private readonly ICustomerService _customerService;
-
-
-        public class Item
+        private readonly IAccountService _accountService;
+        public TransferModel(IAccountService accountService)
         {
-            public int CustomerId { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public string Address { get; set; }
-            public string City { get; set; }
-            public string Type { get; set; }
-            public int AccountId { get; set; }
-            public decimal Balance { get; set; }
-            public DateTime Created { get; set; }
-            public string Frequency { get; set; }
+            _accountService = accountService;
+        }
+        public int ToAccount { get; set; }
+        public int FromAccount { get; set; }
+        public int AccountId { get; set; }
+        public decimal Amount { get; set; }
+
+
+        public void OnGet(int accountId)
+        {
+            
         }
 
-
-
-        //Pagination
-        public int CurrentPage { get; set; }
-        public string SortColumn { get; set; }
-        public string SortOrder { get; set; }
-        public string SearchWord { get; set; }
-        public int PageCount { get; set; }
-
-        //Statistics
-        public int CustomerId { get; set; }
-        public string ActiveCustomers { get; set; }
-        public string AvailableAccounts { get; set; }
-        public string SumOfBalances { get; set; }
-        public List<Item> Items { get; set; }
-
-        public TransferModel(IStatisticsService statisticsService, ICustomerService customerService)
+        public IActionResult OnPost(int accountId, int toAccount, decimal amount)
         {
-            _statisticsService = statisticsService;
-            _customerService = customerService;
-        }
-
-        public void OnGet(int customerId, string sortColumn, string sortOrder, int pageno, string searchWord)
-        {
-            SortColumn = sortColumn;
-            SortOrder = sortOrder;
-            SearchWord = searchWord;
-            if (pageno == 0)
+            FromAccount = accountId;
+            ToAccount = toAccount;
+            if (ModelState.IsValid)
             {
-                pageno = 1;
+                var account1 = _accountService.GetAccount(accountId);
+                var account2 = _accountService.GetAccount(toAccount);
+                account1.Balance -= amount;
+                account2.Balance += amount;
+                _accountService.Update(account1);
+                _accountService.Update(account2);
             }
-            CurrentPage = pageno;
-            CustomerId = customerId;
-            var pageResult = _customerService.ListCustomers(customerId, sortColumn, sortOrder, CurrentPage, searchWord);
-            PageCount = pageResult.PageCount;
-            Items = pageResult.Results.Select(e => new Item
-            {
-                CustomerId = e.CustomerId,
-                FirstName = e.Customers.Givenname,
-                LastName = e.Customers.Surname,
-                Address = e.Customers.Streetaddress,
-                City = e.Customers.City
-            }).ToList();
+            
+
+            return Page();
         }
+
+
     }
+
+    
 }

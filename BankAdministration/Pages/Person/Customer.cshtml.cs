@@ -37,15 +37,16 @@ namespace BankAdministration.Pages.Person
         }
         public List<Item> Items { get; set; }
         public int AccountId { get; set; }
+        public int CustomerId { get; set; }
 
         public CustomerModel(BankContext context)
         {
             _context = context;
         }
-        public void OnGet(int accountId)
+        public void OnGet(int customerId)
         {
-            AccountId = accountId;
-            var c = _context.Accounts.Include(e => e.Dispositions).ThenInclude(e => e.Customers).First(e => e.AccountId == accountId);
+            CustomerId = customerId;
+            var c = _context.Accounts.Include(e => e.Dispositions).ThenInclude(e => e.Customers).First(e => e.AccountId == customerId);
             Items = new List<Item>();
             foreach (var disp in c.Dispositions)
             {
