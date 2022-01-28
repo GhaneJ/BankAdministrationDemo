@@ -53,10 +53,10 @@ namespace BankAdministration.Pages
             Items = pageResult.Results.Select(e => new Item
             {
                 Id = e.CustomerId,
-                FirstName = e.Givenname,
-                LastName = e.Surname,
-                Address = e.Streetaddress,
-                City = e.City
+                FirstName = e.Customers.Givenname,
+                LastName = e.Customers.Surname,
+                Address = e.Customers.Streetaddress,
+                City = e.Customers.City
             }).ToList();
         }
     }

@@ -12,66 +12,77 @@ namespace BankAdministration.Services
         {
             _context = context;
         }
-        public PagedResult<Customer> ListCustomers(int customerId, string sortColumn, string sortOrder, int page, string searchWord)
+        public PagedResult<Disposition> ListCustomers(int customerId, string sortColumn, string sortOrder, int page, string searchWord)
         {
             //Asquerable() converts the variable to a queryable IEnumerable(Without it, no data was being loaded)
             //var query = _context.Customers.AsQueryable().Where(r => r.CustomerId == customerId);
 
-            var query = _context.Customers.AsQueryable();
+            var query = _context.Dispositions.AsQueryable();
 
-           var a = query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
-                (cu, di) => new { cu, di })
-                .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc })
-                .Where(di => di.acc.AccountId.Equals(searchWord));
+            query = query.Include(r => r.Customers);
+            query = query.Include(r => r.Account);
 
             if (!string.IsNullOrEmpty(searchWord))
             {
-                query = query.Where(r => r.CustomerId.ToString().Equals(searchWord));
+                query = query.Where(r => r.CustomerId.ToString().Equals(searchWord)
+                || r.Customers.Givenname.Equals(searchWord) || r.Customers.City.Equals(searchWord));
+
+                //query = query.Where(r => r.Customers.Givenname.Equals(searchWord) || r.Customers.City.Equals(searchWord));
 
             }
             //By default, the result is sorted by Givenname and is ascending
             if (string.IsNullOrEmpty(sortColumn))
             {
-                sortColumn = "Givenname";
+                sortColumn = "CustomerId";
             }
             if (string.IsNullOrEmpty(sortOrder))
             {
                 sortOrder = "asc";
             }
+            if (sortColumn == "CustomerId")
+            {
+                if (sortOrder == "desc")
+                    query = query.OrderByDescending(e => e.CustomerId);
+                else
+                    query = query.OrderBy(e => e.CustomerId);
+            }
+            if (sortColumn == "NationalId")
+            {
+                if (sortOrder == "desc")
+                    query = query.OrderByDescending(e => e.Customers.NationalId);
+                else
+                    query = query.OrderBy(e => e.Customers.NationalId);
+            }
             if (sortColumn == "Givenname")
             {
                 if (sortOrder == "desc")
-                    query = query.OrderByDescending(p => p.Givenname);
+                    query = query.OrderByDescending(p => p.Customers.Givenname);
                 else
-                    query = query.OrderBy(p => p.Givenname);
+                    query = query.OrderBy(p => p.Customers.Givenname);
+            }
+            if (sortColumn == "Givenname")
+            {
+                if (sortOrder == "desc")
+                    query = query.OrderByDescending(p => p.Customers.Givenname);
+                else
+                    query = query.OrderBy(p => p.Customers.Givenname);
             }
             if (sortColumn == "Streetaddress")
             {
                 if (sortOrder == "desc")
-                    query = query.OrderByDescending(p => p.Streetaddress);
+                    query = query.OrderByDescending(p => p.Customers.Streetaddress);
                 else
-                    query = query.OrderBy(p => p.Streetaddress);
+                    query = query.OrderBy(p => p.Customers.Streetaddress);
             }
             if (sortColumn == "City")
             {
                 if (sortOrder == "desc")
-                    query = query.OrderByDescending(p => p.City);
+                    query = query.OrderByDescending(p => p.Customers.City);
                 else
-                    query = query.OrderBy(p => p.City);
-            }
-            if (sortColumn == "AccountId")
-            {
-                if (sortOrder == "desc")
-                    query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
-                (cu, di) => new { cu, di })
-                .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc }).OrderByDescending(acc=>acc.ac.di.AccountId);
-                else
-                    query.Join(_context.Dispositions, cu => cu.CustomerId, di => di.CustomerId,
-                (cu, di) => new { cu, di })
-                .Join(_context.Accounts, ac => ac.di.AccountId, acc => acc.AccountId, (ac, acc) => new { ac, acc }).OrderBy(acc => acc.ac.di.AccountId);
+                    query = query.OrderBy(p => p.Customers.City);
             }
 
-            return query.Where(r => r.Active == true).GetPaged(page, 25); //5 is the pagesize
+            return query.Where(r => r.Customers.IsActive == true && r.Type == "Owner").GetPaged(page, 50); //5 is the pagesize
         }
 
         public PagedResult<Customer> ListInactiveCustomers(int customerId, string sortColumn, string sortOrder, int page, string searchWord)
@@ -112,7 +123,7 @@ namespace BankAdministration.Services
                     query = query.OrderBy(p => p.City);
             }
 
-            return query.Where(r => r.Active == false).GetPaged(page, 25); //5 is the pagesize
+            return query.Where(r => r.IsActive == false).GetPaged(page, 25); //5 is the pagesize
         }
     }
 }

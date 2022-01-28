@@ -83,8 +83,12 @@
                             <td>@item.Address</td>
                             <td>@item.City</td>
                             <td>
-                                <a asp-page="/Person/EditCustomer" asp-route-id="@item.Id">
-                                <i class="bx bx-edit bx-md"></i></a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-page="/Person/EditCustomer" asp-route-id="@item.Id">
+                                    <i class="bx bx-edit bx-md"></i></a>
+                                }
+                                
                             </td>
                         </tr>
                     }

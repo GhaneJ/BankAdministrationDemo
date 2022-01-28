@@ -11,22 +11,36 @@ namespace BankAdministration.Pages
     {
         private readonly IStatisticsService _statisticsService;
         private readonly IAccountService _accountService;
+        private readonly ICustomerService _customerService;
 
 
         public class Item
         {
+            //Personuppgifter
             public int CustomerId { get; set; }
-            public string Givenname { get; set; }
-            public string Surname { get; set; }
-            public string Streetaddress { get; set; }
-            public string City { get; set; }
-            public string Type { get; set; }
+            public string? Gender { get; set; }
+            public string? Givenname { get; set; }
+            public string? Surname { get; set; }
+            public string? Streetaddress { get; set; }
+            public string? Zipcode { get; set; }
+            public string? City { get; set; }
+            public string? NationalId { get; set; }
+            public DateTime Birthday { get; set; }
+            public string? Telephonecountrycode { get; set; }
+            public string? Telephonenumber { get; set; }
+            public string? Emailaddress { get; set; }
+            public bool IsActive { get; set; }
+
+            public Country? Country { get; set; }
+            //Kontouppgifter
+            public string? Type { get; set; }
             public int AccountId { get; set; }
+            
             public decimal Balance { get; set; }
             public DateTime Created { get; set; }
-            public string Frequency { get; set; }
+            public string? Frequency { get; set; }
         }
-
+        public List<Item> Items { get; set; }
 
 
         //Pagination
@@ -37,19 +51,24 @@ namespace BankAdministration.Pages
         public int PageCount { get; set; }
 
         //Statistics
-        public int AccountId { get; set; }
+        
         public string ActiveCustomers { get; set; }
         public string AvailableAccounts { get; set; }
         public string SumOfBalances { get; set; }
-        public List<Item> Items { get; set; }
 
-        public IndexModel(IStatisticsService statisticsService, IAccountService accountService)
+        public int CustomerId { get; set; }
+        public int AccountId { get; set; }
+
+
+
+        public IndexModel(IStatisticsService statisticsService, IAccountService accountService, ICustomerService customerService)
         {
             _statisticsService = statisticsService;
             _accountService = accountService;
+            _customerService = customerService;
         }
 
-        public void OnGet(int accountId, string sortColumn, string sortOrder, int pageno, string searchWord)
+        public void OnGet(int customerId, int accountId, string sortColumn, string sortOrder, int pageno, string searchWord)
         {
             ActiveCustomers = _statisticsService.activeCustomers();
             AvailableAccounts = _statisticsService.availabAccounts();
@@ -63,16 +82,30 @@ namespace BankAdministration.Pages
                 pageno = 1;
             }
             CurrentPage = pageno;
-            //AccountId = accountId;
-            var pageResult = _accountService.ListAccounts(accountId, sortColumn, sortOrder, CurrentPage, searchWord);
+            AccountId = accountId;
+            CustomerId = customerId;
+            var pageResult = _customerService.ListCustomers(customerId, sortColumn, sortOrder, CurrentPage, searchWord);
             PageCount = pageResult.PageCount;
             Items = pageResult.Results.Select(e => new Item
             {
+                CustomerId = e.CustomerId,
+                Gender = e.Customers.Gender,
                 AccountId = e.AccountId,
                 Givenname = e.Customers.Givenname,
                 Surname = e.Customers.Surname,
                 Streetaddress = e.Customers.Streetaddress,
+                Zipcode = e.Customers.Zipcode,
                 City = e.Customers.City,
+                Country = e.Customers.Country,
+                NationalId = e.Customers.NationalId,
+                Birthday = (DateTime)e.Customers.Birthday,
+                Telephonecountrycode = e.Customers.Telephonecountrycode,
+                Telephonenumber = e.Customers.Telephonenumber,
+                Emailaddress = e.Customers.Emailaddress,
+                IsActive = (bool)e.Customers.IsActive,
+                Created = e.Account.Created,
+                Balance = e.Account.Balance,
+                Type = e.Type
             }).ToList();
         }
     }

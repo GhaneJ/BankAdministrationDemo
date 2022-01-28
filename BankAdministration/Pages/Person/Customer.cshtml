@@ -7,41 +7,57 @@
 <section class="card py-5">
     <div class="container-fluid">
         <div class="row d-flex align-items-center justify-content-around p-3 mb-3">
-            <h3></h3>
-            <div class="row">
-                @foreach (var item in Model.Items){
-                <div class="col-md-4">
-                    <div class="thumbnail">
-                        
-                        @if (@item.Gender == "male")
-                        {
-                            <img src="/img/man.png" alt="man" style="width:30%">
-                        }
-                        else
-                        {
-                            <img src="/img/woman.png" alt="kvinna" style="width:30%"/>
-                        }
-                        <div class="caption">
-                        </div>
-                    </div>
-                </div>
-                <p>Adress: @item.Address</p>
-                <p>Postnummer: @item.ZipCode</p>
-                <p>Postort: @item.City</p>
-                <p>Personnummer: @item.NID</p>
-                <p>Födelsedatum: @item.Birthdate</p>
-                <p>Telefonnummer: @item.AreaCode @item.PhoneNumber</p>
-                <p>E-post: @item.Email</p>
-                @if (@item.Status)
-                {
-                    <p>Status: <i class="fas fa-check"></i>(Active)</p>
-                }
-                else
-                {
-                    <p>Status: <i class="far fa-times-circle"></i>(Archived)</p>
-                }
-                }
-            </div>
+            
+            <div class="col-lg-8">
+                                    <div class="card text-center h-100 mb-0">
+                                        <div class="card-body shadow p-0">
+
+                                            @foreach (var item in @Model.Items)
+                                            {
+                                                <h1 class="p-2 rounded-top bg-blue">@item.Givenname @item.Surname</h1>
+                                                <p class="p-2 text-start">Kön: @item.Gender</p>
+                                                <p class="p-2 text-start">Kundnummer: @item.CustomerId</p>
+                                                <p class="p-2 text-start">Personnummer: @item.NationalId</p>
+                                                <p class="p-2 text-start">Födelsedag:  @item.Birthday</p>
+                                                <p class="p-2 text-start">Gatuadress: @item.Streetaddress</p>
+                                                <p class="p-2 text-start">Postnummer och ort: @item.Zipcode  @item.City</p>
+                                                <p class="p-2 text-start">Land:  @item.Country.</p>
+                                                <p class="p-2 text-start">Telefonnr:  @item.Telephonecountrycode @item.Telephonenumber</p>
+                                                <p class="p-2 text-start">e-post:  @item.Emailaddress</p>
+                                                <hr />
+                                                <div class="d-flex aligns-items-center justify-content-center">
+                                                <h1 class="w-25 p-2 rounded-top bg-blue">Konton</h1>
+                                                </div>
+                                              }  
+    
+                <table class="table">
+                    <tr>
+                        <th>KontoNr.</th>
+                        <th>Saldo</th>
+                        <th>Skapat datum</th>
+                        <th>Kontotyp</th>
+                        <th></th>
+
+                    </tr>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.AccountId</td>
+                            <td>@item.Balance</td>
+                            <td>@item.Created</td>
+                            <td>@item.Type</td>
+                            <td><a asp-page="/BankAccount/Transaction" asp-route-accountId="@item.AccountId" class="btn btn-primary rounded-3 mb-3">Transaktioner</a></td>
+                            
+
+                        </tr>
+                    }
+                </table>
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+            
         </div>
     </div>
 </section>

@@ -17,7 +17,8 @@ namespace BankAdministration.Models
         public string Frequency { get; set; } = null!;
         public DateTime Created { get; set; }
         public decimal Balance { get; set; }
-
+        
+        
         public virtual ICollection<Disposition> Dispositions { get; set; }
         public virtual ICollection<Loan> Loans { get; set; }
         public virtual ICollection<PermenentOrder> PermenentOrders { get; set; }

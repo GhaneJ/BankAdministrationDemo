@@ -2,11 +2,15 @@ using BankAdministration.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using BankAdministration.Infrastructure.Paging;
 
-namespace BankAdministration.Pages.Account
+namespace BankAdministration.Pages.BankAccount
 {
     public class TransactionModel : PageModel
     {
+        public string Name { get; set; }
+        public int Id { get; set; }
+
         private readonly BankContext _context;
 
         public class Item
@@ -20,19 +24,55 @@ namespace BankAdministration.Pages.Account
             public string Symbol { get; set; }
             public string Bank { get; set; }
             public string Account { get; set; }
+            public decimal Amount { get; set; }
         }
         public List<Item> Items { get; set; }
 
+        public int AccountId { get; set; }
+        public decimal FinalBalance { get; set; }
 
         public TransactionModel(BankContext context)
         {
             _context = context;
         }
+
+        public IActionResult OnGetFetchValue(int id)
+        {
+            return new JsonResult(new { value = id * 1000 });
+        }
+
+        public IActionResult OnGetFetchMore(int accountId, int pageNo)
+        {
+
+            var list = _context.Accounts
+                .Where(e => e.AccountId == accountId)
+                .SelectMany(e => e.Transactions)
+                .OrderBy(e => e.Date)
+                .GetPaged(pageNo, 5).Results
+                .Select(e => new Item
+                {
+                    TransactionId = e.TransactionId,
+                    AccountId = e.AccountId,
+                    Balance = e.Balance,
+                    Symbol = e.Symbol,
+                    Date = e.Date,
+                    Amount = e.Amount,
+                    Type = e.Type,
+                    Account = e.Account,
+                    Operation = e.Operation,
+                    Bank = e.Bank
+                }).ToList();
+
+            return new JsonResult(new { items = list });
+        }
+
         public void OnGet(int accountId)
         {
+            AccountId = accountId;
             var e = _context.Accounts.Include(t => t.Transactions).First(e=>e.AccountId == accountId);
             Items = new List<Item>();
 
+            FinalBalance = e.Balance;
             foreach (var trans in e.Transactions)
             {
                 Items.Add(new Item
@@ -45,8 +85,10 @@ namespace BankAdministration.Pages.Account
                     Operation = trans.Operation,
                     Symbol = trans.Symbol,
                     Bank = trans.Bank,
-                    Account = trans.Account
+                    Account = trans.Account,
+                    Amount = trans.Amount
                 });
+                Items = Items.OrderByDescending(t => t.TransactionId).ToList();
             }
         }
     }

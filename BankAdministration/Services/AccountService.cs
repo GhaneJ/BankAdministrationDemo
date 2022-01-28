@@ -28,7 +28,7 @@ public class AccountService : IAccountService
 
     public Account GetAccount(int id)
     {
-        return _context.Accounts.Where(e => e.AccountId == id).First(e => e.AccountId == id);
+        return _context.Accounts.First(e => e.AccountId == id);
     }
 
 
@@ -40,7 +40,7 @@ public class AccountService : IAccountService
         query = query.Include(r=>r.Customers);
         if (!string.IsNullOrEmpty(searchWord))
         {
-            query = query.Where(r => r.AccountId.ToString().Equals(searchWord));
+            query = query.Where(r => r.AccountId.ToString().Equals(searchWord) && r.Type == "Owner");
 
         }
         //By default, the result is sorted by Givenname and is ascending
@@ -82,6 +82,6 @@ public class AccountService : IAccountService
                 query = query.OrderBy(e => e.AccountId);
 
         }
-        return query.GetPaged(page, 25); //5 is the pagesize
+        return query.GetPaged(page, 50); //5 is the pagesize
     }
 }

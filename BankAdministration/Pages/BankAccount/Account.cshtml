@@ -1,5 +1,5 @@
 ﻿@page
-@model BankAdministration.Pages.Account.AccountModel
+@model BankAdministration.Pages.BankAccount.AccountModel
 @{
 }
 <section class="card py-5">
@@ -9,9 +9,9 @@
                 <div class="col-md-4">
                     <h1>Alla konton</h1>
                 </div>
-                <div class="col-md-4">
+                @*<div class="col-md-4">
                     <h2>Owner konto</h2>
-                </div>
+                </div>*@
                 <table class="table">
                     <tr>
                         <th>KontoNr.</th>
@@ -29,7 +29,7 @@
                             <td>@item.AccountId</td>
                             <td>@item.Balance</td>
                             <td>@item.CreateDate</td>
-                            <td>@item.AccountType</td>
+                            <td>@item.Type</td>
                             <td>
                                 <a asp-page="Deposit" asp-route-accountId="@item.AccountId">
                                     <i class="fas fa-2x fa-money-bill-wave-alt"></i>
@@ -54,9 +54,6 @@
                         </tr>
                     }
                 </table>
-
-                
-
 
             </div>
         </div>

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BankAdministration.Services;
 
-namespace BankAdministration.Pages.Account
+namespace BankAdministration.Pages.BankAccount
 {
     [BindProperties]
     public class WithdrawModel : PageModel

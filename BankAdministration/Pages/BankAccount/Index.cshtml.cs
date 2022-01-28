@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BankAdministration.Services;
 
-namespace BankAdministration.Pages.Account
+namespace BankAdministration.Pages.BankAccount
 {
     public class IndexModel : PageModel
     {

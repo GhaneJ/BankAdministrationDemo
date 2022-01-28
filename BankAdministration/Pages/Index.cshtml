@@ -2,37 +2,37 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    int value;
 }
 
-<!-- Statistics Section -->
-<section class="card py-5">
+
+<!-- Statistics Section-->
+
+<section class="card bg-none py-5">
     <div class="container-fluid">
-        <div class="row d-flex align-items-center justify-content-around p-3 mb-3">
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-                <div class="d-flex">
-                   <i class="far fa-2x fa-user"></i>
-                    <div class="ms-2">
+        <div class="row gy-4 d-flex justify-content-around">
+            <div class="col-lg-2">
+                <!-- Aktiva kunder -->
+                <div class="card text-center rounded-3 h-100 mb-0 alert-yellow">
+                    <div class="card-body rounded-3 p-0">
                         <h3 class="h4 text-dark fw-normal">Aktiva kunder</h3>
                         <p class="display-6 mb-0">@Model.ActiveCustomers</p>
                     </div>
                 </div>
             </div>
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-                <div class="d-flex">
-                    <i class="fas fa-2x fa-money-check"></i>
-                    <div class="ms-2">
+            <div class="col-lg-2">
+                <!-- Monthly Usage-->
+                <div class="card text-center rounded-3 h-100 mb-0 alert-yellow">
+                    <div class="card-body rounded-3 p-0">
                         <h3 class="h4 text-dark fw-normal">Aktiva konton</h3>
                         <p class="display-6 mb-0">@Model.AvailableAccounts</p>
                     </div>
                 </div>
             </div>
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-                <div class="d-flex">
-                    <i class="fas fa-2x fa-dollar-sign"></i>
-                    <div class="ms-2">
+            <div class="col-lg-3">
+                <!-- User Actibity-->
+                <div class="card text-center rounded-3 h-100 mb-0 alert-yellow">
+                    <div class="card-body rounded-3 p-0">
                         <h3 class="h4 text-dark fw-normal">Summan</h3>
                         <p class="display-6 mb-0">@Model.SumOfBalances</p>
                     </div>
@@ -43,161 +43,426 @@
 </section>
 
 
-
-<!-- Search Section -->
-<section class="card py-5">
+<!-- Search box -->
+<section class="py-5">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row mb-5">
+            <div class="col-lg-12 mx-auto">
+                <form method="get">
+                    <div class="bg-white p-5">
+                        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                            <div class="input-group">
+                                <input asp-for="@Model.SearchWord" placeholder="Sök kundnummer, kundnamn, ort " aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                                <input type="hidden" asp-for="@Model.CustomerId" />
+                                <div class="input-group-append">
+                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Table -->
+                    <div class="bg-white p-5">
+                        @if (String.IsNullOrEmpty(@Model.SearchWord))
+                        {
+                            <table class="table table-responsive table-hover">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <td>
+                                            Kundnr.
+                                           <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="CustomerId"
+                                           asp-route-sortOrder="asc">
+                                                <i class="fa-solid fa-angle-up"></i>
+                                            </a>
+                                            <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="CustomerId"
+                                           asp-route-sortOrder="desc">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                        <th>
+                                            Personnr.
+                                            <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="NationalId"
+                                           asp-route-sortOrder="asc">
+                                                <i class="fa-solid fa-angle-up"></i>
+                                            </a>
+                                            <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="NationalId"
+                                           asp-route-sortOrder="desc">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                        <th>
+                                            Namn
+                                            <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="Givenname"
+                                           asp-route-sortOrder="asc">
+                                                <i class="fa-solid fa-angle-up"></i>
+                                            </a>
+                                            <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="Givenname"
+                                           asp-route-sortOrder="desc">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            Adress
+                                            <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="Streetaddress"
+                                           asp-route-sortOrder="asc">
+                                                <i class="fa-solid fa-angle-up"></i>
+                                            </a>
+                                            <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="Streetaddress"
+                                           asp-route-sortOrder="desc">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            Stad
+                                            <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="City"
+                                           asp-route-sortOrder="asc">
+                                                <i class="fa-solid fa-angle-up"></i>
+                                            </a>
+                                            <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="City"
+                                           asp-route-sortOrder="desc">
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </a>
+                                        </th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-            <h3>Sidan @Model.CurrentPage av @Model.PageCount</h3>
-            <form method="get">
-                <input asp-for="@Model.SearchWord" />
-                <input type="hidden" asp-for="@Model.AccountId" />
-                <input type="submit" value="Sök" />
-            </form>
+                                    @foreach (var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td>@item.CustomerId</td>
+                                            <td>@item.NationalId</td>
+                                            <td>@item.Givenname @item.Surname</td>
+                                            <td>@item.Streetaddress</td>
+                                            <td>@item.City</td>
+                                            <td><a asp-page="/Person/Customer" asp-route-accountId="@item.AccountId" class="btn btn-primary rounded-3">View</a></td>
+                                            <td><a asp-page="/BankAccount/Account" asp-route-customerId="@item.CustomerId" class="btn btn-primary">Konton</a></td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td>
+                                            @if (@Model.CurrentPage != 1)
+                                            {
+                                                <a class="btn btn-secondary"
+                                           asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="@Model.SortColumn"
+                                           asp-route-sortOrder="@Model.SortOrder"
+                                           asp-route-pageno="@(Model.CurrentPage - 1)">
+                                                    Prev
+                                                </a>
+                                            }
 
+                                        </td>
+                                        <td colspan="2">
+                                            @for (int i = 1; i <= Model.PageCount; i++)
+                                            {
+                                                string theClass = "btn-secondary";
+                                                if (i == @Model.CurrentPage)
+                                                {
+                                                    theClass = "btn-primary";
+                                                }
 
+                                                <a class="btn @theClass"
+                                           asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="@Model.SortColumn"
+                                           asp-route-sortOrder="@Model.SortOrder"
+                                           asp-route-pageno="@i">
+                                                    @i
+                                                </a>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (@Model.CurrentPage < @Model.PageCount)
+                                            {
+                                                <a class="btn btn-secondary"
+                                           asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-sortColumn="@Model.SortColumn"
+                                           asp-route-sortOrder="@Model.SortOrder"
+                                           asp-route-pageno="@(Model.CurrentPage + 1)">
+                                                    Next
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            if (int.TryParse(@Model.SearchWord, out value))
+                            {
+                                <div class="col-lg-8">
+                                    <div class="card text-center h-100 mb-0">
+                                        <div class="card-body shadow p-0">
 
-            
-            <table class="table">
-                <thead>
+                                            @foreach (var item in @Model.Items)
+                                            {
+                                                <h1 class="p-2 rounded-top bg-blue">@item.Givenname @item.Surname</h1>
+                                                <p class="p-2 text-start">Kön: @item.Gender</p>
+                                                <p class="p-2 text-start">Kundnummer: @item.CustomerId</p>
+                                                <p class="p-2 text-start">Personnummer: @item.NationalId</p>
+                                                <p class="p-2 text-start">Födelsedag:  @item.Birthday</p>
+                                                <p class="p-2 text-start">Gatuadress: @item.Streetaddress</p>
+                                                <p class="p-2 text-start">Postnummer och ort: @item.Zipcode  @item.City</p>
+                                                <p class="p-2 text-start">Land:  @item.Country.</p>
+                                                <p class="p-2 text-start">Telefonnr:  @item.Telephonecountrycode @item.Telephonenumber</p>
+                                                <p class="p-2 text-start">e-post:  @item.Emailaddress</p>
+                                                <hr />
+                                                <div class="d-flex aligns-items-center justify-content-center">
+                                                <h1 class="w-25 p-2 rounded-top bg-blue">Konton</h1>
+                                                </div>
+                                              }  
+    
+                <table class="table">
                     <tr>
-                        <th>
-                            KontoNr.
-                            <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="AccountId"
-                               asp-route-sortOrder="asc">
-                                <i class="fa-solid fa-angle-up"></i>
-                            </a>
-                            <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="AccountId"
-                               asp-route-sortOrder="desc">
-                                <i class="fa-solid fa-angle-down"></i>
-                            </a>
-                        </th>
-                        <th>
-                            Namn
-                            <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="Givenname"
-                               asp-route-sortOrder="asc">
-                                <i class="fa-solid fa-angle-up"></i>
-                            </a>
-                            <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="Givenname"
-                               asp-route-sortOrder="desc">
-                                <i class="fa-solid fa-angle-down"></i>
-                            </a>
-                        </th>
-                        <th>
-                            Adress
-                            <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="Streetaddress"
-                               asp-route-sortOrder="asc">
-                                <i class="fa-solid fa-angle-up"></i>
-                            </a>
-                            <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="Streetaddress"
-                               asp-route-sortOrder="desc">
-                                <i class="fa-solid fa-angle-down"></i>
-                            </a>
-                        </th>
-                        <th>
-                            Stad
-                            <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="City"
-                               asp-route-sortOrder="asc">
-                                <i class="fa-solid fa-angle-up"></i>
-                            </a>
-                            <a asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="City"
-                               asp-route-sortOrder="desc">
-                                <i class="fa-solid fa-angle-down"></i>
-                            </a>
-                        </th>
+                        <th>KontoNr.</th>
+                        <th>Saldo</th>
+                        <th>Skapat datum</th>
+                        <th>Kontotyp</th>
                         <th></th>
+
                     </tr>
-                </thead>
-                <tbody>
                     @foreach (var item in Model.Items)
                     {
                         <tr>
                             <td>@item.AccountId</td>
-                            <td>@item.Givenname @item.Surname</td>
-                            <td>@item.Streetaddress</td>
-                            <td>@item.City</td>
-                            <td><a asp-page="/Person/Customer" asp-route-accountId="@item.AccountId" class="btn btn-primary">View</a></td>
-                            <td><a asp-page="/Account/Account" asp-route-accountId="@item.AccountId" class="btn btn-primary">Konton</a></td>
+                            <td>@item.Balance</td>
+                            <td>@item.Created</td>
+                            <td>@item.Type</td>
+                            <td><a asp-page="/BankAccount/Transaction" asp-route-accountId="@item.AccountId" class="btn btn-primary rounded-3 mb-3">Transaktioner</a></td>
+                            
+
                         </tr>
                     }
-                    <tr>
-                        <td>
-                            @if (@Model.CurrentPage != 1)
-                            {
-                                <a class="btn btn-secondary"
-                               asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="@Model.SortColumn"
-                               asp-route-sortOrder="@Model.SortOrder"
-                               asp-route-pageno="@(Model.CurrentPage - 1)">
-                                    Prev
-                                </a>
-                            }
+                </table>
 
-                        </td>
-                        <td colspan="2">
-                            @for (int i = 1; i <= Model.PageCount; i++)
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            }
+                            else
                             {
-                                string theClass = "btn-secondary";
-                                if (i == @Model.CurrentPage)
-                                {
-                                    theClass = "btn-primary";
-                                }
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Kundnr.
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="CustomerId"
+                                           asp-route-sortOrder="asc">
+                                                    <i class="fa-solid fa-angle-up"></i>
+                                                </a>
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="CustomerId"
+                                           asp-route-sortOrder="desc">
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </a>
+                                            </th>
+                                            <th>
+                                                Personnr.
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="NationalId"
+                                           asp-route-sortOrder="asc">
+                                                    <i class="fa-solid fa-angle-up"></i>
+                                                </a>
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="NationalId"
+                                           asp-route-sortOrder="desc">
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </a>
+                                            <th>
+                                                Namn
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="Givenname"
+                                           asp-route-sortOrder="asc">
+                                                    <i class="fa-solid fa-angle-up"></i>
+                                                </a>
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="Givenname"
+                                           asp-route-sortOrder="desc">
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </a>
+                                            </th>
+                                            <th>
+                                                Adress
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="Streetaddress"
+                                           asp-route-sortOrder="asc">
+                                                    <i class="fa-solid fa-angle-up"></i>
+                                                </a>
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="Streetaddress"
+                                           asp-route-sortOrder="desc">
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </a>
+                                            </th>
+                                            <th>
+                                                Stad
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="City"
+                                           asp-route-sortOrder="asc">
+                                                    <i class="fa-solid fa-angle-up"></i>
+                                                </a>
+                                                <a asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="City"
+                                           asp-route-sortOrder="desc">
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </a>
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                <a class="btn @theClass"
-                               asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-searchWord="@Model.SearchWord"
-                               asp-route-sortColumn="@Model.SortColumn"
-                               asp-route-sortOrder="@Model.SortOrder"
-                               asp-route-pageno="@i">
-                                    @i
-                                </a>
+                                        @foreach (var item in Model.Items)
+                                        {
+                                            <tr>
+                                                <td>@item.CustomerId</td>
+                                                <td>@item.NationalId</td>
+                                                <td>@item.Givenname @item.Surname</td>
+                                                <td>@item.Streetaddress</td>
+                                                <td>@item.City</td>
+                                                <td><a asp-page="/Person/Customer" asp-route-accountId="@item.AccountId" class="btn btn-primary rounded-3">View</a></td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td>
+                                                @if (@Model.CurrentPage != 1)
+                                                {
+                                                    <a class="btn btn-secondary"
+                                           asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="@Model.SortColumn"
+                                           asp-route-sortOrder="@Model.SortOrder"
+                                           asp-route-pageno="@(Model.CurrentPage - 1)">
+                                                        Prev
+                                                    </a>
+                                                }
+
+                                            </td>
+                                            <td>
+                                                @for (int i = 1; i <= Model.PageCount; i++)
+                                                {
+                                                    string theClass = "btn-secondary";
+                                                    if (i == @Model.CurrentPage)
+                                                    {
+                                                        theClass = "btn-primary";
+                                                    }
+
+                                                    <a class="btn @theClass"
+                                           asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-searchWord="@Model.SearchWord"
+                                           asp-route-sortColumn="@Model.SortColumn"
+                                           asp-route-sortOrder="@Model.SortOrder"
+                                           asp-route-pageno="@i">
+                                                        @i
+                                                    </a>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (@Model.CurrentPage < @Model.PageCount)
+                                                {
+                                                    <a class="btn btn-secondary"
+                                           asp-page="/Index"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-sortColumn="@Model.SortColumn"
+                                           asp-route-sortOrder="@Model.SortOrder"
+                                           asp-route-pageno="@(Model.CurrentPage + 1)">
+                                                        Next
+                                                    </a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             }
-                        </td>
-                        <td>
-                            @if (@Model.CurrentPage < @Model.PageCount)
-                            {
-                                <a class="btn btn-secondary"
-                               asp-page="/Index"
-                               asp-route-accountId="@Model.AccountId"
-                               asp-route-sortColumn="@Model.SortColumn"
-                               asp-route-sortOrder="@Model.SortOrder"
-                               asp-route-pageno="@(Model.CurrentPage + 1)">
-                                    Next
-                                </a>
-                            }
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-           @* </div>*@
+                        }
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
+
+
+<!-- Page logic -->
+
+
+@*<form method="get">
+    @if (String.IsNullOrEmpty(@Model.SearchWord))
+    {
+        <table>
+        </table>
+    }
+    else
+    {
+        if (int.TryParse(@Model.SearchWord, out value))
+        {
+            //CustomerProfile
+            //KontoProfile
+        }
+        else
+        {
+            <table>
+            </table>
+        }
+    }
+</form>*@

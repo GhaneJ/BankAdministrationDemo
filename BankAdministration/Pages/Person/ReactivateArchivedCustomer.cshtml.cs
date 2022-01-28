@@ -1,11 +1,13 @@
 using BankAdministration.Models;
 using BankAdministration.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankAdministration.Pages.Person
 {
+    [Authorize(Roles = "Admin")]
     public class ReactivateArchivedCustomerModel : PageModel
     {
         private readonly IStatisticsService _statisticsService;

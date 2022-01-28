@@ -15,7 +15,7 @@ namespace BankAdministration.Services
 
         public string activeCustomers()
         {
-            return _context.Customers.Where(r => r.Active == true).Count().ToString();
+            return _context.Customers.Where(r => r.IsActive == true).Count().ToString();
         }
 
         public string availabAccounts()

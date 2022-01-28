@@ -11,29 +11,32 @@ namespace BankAdministration.Pages.Person
 
         public class Item
         {
-            public int ID { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public string Gender { get; set; }
-            public string Address { get; set; }
-            public string ZipCode { get; set; }
-            public string City { get; set; }
-            //public Country Country { get; set; }
-            public string AreaCode { get; set; }
-            public string PhoneNumber { get; set; }
-            public DateTime Birthdate { get; set; }
-            public string NID { get; set; }
-            public string Email { get; set; }
-            public bool Status { get; set; }
+            //Personuppgifter
+            public int CustomerId { get; set; }
+            public string? Gender { get; set; }
+            public string? Givenname { get; set; }
+            public string? Surname { get; set; }
+            public string? Streetaddress { get; set; }
+            public string? Zipcode { get; set; }
+            public string? City { get; set; }
+            public string? NationalId { get; set; }
+            public DateTime Birthday { get; set; }
+            public string? Telephonecountrycode { get; set; }
+            public string? Telephonenumber { get; set; }
+            public string? Emailaddress { get; set; }
+            public bool IsActive { get; set; }
 
-
+            public Country? Country { get; set; }
+            //Kontouppgifter
+            public string? Type { get; set; }
             public int AccountId { get; set; }
-            public string Frequency { get; set; }
-            public DateTime Created { get; set; }
+
             public decimal Balance { get; set; }
+            public DateTime Created { get; set; }
+            public string? Frequency { get; set; }
         }
         public List<Item> Items { get; set; }
-
+        public int AccountId { get; set; }
 
         public CustomerModel(BankContext context)
         {
@@ -41,24 +44,29 @@ namespace BankAdministration.Pages.Person
         }
         public void OnGet(int accountId)
         {
+            AccountId = accountId;
             var c = _context.Accounts.Include(e => e.Dispositions).ThenInclude(e => e.Customers).First(e => e.AccountId == accountId);
             Items = new List<Item>();
             foreach (var disp in c.Dispositions)
             {
                 Items.Add(new Item
                 {
-                    FirstName = disp.Customers.Givenname,
-                    LastName = disp.Customers.Surname,
+                    AccountId = disp.AccountId,
+                    Givenname = disp.Customers.Givenname,
+                    Surname = disp.Customers.Surname,
                     Gender = disp.Customers.Gender,
-                    Address = disp.Customers.Streetaddress,
-                    ZipCode = disp.Customers.Zipcode,
+                    Streetaddress = disp.Customers.Streetaddress,
+                    Zipcode = disp.Customers.Zipcode,
                     City = disp.Customers.City,
-                    AreaCode = disp.Customers.Telephonecountrycode,
-                    PhoneNumber = disp.Customers.Telephonenumber,
-                    NID = disp.Customers.NationalId,
-                    Birthdate = (DateTime)disp.Customers.Birthday,
-                    Email = disp.Customers.Emailaddress,
-                    Status = (bool)disp.Customers.Active
+                    Telephonecountrycode = disp.Customers.Telephonecountrycode,
+                    Telephonenumber = disp.Customers.Telephonenumber,
+                    NationalId = disp.Customers.NationalId,
+                    Birthday = (DateTime)disp.Customers.Birthday,
+                    Emailaddress = disp.Customers.Emailaddress,
+                    IsActive = (bool)disp.Customers.IsActive,
+                    Balance = disp.Account.Balance,
+                    Created = (DateTime)disp.Account.Created,
+                    Type = disp.Type
                 });
             }
         }

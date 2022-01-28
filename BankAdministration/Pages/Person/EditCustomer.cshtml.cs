@@ -1,4 +1,5 @@
 using BankAdministration.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -6,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BankAdministration.Pages
 {
+    [Authorize(Roles = "Admin")]
+    // No [BindProperties], since NationalId is nullable
     public class EditCustomerModel : PageModel
     {
         private readonly BankContext _context;
@@ -25,7 +28,7 @@ namespace BankAdministration.Pages
         public string City { get; set; }
         [BindProperty]
         public DateTime Birthday { get; set; }
-        [BindProperty]
+        
         public string NationalId { get; set; }
         [BindProperty]
         public string Telephonecountrycode { get; set; }
@@ -63,7 +66,7 @@ namespace BankAdministration.Pages
                 person.Telephonecountrycode = Telephonecountrycode;
                 person.Telephonenumber = Telephonenumber;
                 person.Emailaddress = Emailaddress;
-                person.Active = Active;
+                person.IsActive = Active;
 
                 _context.SaveChanges();
                 return RedirectToPage("Customers");
@@ -79,7 +82,7 @@ namespace BankAdministration.Pages
 
         public void OnGet(int id)
         {
-            var person = _context.Customers.Where(r => r.Active == true || r.Active == false).Include(e => e.Country).First(c => c.CustomerId == id);
+            var person = _context.Customers.Where(r => r.IsActive == true || r.IsActive == false).Include(e => e.Country).First(c => c.CustomerId == id);
             Givenname = person.Givenname;
             Surname = person.Surname;
             Gender = person.Gender;
@@ -91,7 +94,7 @@ namespace BankAdministration.Pages
             Telephonecountrycode = person.Telephonecountrycode;
             Telephonenumber = person.Telephonenumber;
             Emailaddress = person.Emailaddress;
-            Active = (bool)person.Active;
+            Active = (bool)person.IsActive;
             CountryId = person.Country.Id;
             FillCountryList();
         }

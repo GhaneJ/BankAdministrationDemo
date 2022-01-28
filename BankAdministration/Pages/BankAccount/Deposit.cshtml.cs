@@ -1,12 +1,13 @@
-using BankAdministration.Services;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.ComponentModel.DataAnnotations;
+using BankAdministration.Services;
 
-namespace BankAdministration.Pages.Account
+namespace BankAdministration.Pages.BankAccount
 {
     [BindProperties]
-    public class TransferFormModel : PageModel
+    public class DepositModel : PageModel
     {
         private readonly IAccountService _accountService;
 
@@ -20,7 +21,7 @@ namespace BankAdministration.Pages.Account
         [MaxLength(100)]
         public string Comment { get; set; }
 
-        public TransferFormModel(IAccountService accountService)
+        public DepositModel(IAccountService accountService)
         {
             _accountService = accountService;
         }

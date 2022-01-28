@@ -23,7 +23,7 @@ namespace BankAdministration.Models
         public string? Telephonecountrycode { get; set; }
         public string? Telephonenumber { get; set; }
         public string? Emailaddress { get; set; }
-        public bool? Active { get; set; }
+        public bool? IsActive { get; set; }
         
 
         public virtual Country Country { get; set; }

@@ -1,4 +1,5 @@
 using BankAdministration.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankAdministration.Pages
 {
+    [Authorize(Roles = "Admin")]
     [BindProperties]
     public class CreateCustomerModel : PageModel
     {
@@ -34,6 +36,7 @@ namespace BankAdministration.Pages
         public string CNID { get; set; }
 
         public int CountryId { get; set; }
+        public int AccountId { get; set; }
 
         public List<SelectListItem> Countries { get; set; }
 
@@ -81,10 +84,11 @@ namespace BankAdministration.Pages
                     Telephonenumber = Phonenumber,
                     Telephonecountrycode = PhoneCountryCode,
                     NationalId = CNID,
-                    Active = true
+                    IsActive = true
                 };
                 _context.Customers.Add(person);
                 _context.SaveChanges();
+
                 return RedirectToPage("Customers");
             }
             return Page();

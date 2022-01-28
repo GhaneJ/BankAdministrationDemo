@@ -1,0 +1,115 @@
+﻿@page
+@model BankAdministration.Pages.BankAccount.TransactionModel
+@{
+}
+
+
+<div class="container-fluid">
+    <div class="row align-items-stretch gy-4 d-flex align-items-center justify-content-center">
+        <div class="row d-flex align-items-center justify-content-around p-5 mb-3 bg-gray-100">
+            <div class="col-lg-3">
+                <div class="card text-center rounded-3 h-100 mb-0">
+                    <div class="card-body rounded-3 shadow p-0 bg-blue">
+                        <h1>Kontonummer: @Model.AccountId</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-center rounded-3 h-100 mb-0">
+                    <div class="card-body rounded-3 shadow p-0 bg-blue">
+                        <h1>Saldo: @Model.FinalBalance </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card text-center rounded-3 h-100 mb-0 bg-none">
+                <div class="card-body rounded-3 p-0">
+                    <h1>Vad vill du göra</h1>
+                    <ul>
+                        <li>
+                            Sätta in pengar      
+                            <a asp-page="Deposit" asp-route-accountId="@Model.AccountId">
+                                <i class="fas fa-2x fa-money-bill-wave-alt"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            Ta ut pengar          
+                            <a asp-page="Withdraw" asp-route-accountId="@Model.AccountId">
+                                <i class="far fa-2x fa-money-bill-alt"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            Överför belopp till   
+                            <a asp-page="Transfer" asp-route-accountId="@Model.AccountId">
+                                <i class="fas fa-2x fa-file-signature"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <table class="table" id="posts-table">
+            <tr>
+                <th>TransaktionsNr</th>
+                <th>Kontotyp</th>
+                <th>Belopp</th>
+                <th>Saldo</th>
+                <th>Konto</th>
+                <th>Datum</th>
+            </tr>
+            <tbody></tbody>
+        </table>
+        <a class="btn" href="javascript:fetchMore();">See more</a>
+    </div>
+</div>
+
+
+@section Scripts
+{
+<script>
+            pageNo = 1;
+            function fetchMore() {
+                fetch("Transaction?handler=FetchMore&pageNo=" + pageNo + "&accountId=@Model.AccountId")
+                    .then((response) => response.json())
+                    .then((json) => {
+                            pageNo = pageNo + 1;
+                            json.items.forEach(tableElements);
+                        }
+                    );
+            }
+
+            function tableElements(element) {
+                document.querySelector('#posts-table tbody').innerHTML +=
+                    `<tr>
+            <td>${element.transactionId}</td>
+            <td>${element.accountId}</td>
+            <td>${element.symbol}</td>
+            <td>${element.date}</td>
+            <td>${element.amount}</td>
+            <td>${element.type}</td>
+            <td>${element.account}</td>
+            <td>${element.operation}</td>
+            <td>${element.bank}</td>
+            //<td onclick="fetchEvaluation(${element.id}, this)">Beräkna värde</td>
+        </tr>`;
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                fetchMore();
+            });
+
+            function fetchEvaluation(id, elem) {
+                fetch("View?handler=FetchValue&id=" + id)
+                    .then((response) => response.json())
+                    .then((json) => {
+                            elem.innerHTML = json.value;
+                        }
+                    );
+            }
+</script>
+}
