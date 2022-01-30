@@ -4,12 +4,14 @@ using BankAdministration.Data;
 using BankAdministration.Infrastructure.Paging;
 using BankAdministration.Models;
 using BankAdministration.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankAdministration.Services;
-
+[BindProperties]
 public class AccountService : IAccountService
 {
+    
     private readonly BankContext _context;
 
     public AccountService(BankContext context)
@@ -20,25 +22,24 @@ public class AccountService : IAccountService
     {
         return _context.Accounts.ToList();
     }
+    
 
     public void Update(Account person)
     {
         _context.SaveChanges();
     }
-
+    
     public Account GetAccount(int id)
     {
-        return _context.Accounts.First(e => e.AccountId == id);
+        return _context.Accounts.Include(e=>e.Transactions).First(e => e.AccountId == id);
     }
-
-    public void Transfer(int fromAccount, int toAccount, int amount)
-    {
-        
-        var account = _context.Accounts.First(e => e.AccountId == fromAccount);
-
-
-    }
-
+    
+    
+    
+    
+    
+    
+    
     public PagedResult<Disposition> ListAccounts(int accountId, string sortColumn, string sortOrder, int page, string searchWord)
     {
         var query = _context.Dispositions.AsQueryable();

@@ -3,13 +3,50 @@
 @{
 }
 
-<h1>Från kontot: </h1>
-<h1>till kontonummer:
-    <form method="post">
-        <input asp-for=@Model.ToAccount/>
-        <input asp-for=@Model.Amount />
-        <input type="submit" value="Överför" />
-    </form>
-    
+<div class="row">
+    <div class="col-lg-12 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h6 text-uppercase mb-0">Registrera en ny kund</h3>
+            </div>
 
-</h1>
+            <div class="card-body">
+
+                <form method="post">
+                    <h1>Från kontot: @Model.FromAccount</h1>
+                    <div>
+                        <label asp-for="ToAccount">Till kontot</label>
+                        <input class="form-control" asp-for="ToAccount">
+                    </div>
+                    <div>
+                        <label asp-for="Amount">Belopp</label>
+                        <input class="form-control" asp-for="Amount">
+                    </div>
+                    <div>
+                        <label asp-for="Type">Kontotyp</label>
+                        <input class="form-control" asp-for="Type">
+                    </div>
+                    <div>
+                        <label asp-for="Operation">Operation</label>
+                        <input class="form-control" asp-for="Operation">
+                    </div>
+                    <div>
+                        <label asp-for="Symbol">Symbol</label>
+                        <input class="form-control" asp-for="Symbol">
+                    </div>
+                    <div>
+                        <label asp-for="Bank">Bank</label>
+                        <input class="form-control" asp-for="Bank">
+                    </div>
+                    <div>
+                        <label asp-for="Account">Konto</label>
+                        <input class="form-control" asp-for="Account">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Överföra</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

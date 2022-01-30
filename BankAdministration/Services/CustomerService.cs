@@ -82,7 +82,7 @@ namespace BankAdministration.Services
                     query = query.OrderBy(p => p.Customers.City);
             }
 
-            return query.Where(r => r.Customers.IsActive == true && r.Type == "Owner").GetPaged(page, 50); //5 is the pagesize
+            return query.Where(r => r.Customers.IsActive == true).GetPaged(page, 50); //5 is the pagesize
         }
 
         public PagedResult<Customer> ListInactiveCustomers(int customerId, string sortColumn, string sortOrder, int page, string searchWord)

@@ -12,4 +12,6 @@ public interface IAccountService
     void Update(Account account);
     Account GetAccount(int id);
 
+    //public void Transfer(int fromAccount, int toAccount, int amount);
+
 }

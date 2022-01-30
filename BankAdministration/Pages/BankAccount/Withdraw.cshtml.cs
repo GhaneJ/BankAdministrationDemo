@@ -9,15 +9,26 @@ namespace BankAdministration.Pages.BankAccount
     public class WithdrawModel : PageModel
     {
         private readonly IAccountService _accountService;
+        private readonly ITransactionService _transactionService;
         //private readonly IRealAccountService _realAccountService;
 
         [Range(10, 3000)]
         public int Amount { get; set; }
+        public int TransactionId { get; set; }
+        public Decimal Balance { get; set; }
+        public DateTime Date { get; set; }
+
+        public string Type { get; set; }
+        public string Operation { get; set; }
+        public string Bank { get; set; }
+        public string Symbol { get; set; }
+        public string Account { get; set; }
 
 
-        public WithdrawModel(IAccountService accountService, IRealAccountService realAccountService)
+        public WithdrawModel(IAccountService accountService, ITransactionService transactionService, IRealAccountService realAccountService)
         {
             _accountService = accountService;
+            _transactionService = transactionService;
             //_realAccountService = realAccountService;
         }
 
@@ -29,20 +40,19 @@ namespace BankAdministration.Pages.BankAccount
 
         public IActionResult OnPost(int accountId)
         {
-
-
             var account = _accountService.GetAccount(accountId);
+            
             if (account.Balance < Amount)
             {
                 ModelState.AddModelError("Amount", "För stort belopp");
             }
 
 
-
             if (ModelState.IsValid)
             {
                 account.Balance -= Amount;
                 _accountService.Update(account);
+                //_transactionService.Update(transaction);
                 return RedirectToPage("Index");
             }
 
