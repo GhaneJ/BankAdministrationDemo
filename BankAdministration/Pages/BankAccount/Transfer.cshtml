@@ -13,7 +13,10 @@
             <div class="card-body">
 
                 <form method="post">
-                    <h1>Från kontot: @Model.FromAccount</h1>
+                    <div>
+                        <label asp-for="FromAccount">Från kontot</label>
+                        <input class="form-control" asp-for="FromAccount">
+                    </div>
                     <div>
                         <label asp-for="ToAccount">Till kontot</label>
                         <input class="form-control" asp-for="ToAccount">
@@ -43,7 +46,7 @@
                         <input class="form-control" asp-for="Account">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary">Överföra</button>
+                        <button type="submit" class="btn btn-primary">Överför</button>
                     </div>
                 </form>
             </div>

@@ -40,32 +40,30 @@ namespace BankAdministration.Pages.BankAccount
 
         }
 
-        public IActionResult OnPost(int accountId, int toAccount, int accountNo, int amount, decimal balance, string type, string operation, string bank, string account, string symbol, int id)
+        public IActionResult OnPost(int accountId, int fromAccount, int toAccount, int accountNo, int amount, decimal balance, string type, string operation, string bank, string account, string symbol)
         {
-            //FromAccount = accountId;
-            //ToAccount = toAccount;
-            //Amount = amount;
-            //Balance = balance;
-            //Type = type;
-            //Operation = operation;
-            //Bank = bank;
-            //Symbol = symbol;
-            //Account = account;
-            //AccountNavigation = _context.Accounts.First(e=>e.AccountId == accountId);            
+            FromAccount = fromAccount;
+            ToAccount = toAccount;
+            Amount = amount;
+            Balance = balance;
+            Type = type;
+            Operation = operation;
+            Bank = bank;
+            Symbol = symbol;
+            Account = account;
+            AccountNavigation = _context.Accounts.First(e => e.AccountId == accountId);
             if (ModelState.IsValid)
             {
-                var account1 = _accountService.GetAccount(accountId);
-                var account2 = _accountService.GetAccount(toAccount);
-                var transaction1 = _transactionService.CreateTransaction(accountId, toAccount, accountId, amount, balance, type, operation, bank, account1, symbol, id);
-                var transaction2 = _transactionService.CreateTransaction(toAccount, toAccount, toAccount, amount, balance, type, operation, bank, account2, symbol, id);
+                var account1 = _accountService.GetAccount(FromAccount);
+                var account2 = _accountService.GetAccount(ToAccount);
+                var transaction1 = _transactionService.CreateTransaction(accountId, fromAccount, toAccount, accountId, amount, balance, type, operation, bank, account1, symbol);
+                var transaction2 = _transactionService.CreateTransaction(toAccount, fromAccount, toAccount, toAccount, amount, balance, type, operation, bank, account2, symbol);
                 account1.Balance -= amount;
                 account2.Balance += amount;
-
                 _accountService.Update(account1);
-                _accountService.Update(account2);
                 _transactionService.Update(transaction1);
+                _accountService.Update(account2);
                 _transactionService.Update(transaction2);
-                //_context.SaveChanges();
                 return RedirectToPage("Index");
             }
             return Page();
