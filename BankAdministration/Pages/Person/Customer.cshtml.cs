@@ -46,7 +46,7 @@ namespace BankAdministration.Pages.Person
         public void OnGet(int customerId)
         {
             CustomerId = customerId;
-            var c = _context.Accounts.Include(e => e.Dispositions).ThenInclude(e => e.Customers).First(e => e.AccountId == customerId);
+            var c = _context.Customers.Include(e => e.Dispositions).ThenInclude(e => e.Account).First(e => e.CustomerId == customerId);
             Items = new List<Item>();
             foreach (var disp in c.Dispositions)
             {

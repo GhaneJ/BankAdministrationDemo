@@ -1,4 +1,5 @@
 using BankAdministration.Models;
+using BankAdministration.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,48 +9,56 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankAdministration.Pages
 {
-    [Authorize(Roles = "Admin")]
-    [BindProperties]
+    //[Authorize(Roles = "Admin")]
+    //[BindProperties]
     public class CreateCustomerModel : PageModel
     {
         private readonly BankContext _context;
+        private readonly IAccountService _accountService;
+        private readonly ICustomerService _customerService;
+        private readonly ICountryService _countryService;
 
-        public string CGender { get; set; }
+        public string Gender { get; set; }
         [StringLength(100)]
-        public string FirstName { get; set; }
+        public string Givenname { get; set; }
         [StringLength(100)]
-        public string LastName { get; set; }
+        public string Surname { get; set; }
         [StringLength(100)]
-        public string Address { get; set; }
+        public string Streetaddress { get; set; }
         [StringLength(10)]
-        public string PostalCode { get; set; }
+        public string Zipcode { get; set; }
         [StringLength(50)]
         [Required]
         public string City { get; set; }
 
-        public DateTime BirthDate { get; set; }
-        public string Phonenumber { get; set; }
+        public DateTime BirthDay { get; set; }
+        public string Telephonenumber { get; set; }
         [StringLength(150)]
         [EmailAddress]
-        public string Email { get; set; }
-        public string PhoneCountryCode { get; set; }
-        public string CNID { get; set; }
+        public string Emailaddress { get; set; }
+        public string Telephonecountrycode { get; set; }
+        public string NationalId { get; set; }
 
         public int CountryId { get; set; }
         public int AccountId { get; set; }
+        public Country? Country { get; set; }
 
         public List<SelectListItem> Countries { get; set; }
 
 
 
-        public CreateCustomerModel(BankContext context)
+        public CreateCustomerModel(BankContext context, IAccountService accountService, ICustomerService customerService, ICountryService countryService)
         {
+            _accountService = accountService;
+            _customerService = customerService;
+            _countryService = countryService;
             _context = context;
         }
 
         public void OnGet()
         {
-            FillCountryList();
+            //_countryService.FillCountryList();
+            FillCountryList();            
         }
 
         private void FillCountryList()
@@ -66,28 +75,30 @@ namespace BankAdministration.Pages
             });
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string gender, string givenname, string surname, string streetaddress, string emailaddress, string city, string zipcode, string? countrycode, DateTime birthday, string telephonenumber, string telephonecountrycode, string nationalId, int countryId, bool isactive)
         {
             if (ModelState.IsValid)
             {
+                _customerService.CreateCustomer(gender, givenname, surname, streetaddress, emailaddress, city, zipcode, countrycode, birthday, telephonenumber, telephonecountrycode, nationalId, countryId, isactive);
+
                 var person = new Customer
                 {
-                    Gender = CGender,
-                    Givenname = FirstName,
-                    Surname = LastName,
-                    Streetaddress = Address,
-                    Emailaddress = Email,
-                    City = City,
-                    Country = _context.Countries.First(r => r.Id == CountryId),
-                    Zipcode = PostalCode,
-                    Birthday = BirthDate,
-                    Telephonenumber = Phonenumber,
-                    Telephonecountrycode = PhoneCountryCode,
-                    NationalId = CNID,
+                    Gender = gender,
+                    Givenname = givenname,
+                    Surname = surname,
+                    Streetaddress = streetaddress,
+                    Emailaddress = emailaddress,
+                    City = city,
+                    Country = _countryService.GetCountry(countryId),
+                    //Country = _context.Countries.First(r => r.Id == countryId),
+                    Zipcode = zipcode,
+                    Birthday = birthday,
+                    Telephonenumber = telephonenumber,
+                    Telephonecountrycode = telephonecountrycode,
+                    NationalId = nationalId,
                     IsActive = true
                 };
-                _context.Customers.Add(person);
-                _context.SaveChanges();
+                _customerService.Update(person);
 
                 return RedirectToPage("Customers");
             }

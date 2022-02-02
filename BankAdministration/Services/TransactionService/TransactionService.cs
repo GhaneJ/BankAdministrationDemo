@@ -50,7 +50,7 @@ namespace BankAdministration.Services
             {
                 if (accountNo == fromAccount)
                 {
-                    transaction.Amount = (-1)*(amount);
+                    transaction.Amount = -amount;
                 }
                 else
                 {
@@ -61,8 +61,10 @@ namespace BankAdministration.Services
                 transaction.Type = type;
                 transaction.Operation = operation;
                 transaction.Bank = bank;
-                transaction.Balance = account.Balance;
-                transaction.Account = Account;
+                transaction.Balance = account.Balance + transaction.Amount;
+                
+                account.Balance = transaction.Balance;
+                _accountService.Update(account);
                 transaction.AccountNavigation = AccountNavigation;
             };
             _context.Transactions.Add(transaction);

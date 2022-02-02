@@ -9,9 +9,6 @@
                 <div class="col-md-4">
                     <h1>Alla konton</h1>
                 </div>
-                @*<div class="col-md-4">
-                    <h2>Owner konto</h2>
-                </div>*@
                 <table class="table">
                     <tr>
                         <th>KontoNr.</th>
@@ -20,7 +17,6 @@
                         <th>Kontotyp</th>
                         <th>Sätta in</th>
                         <th>Ta ut</th>
-                        <th>Transaktion</th>
                         <th>Överför</th>
                     </tr>
                     @foreach (var item in Model.Items)
@@ -38,11 +34,6 @@
                             <td>
                                 <a asp-page="Withdraw" asp-route-accountId="@item.AccountId">
                                     <i class="far fa-2x fa-money-bill-alt"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a asp-page="Transaction" asp-route-accountId="@item.AccountId">
-                                    <i class="fas fa-2x fa-file-signature"></i>
                                 </a>
                             </td>
                             <td>

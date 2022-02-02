@@ -35,7 +35,7 @@ namespace BankAdministration.Pages
             //Kontouppgifter
             public string? Type { get; set; }
             public int AccountId { get; set; }
-            
+
             public decimal Balance { get; set; }
             public DateTime Created { get; set; }
             public string? Frequency { get; set; }
@@ -51,7 +51,7 @@ namespace BankAdministration.Pages
         public int PageCount { get; set; }
 
         //Statistics
-        
+
         public string ActiveCustomers { get; set; }
         public string AvailableAccounts { get; set; }
         public string SumOfBalances { get; set; }

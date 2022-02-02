@@ -1,6 +1,8 @@
 ﻿using BankAdministration.Infrastructure.Paging;
 using BankAdministration.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace BankAdministration.Services
@@ -8,10 +10,78 @@ namespace BankAdministration.Services
     public class CustomerService : ICustomerService
     {
         private readonly BankContext _context;
+
+        public string Gender { get; set; }
+        [StringLength(100)]
+        public string Givenname { get; set; }
+        [StringLength(100)]
+        public string Surname { get; set; }
+        [StringLength(100)]
+        public string Streetaddress { get; set; }
+        [StringLength(10)]
+        public string Zipcode { get; set; }
+        [StringLength(50)]
+        [Required]
+        public string City { get; set; }
+
+        public DateTime BirthDay { get; set; }
+        public string Telephonenumber { get; set; }
+        [StringLength(150)]
+        [EmailAddress]
+        public string Emailaddress { get; set; }
+        public string Telephonecountrycode { get; set; }
+        public string NationalId { get; set; }
+        public int CountryId { get; set; }
+        public int AccountId { get; set; }
+        public Country Country { get; set; }
+        public Country CountryCode { get; set; }
+
+        public List<SelectListItem> Countries { get; set; }
         public CustomerService(BankContext context)
         {
             _context = context;
         }
+
+        public Customer GetCustomer(int id)
+        {
+            return _context.Customers.Include(e => e.Dispositions).First(e => e.CustomerId == id);
+        }
+        public void Update(Customer customer)
+        {
+            _context.SaveChanges();
+        }
+        public List<Customer> GetAll()
+        {
+            return _context.Customers.ToList();
+        }
+
+        public Customer CreateCustomer(string gender, string givenname, string surname, string streetaddress, string emailaddress, string city, string zipcode, string countrycode, DateTime birthday, string telephonenumber, string telephonecountrycode, string nationalId, int countryId, bool isactive)
+        {
+            var person = new Customer
+            {
+                Gender = gender,
+                Givenname = givenname,
+                Surname = surname,
+                Streetaddress = streetaddress,
+                Emailaddress = emailaddress,
+                City = city,
+                Country = _context.Countries.First(r => r.Id == countryId),
+                //CountryCode = _context.Countries.First(r => r.CountryCode == countrycode),
+                Zipcode = zipcode,
+                Birthday = birthday,
+                Telephonenumber = telephonenumber,
+                Telephonecountrycode = telephonecountrycode,
+                NationalId = nationalId,
+                IsActive = isactive
+            };
+            _context.Customers.Add(person);
+            return person;
+        }
+
+
+
+
+
         public PagedResult<Disposition> ListCustomers(int customerId, string sortColumn, string sortOrder, int page, string searchWord)
         {
             //Asquerable() converts the variable to a queryable IEnumerable(Without it, no data was being loaded)
@@ -25,7 +95,7 @@ namespace BankAdministration.Services
             if (!string.IsNullOrEmpty(searchWord))
             {
                 query = query.Where(r => r.CustomerId.ToString().Equals(searchWord)
-                || r.Customers.Givenname.Equals(searchWord) || r.Customers.City.Equals(searchWord));
+                || r.Customers.Givenname.Equals(searchWord) || r.Customers.City.Equals(searchWord) || (r.Customers.Givenname + " " + r.Customers.Surname).Equals(searchWord));
 
                 //query = query.Where(r => r.Customers.Givenname.Equals(searchWord) || r.Customers.City.Equals(searchWord));
 

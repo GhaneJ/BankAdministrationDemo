@@ -169,7 +169,7 @@
                                         </tr>
                                     }
                                     <tr>
-                                        <td>
+                                        <td colspan="1">
                                             @if (@Model.CurrentPage != 1)
                                             {
                                                 <a class="btn btn-secondary"
@@ -184,7 +184,7 @@
                                             }
 
                                         </td>
-                                        <td colspan="2">
+                                        <td colspan="4">
                                             @for (int i = 1; i <= Model.PageCount; i++)
                                             {
                                                 string theClass = "btn-secondary";
@@ -204,7 +204,7 @@
                                                 </a>
                                             }
                                         </td>
-                                        <td>
+                                        <td colspan="4">
                                             @if (@Model.CurrentPage < @Model.PageCount)
                                             {
                                                 <a class="btn btn-secondary"
@@ -377,7 +377,7 @@
                                                 <td>@item.Givenname @item.Surname</td>
                                                 <td>@item.Streetaddress</td>
                                                 <td>@item.City</td>
-                                                <td><a asp-page="/Person/Customer" asp-route-accountId="@item.AccountId" class="btn btn-primary rounded-3">View</a></td>
+                                                <td><a asp-page="/Person/Customer" asp-route-customerId="@item.CustomerId" class="btn btn-primary rounded-3">View</a></td>
                                             </tr>
                                         }
                                         <tr>
@@ -396,7 +396,7 @@
                                                 }
 
                                             </td>
-                                            <td>
+                                            <td colspan="2">
                                                 @for (int i = 1; i <= Model.PageCount; i++)
                                                 {
                                                     string theClass = "btn-secondary";

@@ -40,12 +40,13 @@ namespace BankAdministration.Pages.BankAccount
 
         }
 
-        public IActionResult OnPost(int accountId, int fromAccount, int toAccount, int accountNo, int amount, decimal balance, string type, string operation, string bank, string account, string symbol)
+        public IActionResult OnPost(int accountId, int toAccount, int amount, string type, string operation, string bank, string account, string symbol)
         {
+            int fromAccount = accountId;
             FromAccount = fromAccount;
             ToAccount = toAccount;
             Amount = amount;
-            Balance = balance;
+            //Balance = balance;
             Type = type;
             Operation = operation;
             Bank = bank;
@@ -56,13 +57,9 @@ namespace BankAdministration.Pages.BankAccount
             {
                 var account1 = _accountService.GetAccount(FromAccount);
                 var account2 = _accountService.GetAccount(ToAccount);
-                var transaction1 = _transactionService.CreateTransaction(accountId, fromAccount, toAccount, accountId, amount, balance, type, operation, bank, account1, symbol);
-                var transaction2 = _transactionService.CreateTransaction(toAccount, fromAccount, toAccount, toAccount, amount, balance, type, operation, bank, account2, symbol);
-                account1.Balance -= amount;
-                account2.Balance += amount;
-                _accountService.Update(account1);
+                var transaction1 = _transactionService.CreateTransaction(accountId, fromAccount, toAccount, accountId, amount, account1.Balance, type, operation, bank, account1, symbol);
+                var transaction2 = _transactionService.CreateTransaction(toAccount, fromAccount, toAccount, toAccount, amount, account2.Balance, type, operation, bank, account2, symbol);
                 _transactionService.Update(transaction1);
-                _accountService.Update(account2);
                 _transactionService.Update(transaction2);
                 return RedirectToPage("Index");
             }

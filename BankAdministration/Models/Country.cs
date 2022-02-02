@@ -11,8 +11,8 @@ namespace BankAdministration.Models
         }
 
         public int Id { get; set; }
-        public string CountryCode { get; set; } = null!;
-        public string CountryName { get; set; } = null!;
+        public string? CountryCode { get; set; }
+        public string? CountryName { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }
     }
