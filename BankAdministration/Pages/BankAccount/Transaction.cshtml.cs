@@ -47,7 +47,7 @@ namespace BankAdministration.Pages.BankAccount
             var list = _context.Accounts
                 .Where(e => e.AccountId == accountId)
                 .SelectMany(e => e.Transactions)
-                .OrderByDescending(e => e.Date)
+                .OrderByDescending(e => e.TransactionId)
                 .GetPaged(pageNo, 5).Results
                 .Select(e => new Item
                 {

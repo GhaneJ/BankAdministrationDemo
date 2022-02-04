@@ -2,10 +2,11 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BankAdministration.Services;
+using BankAdministration.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankAdministration.Pages.BankAccount
 {
-    [BindProperties]
     public class WithdrawModel : PageModel
     {
         private readonly IAccountService _accountService;
@@ -13,17 +14,21 @@ namespace BankAdministration.Pages.BankAccount
         //private readonly IRealAccountService _realAccountService;
 
         [Range(10, 3000)]
+        [BindProperty]
         public int Amount { get; set; }
         public int TransactionId { get; set; }
         public Decimal Balance { get; set; }
+        [BindProperty]
         public DateTime Date { get; set; }
 
-        public string Type { get; set; }
+        //public string Type { get; set; }
         public string Operation { get; set; }
         public string Bank { get; set; }
         public string Symbol { get; set; }
         public string Account { get; set; }
-
+        [BindProperty]
+        public AccountType Type { get; set; }
+        public List<SelectListItem> AccountTypes { get; set; }
 
         public WithdrawModel(IAccountService accountService, ITransactionService transactionService, IRealAccountService realAccountService)
         {
@@ -31,10 +36,19 @@ namespace BankAdministration.Pages.BankAccount
             _transactionService = transactionService;
             //_realAccountService = realAccountService;
         }
-
+        private void FillAccountTypesList()
+        {
+            AccountTypes = Enum.GetValues<AccountType>()
+                .Select(r => new SelectListItem
+                {
+                    Value = r.ToString(),
+                    Text = r.ToString()
+                }).ToList();
+        }
         public void OnGet(int accountId)
         {
             Amount = 100;
+            FillAccountTypesList();
         }
 
 
@@ -47,15 +61,13 @@ namespace BankAdministration.Pages.BankAccount
                 ModelState.AddModelError("Amount", "För stort belopp");
             }
 
-
             if (ModelState.IsValid)
             {
-                account.Balance -= Amount;
-                _accountService.Update(account);
-                //_transactionService.Update(transaction);
+                var transaction = _transactionService.CreateTransactionForWithdraw(accountId, Amount, Balance,Type);
+                _transactionService.Update(transaction);
                 return RedirectToPage("Index");
             }
-
+            FillAccountTypesList();
             return Page();
         }
     }

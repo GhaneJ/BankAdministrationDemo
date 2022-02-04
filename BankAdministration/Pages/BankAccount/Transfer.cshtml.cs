@@ -2,6 +2,7 @@ using BankAdministration.Models;
 using BankAdministration.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankAdministration.Pages.BankAccount
@@ -11,58 +12,68 @@ namespace BankAdministration.Pages.BankAccount
         private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
         private readonly BankContext _context;
+
+        [BindProperty]
+        public int ToAccount { get; set; }
+        public int FromAccount { get; set; }
+        [BindProperty]
+        public int AccountId { get; set; }
+        [BindProperty]
+        public decimal Amount { get; set; }
+        public int TransactionId { get; set; }
+        [BindProperty]
+        public Decimal Balance { get; set; }
+        public DateTime Date { get; set; }
+        
+        [BindProperty]
+        public string Operation { get; set; }
+        [BindProperty]
+        public string Bank { get; set; }
+        [BindProperty]
+        public string Symbol { get; set; }
+        
+        public string Account { get; set; }
+        public Account AccountNavigation { get; set; }
+        [BindProperty]
+        public AccountType Type { get; set; }
+        public List<SelectListItem> AccountTypes { get; set; }
+
         public TransferModel(IAccountService accountService, ITransactionService transactionService, BankContext context)
         {
             _accountService = accountService;
             _transactionService = transactionService;
             _context = context;
-
         }
-        public int ToAccount { get; set; }
-        public int FromAccount { get; set; }
-        public int AccountId { get; set; }
-        public decimal Amount { get; set; }
-        public int TransactionId { get; set; }
-        public Decimal Balance { get; set; }
-        public DateTime Date { get; set; }
-
-        public string Type { get; set; }
-        public string Operation { get; set; }
-        public string Bank { get; set; }
-        public string Symbol { get; set; }
-        public string Account { get; set; }
-        public Account AccountNavigation { get; set; }
-
-
+        private void FillAccountTypesList()
+        {
+            AccountTypes = Enum.GetValues<AccountType>()
+                .Select(r => new SelectListItem
+                {
+                    Value = r.ToString(),
+                    Text = r.ToString()
+                }).ToList();
+        }
 
         public void OnGet(int accountId)
         {
-
+            Operation = "Överföring";
+            Amount = 100M;
+            FillAccountTypesList();
         }
 
-        public IActionResult OnPost(int accountId, int toAccount, int amount, string type, string operation, string bank, string account, string symbol)
+        public IActionResult OnPost(int accountId, int toAccount)
         {
-            int fromAccount = accountId;
-            FromAccount = fromAccount;
+            FromAccount = accountId;
             ToAccount = toAccount;
-            Amount = amount;
-            //Balance = balance;
-            Type = type;
-            Operation = operation;
-            Bank = bank;
-            Symbol = symbol;
-            Account = account;
-            AccountNavigation = _context.Accounts.First(e => e.AccountId == accountId);
             if (ModelState.IsValid)
             {
-                var account1 = _accountService.GetAccount(FromAccount);
-                var account2 = _accountService.GetAccount(ToAccount);
-                var transaction1 = _transactionService.CreateTransaction(accountId, fromAccount, toAccount, accountId, amount, account1.Balance, type, operation, bank, account1, symbol);
-                var transaction2 = _transactionService.CreateTransaction(toAccount, fromAccount, toAccount, toAccount, amount, account2.Balance, type, operation, bank, account2, symbol);
+                var transaction1 = _transactionService.CreateTransactionForTransfer(FromAccount, FromAccount, Amount, Balance, Operation, Bank, Account, Symbol, Type);
                 _transactionService.Update(transaction1);
+                var transaction2 = _transactionService.CreateTransactionForTransfer(ToAccount, FromAccount, Amount, Balance, Operation, Bank, Account, Symbol, Type);
                 _transactionService.Update(transaction2);
                 return RedirectToPage("Index");
             }
+            FillAccountTypesList();
             return Page();
         }
 

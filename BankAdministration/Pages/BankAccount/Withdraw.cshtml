@@ -8,41 +8,17 @@
         <div class="row">
             <form method="post">
                 <div class="form-group">
-                    <label asp-for="Amount">Belopp</label>
+                    <label asp-for="Amount">Ange beloppet som vill tas ut</label>
                     <input class="form-control" asp-for="Amount" />
                     <span class="field-validation-error" asp-validation-for="Amount"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Type">Kontotyp</label>
-                    <input class="form-control" asp-for="Type" />
-                    <span class="field-validation-error" asp-validation-for="Type"></span>
+                    <label asp-for="Type">Typ</label>
+                    <select asp-for="Type" asp-items="@Model.AccountTypes">
+                    </select><br />
+                    <span asp-validation-for="Type" class="field-validation-error"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Operation">Operation</label>
-                    <input class="form-control" asp-for="Operation" />
-                    <span class="field-validation-error" asp-validation-for="Operation"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Bank">Bank</label>
-                    <input class="form-control" asp-for="Bank" />
-                    <span class="field-validation-error" asp-validation-for="Bank"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Balance">Saldo</label>
-                    <input class="form-control" asp-for="Balance" />
-                    <span class="field-validation-error" asp-validation-for="Balance"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Symbol">Symbol</label>
-                    <input class="form-control" asp-for="Symbol" />
-                    <span class="field-validation-error" asp-validation-for="Symbol"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Account">Kontonummer</label>
-                    <input class="form-control" asp-for="Account" />
-                    <span class="field-validation-error" asp-validation-for="Account"></span>
-                </div>
-                <button type="submit" class="btn">Ta ut</button>
+                <button type="submit" class="btn btn-primary">Ta ut</button>
             </form>
         </div>
     </div>
