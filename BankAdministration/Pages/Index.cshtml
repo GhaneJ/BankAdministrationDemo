@@ -378,6 +378,7 @@
                                                 <td>@item.Streetaddress</td>
                                                 <td>@item.City</td>
                                                 <td><a asp-page="/Person/Customer" asp-route-customerId="@item.CustomerId" class="btn btn-primary rounded-3">View</a></td>
+                                                <td><a asp-page="/BankAccount/Account" asp-route-customerId="@item.CustomerId" class="btn btn-primary">Konton</a></td>
                                             </tr>
                                         }
                                         <tr>

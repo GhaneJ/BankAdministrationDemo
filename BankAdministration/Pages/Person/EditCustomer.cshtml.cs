@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BankAdministration.Pages
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     // No [BindProperties], since NationalId is nullable
     public class EditCustomerModel : PageModel
     {

@@ -10,26 +10,7 @@ namespace BankAdministration.Services
     {
         private readonly BankContext _context;
         private readonly IAccountService _accountService;
-
-        public int ToAccount { get; set; }
-        public int FromAccount { get; set; }
-        public int AccountId { get; set; }
-        public decimal Amount { get; set; }
-        public int TransactionId { get; set; }
-        public Decimal Balance { get; set; }
-        public DateTime Date { get; set; }
-
-        //public string Type { get; set; }
-        public string Operation { get; set; }
-        public string Bank { get; set; }
-        public string Symbol { get; set; }
-        public string Account { get; set; }
-        public string Comment { get; set; }
         public Account AccountNavigation { get; set; }
-        public AccountType Type { get; set; }
-        public List<SelectListItem> AccountTypes { get; set; }
-
-
 
         public TransactionService(BankContext context, IAccountService accountService)
         {
@@ -47,7 +28,7 @@ namespace BankAdministration.Services
             _context.SaveChanges();
         }
 
-        public Transaction CreateTransactionForTransfer(int accountId, int accountNo, decimal amount, decimal balance, string operation, string bank, string myAccount, string symbol, AccountType type)
+        public Transaction CreateTransactionForTransfer(int accountId, int accountNo, decimal amount, string operation, string bank, string symbol, AccountType type)
         {
             var account = _accountService.GetAccount(accountId);
             AccountNavigation = _context.Accounts.First(e => e.AccountId == accountId);
@@ -67,11 +48,11 @@ namespace BankAdministration.Services
                 transaction.Operation = operation;
                 transaction.Bank = bank;
                 transaction.Balance = account.Balance + transaction.Amount;
-                transaction.Account = myAccount;
-                
+                transaction.Account = accountNo.ToString();
+                transaction.AccountNavigation = AccountNavigation;
                 account.Balance = transaction.Balance;
                 _accountService.Update(account);
-                transaction.AccountNavigation = AccountNavigation;
+                
             };
             _context.Transactions.Add(transaction);
             return transaction;
@@ -97,7 +78,7 @@ namespace BankAdministration.Services
             _context.Transactions.Add(transaction);
             return transaction;
         }
-        public Transaction CreateTransactionForDeposit(int accountId, decimal amount, decimal balance, string comment, AccountType type)
+        public Transaction CreateTransactionForDeposit(int accountId, decimal amount, string comment, AccountType type)
         {
             var account = _accountService.GetAccount(accountId);
             AccountNavigation = _context.Accounts.First(e => e.AccountId == accountId);

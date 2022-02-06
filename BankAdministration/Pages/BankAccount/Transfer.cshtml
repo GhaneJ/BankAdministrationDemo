@@ -12,35 +12,36 @@
             <div class="card-body">
                 <form method="post">
                     <div class="form-group">
-                        <label asp-for="ToAccount">Till kontot</label>
+                        <label asp-for="ToAccount">Överför till kontot</label>
                         <input class="form-control" asp-for="ToAccount">
-                        <span asp-validation-for="ToAccount" class="field-validation-error"></span>
+                        <span asp-validation-for="ToAccount" class="text-danger field-validation-error"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Amount">Belopp</label>
-                        <input class="form-control" asp-for="Amount">
-                        <span asp-validation-for="Amount" class="field-validation-error"></span>
+                        <input asp-for="Amount" class="form-control" type="number" value="@Model.Amount.ToString()" />
+                        @*<input class="form-control" asp-for="Amount">*@
+                        <span asp-validation-for="Amount" class="text-danger field-validation-error"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Operation">Operation</label>
                         <input class="form-control" asp-for="Operation">
-                        <span asp-validation-for="Operation" class="field-validation-error"></span>
+                        <span asp-validation-for="Operation" class="text-danger field-validation-error"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Symbol">Kommentar</label>
                         <input class="form-control" asp-for="Symbol">
-                        <span asp-validation-for="Symbol" class="field-validation-error"></span>
+                        <span asp-validation-for="Symbol" class="text-danger field-validation-error"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Bank">Bank</label>
                         <input class="form-control" asp-for="Bank">
-                        <span asp-validation-for="Bank" class="field-validation-error"></span>
+                        <span asp-validation-for="Bank" class="text-danger field-validation-error"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Type">Typ</label>
-                        <select asp-for="Type" asp-items="@Model.AccountTypes">
+                        <label asp-for="AccType">Typ</label>
+                        <select asp-for="AccType" asp-items="@Model.AccountTypes">
                         </select><br />
-                        <span asp-validation-for="Type" class="field-validation-error"></span>
+                        <span asp-validation-for="AccType" class="field-validation-error"></span>
                     </div>
                     <button type="submit" class="btn btn-primary">Överför</button>
                 </form>
@@ -48,3 +49,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+<partial name="Shared/_ValidationScriptsPartial" />
+
+}

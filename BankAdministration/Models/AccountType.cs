@@ -2,7 +2,6 @@
 {
     public enum AccountType
     {
-        None,
         Credit,
         Debit
     }

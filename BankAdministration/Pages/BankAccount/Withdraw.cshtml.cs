@@ -16,18 +16,12 @@ namespace BankAdministration.Pages.BankAccount
         [Range(10, 3000)]
         [BindProperty]
         public int Amount { get; set; }
-        public int TransactionId { get; set; }
         public Decimal Balance { get; set; }
         [BindProperty]
         public DateTime Date { get; set; }
-
-        //public string Type { get; set; }
-        public string Operation { get; set; }
-        public string Bank { get; set; }
-        public string Symbol { get; set; }
-        public string Account { get; set; }
         [BindProperty]
         public AccountType Type { get; set; }
+        public Account AccountNavigation { get; set; }
         public List<SelectListItem> AccountTypes { get; set; }
 
         public WithdrawModel(IAccountService accountService, ITransactionService transactionService, IRealAccountService realAccountService)
@@ -63,7 +57,7 @@ namespace BankAdministration.Pages.BankAccount
 
             if (ModelState.IsValid)
             {
-                var transaction = _transactionService.CreateTransactionForWithdraw(accountId, Amount, Balance,Type);
+                var transaction = _transactionService.CreateTransactionForWithdraw(accountId, Amount, Balance, Type);
                 _transactionService.Update(transaction);
                 return RedirectToPage("Index");
             }

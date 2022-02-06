@@ -89,23 +89,23 @@ namespace BankAdministration.Pages
             Items = pageResult.Results.Select(e => new Item
             {
                 CustomerId = e.CustomerId,
-                Gender = e.Customers.Gender,
-                AccountId = e.AccountId,
-                Givenname = e.Customers.Givenname,
-                Surname = e.Customers.Surname,
-                Streetaddress = e.Customers.Streetaddress,
-                Zipcode = e.Customers.Zipcode,
-                City = e.Customers.City,
-                Country = e.Customers.Country,
-                NationalId = e.Customers.NationalId,
-                Birthday = (DateTime)e.Customers.Birthday,
-                Telephonecountrycode = e.Customers.Telephonecountrycode,
-                Telephonenumber = e.Customers.Telephonenumber,
-                Emailaddress = e.Customers.Emailaddress,
-                IsActive = (bool)e.Customers.IsActive,
-                Created = e.Account.Created,
-                Balance = e.Account.Balance,
-                Type = e.Type
+                Gender = e.Gender,
+                //AccountId = e.AccountId,
+                Givenname = e.Givenname,
+                Surname = e.Surname,
+                Streetaddress = e.Streetaddress,
+                Zipcode = e.Zipcode,
+                City = e.City,
+                Country = e.Country,
+                NationalId = e.NationalId,
+                Birthday = (DateTime)e.Birthday,
+                Telephonecountrycode = e.Telephonecountrycode,
+                Telephonenumber = e.Telephonenumber,
+                Emailaddress = e.Emailaddress,
+                IsActive = (bool)e.IsActive,
+                //Created = e.Account.Created,
+                //Balance = e.Account.Balance,
+                //Type = e.Type
             }).ToList();
         }
     }

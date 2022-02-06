@@ -8,23 +8,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankAdministration.Pages.BankAccount
 {
-    [BindProperties]
     public class DepositModel : PageModel
     {
         private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
 
         [Range(10, 3000)]
+        [BindProperty]
         public int Amount { get; set; }
-
+        [BindProperty]
         public DateTime DepositDate { get; set; }
 
-        [Required(ErrorMessage = "Skriv en en kommentar dummer")]
+        [Required(ErrorMessage = "Skriv en kommentar, tack")]
         [MinLength(5)]
         [MaxLength(100)]
+        [BindProperty]
         public string Comment { get; set; }
-        public Decimal Balance { get; set; }
-        public AccountType Type { get; set; }
+        [BindProperty]
+        public AccountType AccType { get; set; }
         public List<SelectListItem> AccountTypes { get; set; }
 
         public DepositModel(IAccountService accountService, ITransactionService transactionService)
@@ -57,7 +58,7 @@ namespace BankAdministration.Pages.BankAccount
             }
             if (ModelState.IsValid)
             {
-                var transaction = _transactionService.CreateTransactionForDeposit(accountId, Amount, Balance, Comment, Type);
+                var transaction = _transactionService.CreateTransactionForDeposit(accountId, Amount, Comment, AccType);
                 _transactionService.Update(transaction);
                 return RedirectToPage("Index");
             }

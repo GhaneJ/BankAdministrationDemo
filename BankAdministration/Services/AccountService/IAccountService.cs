@@ -11,7 +11,5 @@ public interface IAccountService
 
     void Update(Account account);
     Account GetAccount(int id);
-
-    //public void Transfer(int fromAccount, int toAccount, int amount);
-
+    public Account CreateAccount(decimal balance, DateTime created, string frequency);
 }
