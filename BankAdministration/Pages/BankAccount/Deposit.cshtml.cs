@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankAdministration.Pages.BankAccount
 {
+    [Authorize(Roles = "Admin")]
     public class DepositModel : PageModel
     {
         private readonly IAccountService _accountService;
@@ -52,7 +53,7 @@ namespace BankAdministration.Pages.BankAccount
 
         public IActionResult OnPost(int accountId)
         {
-            if (DepositDate < DateTime.Now.AddDays(1).Date)  //2022-01-11 00:00
+            if (DepositDate < DateTime.Now.AddDays(1).Date)  
             {
                 ModelState.AddModelError("DepositDate", "Datum måste vara minst en dag fram ");
             }

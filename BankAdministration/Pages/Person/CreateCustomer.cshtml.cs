@@ -9,14 +9,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankAdministration.Pages
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     
     public class CreateCustomerModel : PageModel
     {
         private readonly BankContext _context;
-        private readonly IAccountService _accountService;
+        //private readonly IAccountService _accountService;
         private readonly ICustomerService _customerService;
-        private readonly ICountryService _countryService;
+        //private readonly ICountryService _countryService;
 
         [Required(ErrorMessage = "Ange kön, tack")]
         [BindProperty]
@@ -39,7 +39,6 @@ namespace BankAdministration.Pages
 
         [Required(ErrorMessage = "Postnumret saknas")]
         [BindProperty]
-        [StringLength(10)]
         public string Zipcode { get; set; }
 
         [Required(ErrorMessage = "Rutan kan inte vara tom")]
@@ -48,6 +47,7 @@ namespace BankAdministration.Pages
         public string City { get; set; }
         
         [BindProperty]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Ange födelsedatum")]
         public DateTime Birthday { get; set; }
 
@@ -64,10 +64,15 @@ namespace BankAdministration.Pages
         [Required(ErrorMessage = "Riktnumret saknas")]
         [BindProperty]
         public string Telephonecountrycode { get; set; }
-        
+
+        [RegularExpression("^(\\d{10}|\\d{12}|\\d{6}-\\d{4}|\\d{8}-\\d{4}|\\d{8} \\d{4}|\\d{6} \\d{4})", ErrorMessage = "Personnumret är ogiltigt")]
         [Required(ErrorMessage = "Ange personnummer, tack")]
         [BindProperty]
         public string NationalId { get; set; }
+
+        [BindProperty]
+        public PersonGender PGender { get; set; }
+        public List<SelectListItem> PersonGenders { get; set; }
         public int CustomerId { get; set; }
         public int CountryId { get; set; }
         public int AccountId { get; set; }
@@ -80,13 +85,21 @@ namespace BankAdministration.Pages
 
         public List<SelectListItem> Countries { get; set; }
 
-
+        private void FillPersonGendersList()
+        {
+            PersonGenders = Enum.GetValues<PersonGender>()
+                .Select(r => new SelectListItem
+                {
+                    Value = r.ToString(),
+                    Text = r.ToString()
+                }).ToList();
+        }
 
         public CreateCustomerModel(BankContext context, IAccountService accountService, ICustomerService customerService, ICountryService countryService)
         {
-            _accountService = accountService;
+            //_accountService = accountService;
             _customerService = customerService;
-            _countryService = countryService;
+            //_countryService = countryService;
             _context = context;
         }
 
@@ -94,6 +107,7 @@ namespace BankAdministration.Pages
         {
             //_countryService.FillCountryList();
             FillCountryList();
+            FillPersonGendersList();
         }
 
         private void FillCountryList()
@@ -120,12 +134,11 @@ namespace BankAdministration.Pages
             if (ModelState.IsValid)
             {
                 _customerService.CreateCustomer(Gender, Givenname, Surname, Streetaddress, Emailaddress, City, Zipcode, Birthday, Telephonenumber, Telephonecountrycode, NationalId, countryId, IsActive);
-                //_accountService.CreateAccount(Balance, Created, Frequency);
-                
-                
+                                
                 return RedirectToPage("Customers");
             }
             FillCountryList();
+            FillPersonGendersList();
             return Page();
         }
 

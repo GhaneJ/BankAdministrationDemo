@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BankAdministration.Pages.Person
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class ReactivateArchivedCustomerModel : PageModel
     {
         private readonly IStatisticsService _statisticsService;

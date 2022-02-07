@@ -23,13 +23,14 @@
                         <input class="form-control" asp-for="Surname">
                         <span asp-validation-for="Surname" class="text-danger field-validation-error"></span>
                     </div>
-                    <div>
-                        <label asp-for="Gender">Kön</label>
-                        <input class="form-control" asp-for="Gender">
+                    <div class="form-group">
+                        <label asp-for="Gender">Typ</label>
+                        <select asp-for="Gender" asp-items="@Model.PersonGenders">
+                        </select><br />
                         <span asp-validation-for="Gender" class="text-danger field-validation-error"></span>
                     </div>
                     <div>
-                        <label asp-for="NationalId">Personnummer</label>
+                        <label asp-for="NationalId">Personnummer (yyyymmdd-nnnn)</label>
                         <input class="form-control" asp-for="NationalId">
                         <span asp-validation-for="NationalId" class="text-danger field-validation-error"></span>
                     </div>
@@ -51,12 +52,12 @@
                     </div>
 
                     <div class="form-group">
-                        <hr/>
+                        <hr />
                         <label asp-for="CountryId">Landskod</label>
                         <select asp-for="CountryId" asp-items="@Model.Countries">
-                        </select>
+                        </select><br />
                         <span asp-validation-for="CountryId" class="text-danger field-validation-error"></span>
-                        </div>
+                    </div>
                     <div>
                         <label asp-for="Birthday">Födelsedatum</label>
                         <input class="form-control" asp-for="Birthday">
@@ -72,7 +73,7 @@
                         <input class="form-control" asp-for="Telephonecountrycode">
                         <span asp-validation-for="Telephonecountrycode" class="text-danger field-validation-error"></span>
                     </div>
-                    
+
                     <div>
                         <label asp-for="Emailaddress">E-post</label>
                         <input class="form-control" asp-for="Emailaddress">

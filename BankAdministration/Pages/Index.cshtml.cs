@@ -1,5 +1,6 @@
 ﻿using BankAdministration.Models;
 using BankAdministration.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;

@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BankAdministration.Pages
 {
-    //[Authorize(Roles = "Admin")]
-    // No [BindProperties], since NationalId is nullable
+    [Authorize(Roles = "Admin")]
+    
     public class EditCustomerModel : PageModel
     {
         private readonly BankContext _context;
@@ -28,7 +28,7 @@ namespace BankAdministration.Pages
         public string City { get; set; }
         [BindProperty]
         public DateTime Birthday { get; set; }
-        
+        [BindProperty]
         public string NationalId { get; set; }
         [BindProperty]
         public string Telephonecountrycode { get; set; }
@@ -40,13 +40,25 @@ namespace BankAdministration.Pages
         public bool Active { get; set; }
         [BindProperty]
         public int CountryId { get; set; }
-
+        [BindProperty]
+        public PersonGender PGender { get; set; }
+        public List<SelectListItem> PersonGenders { get; set; }
         public List<SelectListItem> Countries { get; set; }
         public List<SelectListItem> AllCustomers { get; set; }
 
         public EditCustomerModel(BankContext context)
         {
             _context = context;
+        }
+
+        private void FillPersonGendersList()
+        {
+            PersonGenders = Enum.GetValues<PersonGender>()
+                .Select(r => new SelectListItem
+                {
+                    Value = r.ToString(),
+                    Text = r.ToString()
+                }).ToList();
         }
 
         public IActionResult OnPost(int id)
@@ -77,6 +89,7 @@ namespace BankAdministration.Pages
                 Value = e.CustomerId.ToString()
             }).ToList();
             FillCountryList();
+            FillPersonGendersList();
             return Page();
         }
 
@@ -97,6 +110,7 @@ namespace BankAdministration.Pages
             Active = (bool)person.IsActive;
             CountryId = person.Country.Id;
             FillCountryList();
+            FillPersonGendersList();
         }
 
         private void FillCountryList()

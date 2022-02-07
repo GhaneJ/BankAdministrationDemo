@@ -1,0 +1,41 @@
+﻿@page
+@model BankAdministration.Pages.User.CreateUserModel
+@{
+}
+
+<div class="row">
+    <div class="col-lg-12 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h6 text-uppercase mb-0">Registrera en ny användare</h3>
+            </div>
+
+            <div class="card-body">
+
+                <form method="post">
+                    <div>
+                        <label asp-for="UserName">Användarnamn</label>
+                        <input class="form-control" asp-for="UserName">
+                        <span asp-validation-for="UserName" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Password">Lösenord</label>
+                        <input class="form-control" asp-for="Password">
+                        <span asp-validation-for="Password" class="text-danger field-validation-error"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Roles"><u>Användarroll</u></label><br />
+                        @foreach (var role in Model.Roles)
+                        {
+                            <input type="radio" asp-for="Roles" checked="" value="@role" id="Role@(role)" />@role<br />
+                        }
+                        <br />
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Registrera</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

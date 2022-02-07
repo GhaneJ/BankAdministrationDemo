@@ -57,7 +57,7 @@ namespace BankAdministration.Data
         private void SeedUsers()
         {
             AddUserIfNotExists("stefan.holmberg@systementor.se", "Hejsan123#", new string[] { "Admin" });
-            AddUserIfNotExists("stefan.holmberg@nackademin.se", "Hejsan123#", new string[] { "Cashier" });
+            AddUserIfNotExists("stefan.holmberg@skysskolan.se", "Hejsan123#", new string[] { "Cashier" });
         }
 
         private void SeedRoles()
@@ -76,13 +76,14 @@ namespace BankAdministration.Data
         }
 
 
-        private void AddUserIfNotExists(string userName, string password, string[] roles)
+        public void AddUserIfNotExists(string userName, string password, string[] roles)
         {
             if (_userManager.FindByEmailAsync(userName).Result != null) return;
 
             var user = new IdentityUser
             {
                 UserName = userName,
+                
                 Email = userName,
                 EmailConfirmed = true
             };

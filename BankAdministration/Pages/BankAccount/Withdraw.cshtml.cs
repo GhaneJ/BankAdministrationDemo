@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using BankAdministration.Services;
 using BankAdministration.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankAdministration.Pages.BankAccount
 {
+    [Authorize(Roles = "Admin")]
     public class WithdrawModel : PageModel
     {
         private readonly IAccountService _accountService;

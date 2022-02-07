@@ -108,12 +108,7 @@ namespace BankAdministration.Services
             return person;
         }
             
-            
-
-
-
-
-
+        
         public PagedResult<Customer> ListCustomers(int customerId, string sortColumn, string sortOrder, int page, string searchWord)
         {
             

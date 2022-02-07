@@ -1,29 +1,25 @@
 ﻿@page
-@using Microsoft.EntityFrameworkCore.Metadata.Conventions
-@model IndexModel
+@model BankAdministration.Pages.User.UserIndexModel
 @{
-    ViewData["Title"] = "Konton";
 }
-
-
 
 <div class="card">
     <div class="card-header">
-        <h1>Alla konton</h1>
+        <h1>Alla AnvändarListan</h1>
     </div>
     <div class="card-body">
         <table class="table">
             <tr>
-                <th>Kontonummer</th>
-                <th>Saldo</th>
+                <th>Användarnamn</th>
+                <th>Användarroll</th>
             </tr>
-            @foreach (var person in Model.Konton)
+            @*@foreach (var person in Model)
             {
                 <tr>
                     <td>@person.AccountNo</td>
                     <td>@person.Balance</td>
                 </tr>
-            }
+            }*@
         </table>
         
 
