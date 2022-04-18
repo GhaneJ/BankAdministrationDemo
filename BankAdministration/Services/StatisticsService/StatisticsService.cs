@@ -13,19 +13,39 @@ namespace BankAdministration.Services
             _context = context;
         }
 
-        public string activeCustomers()
+        public int NumberOfActiveCustomers()
         {
-            return _context.Customers.Where(r => r.IsActive == true).Count().ToString();
+            return _context.Customers.Where(r => r.IsActive == true).Count();
         }
 
-        public string availabAccounts()
+        public int NumberOfAvailabeAccounts()
         {
-            return _context.Accounts.Count().ToString();
+            return _context.Accounts.Count();
         }
 
-        public string sumOfAccountBalances()
+        public string SumOfAccountBalances()
         {
             return _context.Accounts.Sum(r => r.Balance).ToString();
+        }
+
+        public int NumberOfIssuedCards()
+        {
+            return _context.Cards.Count();
+        }
+
+        public int NumberOfMaleCustomers() 
+        { 
+            return _context.Customers.Where(c => c.Gender == "male").Count();
+        }
+
+        public int NumberOfFemaleCustomers() 
+        {
+            return _context.Customers.Where(c => c.Gender == "female").Count();
+        }
+
+        public int NumberOfLoans()
+        {
+            return _context.Loans.Count();
         }
 
         public PagedResult<Customer> ListCustomers(int customerId, string sortColumn, string sortOrder, int page, string searchWord)

@@ -10,8 +10,6 @@ namespace BankAdministration.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IStatisticsService _statisticsService;
-        private readonly IAccountService _accountService;
         private readonly ICustomerService _customerService;
 
 
@@ -62,18 +60,14 @@ namespace BankAdministration.Pages
 
 
 
-        public IndexModel(IStatisticsService statisticsService, IAccountService accountService, ICustomerService customerService)
+        public IndexModel(ICustomerService customerService)
         {
-            _statisticsService = statisticsService;
-            _accountService = accountService;
             _customerService = customerService;
         }
 
         public void OnGet(int customerId, int accountId, string sortColumn, string sortOrder, int pageno, string searchWord)
         {
-            ActiveCustomers = _statisticsService.activeCustomers();
-            AvailableAccounts = _statisticsService.availabAccounts();
-            SumOfBalances = _statisticsService.sumOfAccountBalances();
+            
 
             SortColumn = sortColumn;
             SortOrder = sortOrder;

@@ -1,0 +1,44 @@
+﻿@page
+@model BankAdministration.Pages.Statistics.EconomyStatisticsModel
+@{
+}
+
+<div class="container-fluid d-flex justify-content-around">
+
+    <div class="card text-center rounded-3 h-100 alert-yellow mb-3 mt-5" style="max-width: 18rem;">
+        <div class="card-header">Summa</div>
+        <div class="card-body">
+            <h5 class="card-title">Summan av samtliga befintliga och aktiva konton</h5>
+            <p class="display-5 mb-0">@Model.SumOfBalances SEK</p>
+        </div>
+    </div>
+
+    <div class="card text-center rounded-3 h-100 alert-yellow mb-3 mt-5" style="max-width: 18rem;">
+        <div class="card-header">Konto</div>
+        <div class="card-body">
+            <h5 class="card-title">Antal befintliga konton</h5>
+            <p class="display-5 mb-0">@Model.AvailableAccounts konton</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="container-fluid d-flex justify-content-around">
+
+    <div class="card text-center rounded-3 h-100 alert-yellow mb-3 mt-5" style="max-width: 18rem;">
+        <div class="card-header">Bankkort</div>
+        <div class="card-body">
+            <h5 class="card-title">Antal utfärdat bankkort</h5>
+            <p class="display-5 mb-0">@Model.IssuedCards kort</p>
+        </div>
+    </div>
+
+    <div class="card text-center rounded-3 h-100 mb-0 alert-yellow mb-3 mt-5" style="max-width: 18rem;">
+        <div class="card-header">Lån</div>
+        <div class="card-body">
+            <h5 class="card-title">Antal beviljade lån</h5>
+            <p class="display-5 mb-0">@Model.NumberOfLoans lån</p>
+        </div>
+    </div>
+
+</div>

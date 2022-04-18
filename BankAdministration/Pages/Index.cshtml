@@ -5,54 +5,14 @@
     int value;
 }
 
-
-<!-- Statistics Section-->
-
-<section class="card bg-none py-5">
-    <div class="container-fluid">
-        <div class="row gy-4 d-flex justify-content-around">
-            <div class="col-lg-2">
-                <!-- Aktiva kunder -->
-                <div class="card text-center rounded-3 h-100 mb-0 alert-yellow">
-                    <div class="card-body rounded-3 p-0">
-                        <h3 class="h4 text-dark fw-normal">Aktiva kunder</h3>
-                        <p class="display-6 mb-0">@Model.ActiveCustomers</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <!-- Monthly Usage-->
-                <div class="card text-center rounded-3 h-100 mb-0 alert-yellow">
-                    <div class="card-body rounded-3 p-0">
-                        <h3 class="h4 text-dark fw-normal">Aktiva konton</h3>
-                        <p class="display-6 mb-0">@Model.AvailableAccounts</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <!-- User Actibity-->
-                <div class="card text-center rounded-3 h-100 mb-0 alert-yellow">
-                    <div class="card-body rounded-3 p-0">
-                        <h3 class="h4 text-dark fw-normal">Summan</h3>
-                        <p class="display-6 mb-0">@Model.SumOfBalances</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
 <!-- Search box -->
 <section class="py-5">
     <div class="container-fluid">
-        <div class="row mb-5">
+        <div class="row">
             <div class="col-lg-12 mx-auto">
                 <form method="get">
                     <div class="bg-white p-5">
-                        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-3">
                             <div class="input-group">
                                 <input asp-for="@Model.SearchWord" placeholder="Sök kundnummer, kundnamn, ort " aria-describedby="button-addon1" class="form-control border-0 bg-light">
                                 <input type="hidden" asp-for="@Model.CustomerId" />
@@ -64,7 +24,7 @@
                     </div>
 
                     <!-- Table -->
-                    <div class="bg-white p-5">
+                    <div class="bg-white">
                         @if (String.IsNullOrEmpty(@Model.SearchWord))
                         {
                             <table class="table table-responsive table-hover">

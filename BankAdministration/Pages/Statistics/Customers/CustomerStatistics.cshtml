@@ -1,0 +1,22 @@
+﻿@page
+@model BankAdministration.Pages.CustomerStatisticsModel
+@{
+}
+
+<div class="container-fluid d-flex justify-content-around">
+
+    <div class="card text-center rounded-3 h-100 mb-0 alert-yellow mb-3 mt-5" style="max-width: 18rem;">
+        <div class="card-header">Kund</div>
+        <div class="card-body">
+            <h5 class="card-title">Antal befintliga kunder</h5>
+            <p class="display-6 mb-0">@Model.ActiveCustomers</p>
+        </div>
+        <div class="card-footer">
+            <p class="display-6 mb-1">@Model.MaleCustomers m</p>
+            <p class="display-6 mb-1">@Model.FemaleCustomers f</p>
+        </div>
+    </div>
+
+    
+
+</div>
