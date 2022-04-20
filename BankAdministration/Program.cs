@@ -4,6 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using BankAdministration.Data;
+using BankAdministration.Services.StatisticsService.CustomerStatistics;
+using BankAdministration.Services.StatisticsService.EconomyStatistics;
+using BankAdministration.Services.StatisticsService.UserStatistics;
+using BankAdministration.Services.CustomerService.GeoLocation;
+using BankAdministration.Services.CustomerService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,12 +20,15 @@ builder.Services.AddDbContext<BankContext>(options =>
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<BankContext>();
-builder.Services.AddTransient<IStatisticsService, StatisticsService>();
+builder.Services.AddTransient<IEconomyStatisticsService, EconomyStatisticsService>();
+builder.Services.AddTransient<ICustomerStatisticsService, CustomerStatisticsService>();
 builder.Services.AddTransient<ICustomerService, CustomerService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<ILocationService, LocationService>();
 builder.Services.AddTransient<IRealAccountService, RealAccountService>();
 builder.Services.AddTransient<ITransactionService, TransactionService>();
 builder.Services.AddTransient<ICountryService, CountryService>();
+builder.Services.AddTransient<IUserStatisticsService, UserStatisticsService>();
 builder.Services.AddTransient<DataInitializer>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 var app = builder.Build();

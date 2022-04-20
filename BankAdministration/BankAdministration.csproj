@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Services\CustomerService\PersonalData\" />
     <Folder Include="wwwroot\vendor\choices.js\src\" />
     <Folder Include="wwwroot\vendor\choices.js\types\" />
     <Folder Include="wwwroot\vendor\imagesloaded\test\" />

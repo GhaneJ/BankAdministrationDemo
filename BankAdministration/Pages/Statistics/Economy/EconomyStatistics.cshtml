@@ -3,7 +3,7 @@
 @{
 }
 
-<div class="container-fluid d-flex justify-content-around">
+@*<div class="container-fluid d-flex justify-content-around">
 
     <div class="card text-center rounded-3 h-100 alert-yellow mb-3 mt-5" style="max-width: 18rem;">
         <div class="card-header">Summa</div>
@@ -41,4 +41,26 @@
         </div>
     </div>
 
-</div>
+</div>*@
+
+<table class="table table-responsive table-hover caption-top">
+  <caption>Ekonomilista</caption>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Summan av samtliga konton</th>
+      <th scope="col">Antal befintliga konton</th>
+      <th scope="col">Antal utfärdat bankkort</th>
+      <th scope="col">Antal beviljade lån</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>@Model.SumOfBalances SEK</td>
+      <td>@Model.AvailableAccounts konton</td>
+      <td>@Model.IssuedCards kort</td>
+      <td>@Model.NumberOfLoans lån</td>
+    </tr>
+  </tbody>
+</table>

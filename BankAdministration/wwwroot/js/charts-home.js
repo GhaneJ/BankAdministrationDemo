@@ -1,7 +1,7 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", function () {
     // Main Template Color
-    var brandPrimary = "#33b35a";
+    var brandPrimary = "#dc3545";
 
     // ------------------------------------------------------- //
     // Line Chart

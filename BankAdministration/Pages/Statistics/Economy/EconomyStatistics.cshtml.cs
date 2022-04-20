@@ -1,4 +1,5 @@
 using BankAdministration.Services;
+using BankAdministration.Services.StatisticsService.EconomyStatistics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -6,23 +7,23 @@ namespace BankAdministration.Pages.Statistics
 {
     public class EconomyStatisticsModel : PageModel
     {
-        private readonly IStatisticsService _statisticsService;
+        private readonly IEconomyStatisticsService _economyStatisticsService;
 
         public int AvailableAccounts { get; set; }
         public string SumOfBalances { get; set; }
         public int IssuedCards { get; set; }
         public int NumberOfLoans { get; set; }
 
-        public EconomyStatisticsModel(IStatisticsService statisticsService)
+        public EconomyStatisticsModel(IEconomyStatisticsService economyStatisticsService)
         {
-            _statisticsService = statisticsService;
+            _economyStatisticsService = economyStatisticsService;
         }
         public void OnGet()
         {
-            AvailableAccounts = _statisticsService.NumberOfAvailabeAccounts();
-            SumOfBalances = _statisticsService.SumOfAccountBalances();
-            IssuedCards = _statisticsService.NumberOfIssuedCards();
-            NumberOfLoans = _statisticsService.NumberOfLoans();
+            AvailableAccounts = _economyStatisticsService.NumberOfAvailabeAccounts();
+            SumOfBalances = _economyStatisticsService.SumOfAccountBalances();
+            IssuedCards = _economyStatisticsService.NumberOfIssuedCards();
+            NumberOfLoans = _economyStatisticsService.NumberOfLoans();
         }
     }
 }

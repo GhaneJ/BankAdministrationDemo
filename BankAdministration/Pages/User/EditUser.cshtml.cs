@@ -34,8 +34,6 @@ namespace BankAdministration.Pages.User
         {
             if (ModelState.IsValid)
             {
-                
-
                 _context.SaveChanges();
                 return RedirectToPage("Customers");
             }

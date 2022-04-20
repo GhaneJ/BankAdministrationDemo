@@ -7,9 +7,9 @@ namespace BankAdministration.Pages.BankAccount
     public class IndexModel : PageModel
     {
         private readonly IAccountService _accountService;
-        public List<KontoViewModel> Konton { get; set; }
+        public List<AccountViewModel> Account { get; set; }
 
-        public class KontoViewModel
+        public class AccountViewModel
         {
             public int Id { get; set; }
             public string AccountNo { get; set; }
@@ -23,7 +23,7 @@ namespace BankAdministration.Pages.BankAccount
 
         public void OnGet()
         {
-            Konton = _accountService.GetAll().Select(r => new KontoViewModel
+            Account = _accountService.GetAll().Select(r => new AccountViewModel
             {
                 Id = r.AccountId,
                 AccountNo = r.AccountId.ToString(),

@@ -10,7 +10,6 @@ namespace BankAdministration.Pages.Person
     [Authorize(Roles = "Admin")]
     public class ReactivateArchivedCustomerModel : PageModel
     {
-        private readonly IStatisticsService _statisticsService;
         private readonly ICustomerService _customerService;
 
         public class Item
@@ -34,9 +33,8 @@ namespace BankAdministration.Pages.Person
         public int CustomerId { get; set; }
         public List<Item> Items { get; set; }
 
-        public ReactivateArchivedCustomerModel(IStatisticsService statisticsService, ICustomerService customerService)
+        public ReactivateArchivedCustomerModel(ICustomerService customerService)
         {
-            _statisticsService = statisticsService;
             _customerService = customerService;
         }
 

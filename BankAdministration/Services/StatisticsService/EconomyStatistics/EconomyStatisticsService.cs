@@ -1,21 +1,15 @@
 ﻿using BankAdministration.Infrastructure.Paging;
 using BankAdministration.Models;
-using System.Linq;
 
-namespace BankAdministration.Services
+namespace BankAdministration.Services.StatisticsService.EconomyStatistics
 {
-    public class StatisticsService : IStatisticsService
+    public class EconomyStatisticsService : IEconomyStatisticsService
     {
         private readonly BankContext _context;
 
-        public StatisticsService(BankContext context)
+        public EconomyStatisticsService(BankContext context)
         {
             _context = context;
-        }
-
-        public int NumberOfActiveCustomers()
-        {
-            return _context.Customers.Where(r => r.IsActive == true).Count();
         }
 
         public int NumberOfAvailabeAccounts()
@@ -31,16 +25,6 @@ namespace BankAdministration.Services
         public int NumberOfIssuedCards()
         {
             return _context.Cards.Count();
-        }
-
-        public int NumberOfMaleCustomers() 
-        { 
-            return _context.Customers.Where(c => c.Gender == "male").Count();
-        }
-
-        public int NumberOfFemaleCustomers() 
-        {
-            return _context.Customers.Where(c => c.Gender == "female").Count();
         }
 
         public int NumberOfLoans()
@@ -90,21 +74,3 @@ namespace BankAdministration.Services
         }
     }
 }
-
-
-
-
-
-
-
-//availableCustomers = _context.Customers.Where(r=>r.Active==true).Count().ToString();
-//availableAccounts = _context.Accounts.Count().ToString();
-//sumOfBalances = _context.Accounts.Sum(r => r.Balance).ToString();
-
-//var query = _context.Accounts.Select(r => new IndexViewModel
-//{
-//    Id = r.AccountId,
-//    Balance = r.Balance.ToString(),
-//    Frequency = r.Frequency,
-//    Created = r.Created
-//}).Where(e => string.IsNullOrEmpty(q) || e.Balance.Contains(q));

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace BankAdministration.Services
+namespace BankAdministration.Services.CustomerService
 {
     public class CustomerService : ICustomerService
     {

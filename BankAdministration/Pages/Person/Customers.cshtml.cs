@@ -7,7 +7,6 @@ namespace BankAdministration.Pages
 {
     public class CustomersModel : PageModel
     {
-        private readonly IStatisticsService _statisticsService;
         private readonly ICustomerService _customerService;
 
         public class Item
@@ -31,9 +30,8 @@ namespace BankAdministration.Pages
         public int CustomerId { get; set; }
         public List<Item> Items { get; set; }
 
-        public CustomersModel(IStatisticsService statisticsService, ICustomerService customerService)
+        public CustomersModel(ICustomerService customerService)
         {
-            _statisticsService = statisticsService;
             _customerService = customerService;
         }
 
