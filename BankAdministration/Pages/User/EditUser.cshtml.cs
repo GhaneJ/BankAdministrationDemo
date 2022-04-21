@@ -43,7 +43,7 @@ namespace BankAdministration.Pages.User
 
         public void OnGet(int id)
         {
-            var user = _context.Users.Where(r => r.UserId == id);
+            //var user = _context.BankAppUser.Where(r => r.Id == id);
             
         }
     }

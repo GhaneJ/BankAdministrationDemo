@@ -1,31 +1,66 @@
+using BankAdministration.Models;
 using BankAdministration.Services.StatisticsService.UserStatistics;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace BankAdministration.Pages.Statistics.User
 {
     public class UserStatisticsModel : PageModel
     {
-        private readonly IUserStatisticsService _userStatisticsService;
-        public List<UserStatisticsViewModel> UserStatistics { get; set; }
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public class UserStatisticsViewModel
+        public UserStatisticsModel(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            public string Id { get; set; }
-            public string LoginName { get; set; }
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        public UserStatisticsModel(IUserStatisticsService userStatisticsService)
+        public class Item
         {
-            _userStatisticsService = userStatisticsService;
+            public int Id { get; set; }
+            public string UserName { get; set; }
+            public string Email { get; set; }
+            public string Role { get; set; }
         }
 
+        public List<IdentityUser> AllUsers { get; set; }
+
+        public List<IdentityRole> Roles { get; set; }
+
+        public List<object> UsersAndRoles { get; set; }
+
+        public List<IdentityRole> GetRoles()
+        {
+            Roles = new List<IdentityRole>();
+            return Roles;
+        }
+        public List<IdentityUser> GetUsers()
+        {
+            AllUsers = new List<IdentityUser>();
+            return AllUsers;
+        }
         public void OnGet()
         {
-            UserStatistics = _userStatisticsService.GetUsers().Select(r => new UserStatisticsViewModel
+            AllUsers = _userManager.Users.Select(x => new IdentityUser
             {
-                LoginName = r.LoginName.ToString()
+                UserName = x.UserName,
+                Email = x.Email
             }).ToList();
+
+            Roles = _roleManager.Roles.Select(x => new IdentityRole
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
         }
+    }
+
+    public class UserRoleModel
+    {
     }
 }

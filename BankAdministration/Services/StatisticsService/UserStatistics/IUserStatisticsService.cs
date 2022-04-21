@@ -5,6 +5,5 @@ namespace BankAdministration.Services.StatisticsService.UserStatistics
 {
     public interface IUserStatisticsService
     {
-        public List<User> GetUsers();
     }
 }

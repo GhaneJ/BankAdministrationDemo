@@ -176,7 +176,7 @@ namespace BankAdministration.Services.CustomerService
                     query = query.OrderBy(e => e.City);
             }
 
-            return query.Where(e => e.IsActive == true).GetPaged(page, 200); //5 is the pagesize
+            return query.Where(e => e.IsActive == true).GetPaged(page, 30); //5 is the pagesize
         }
 
         public PagedResult<Customer> ListInactiveCustomers(int customerId, string sortColumn, string sortOrder, int page, string searchWord)

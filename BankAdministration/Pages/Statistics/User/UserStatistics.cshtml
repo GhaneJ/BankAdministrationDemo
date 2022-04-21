@@ -3,23 +3,46 @@
 @{
 }
 
-<div class="card">
-    <div class="card-header">
-        <h1>Alla användare</h1>
+@*We are using two tables aside, One containing Users, and the other containing roles, they are adjacent like they are one table 
+(Done to be able to show items from different models in one view)*@
+
+<div class="d-flex justify-content-center">
+    <div class="col-xs-6">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-md-2">Användarnamn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.AllUsers)
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="card-body">
-        <table class="table">
-            <tr>
-                <th>Användar Id</th>
-                <th>Användarnamn</th>
-            </tr>
-            @foreach (var user in Model.UserStatistics)
-            {
-                <tr>
-                    <td>@user.Id</td>
-                    <td>@user.LoginName</td>
-                </tr>
-            }
-        </table>
+    <div class="col-xs-6">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-md-1">AnvändarRoll</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var role in Model.Roles)
+                    {
+                        <tr>
+                            <td class="col-md-1">@role.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
