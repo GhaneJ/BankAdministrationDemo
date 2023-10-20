@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace BankAdministration.Models;
 
-namespace BankAdministration.Models
+public partial class Disposition
 {
-    public partial class Disposition
+    public Disposition()
     {
-        public Disposition()
-        {
-            Cards = new HashSet<Card>();
-        }
-
-        public int DispositionId { get; set; }
-        public int CustomerId { get; set; }
-        public int AccountId { get; set; }
-        public string Type { get; set; } = null!;
-
-        public virtual Account Account { get; set; } = null!;
-        public virtual Customer Customers { get; set; } = null!;
-        public virtual ICollection<Card> Cards { get; set; }
+        Cards = new HashSet<Card>();
     }
+
+    public int DispositionId { get; set; }
+    public int CustomerId { get; set; }
+    public int AccountId { get; set; }
+    public string Type { get; set; } = null!;
+
+    public virtual Account Account { get; set; } = null!;
+    public virtual Customer Customers { get; set; } = null!;
+    public virtual ICollection<Card> Cards { get; set; }
 }

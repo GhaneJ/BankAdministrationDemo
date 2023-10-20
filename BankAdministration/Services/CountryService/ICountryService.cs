@@ -1,10 +1,9 @@
-﻿using BankAdministration.Models;
+﻿namespace BankAdministration.Services;
 
-namespace BankAdministration.Services
+using BankAdministration.Models;
+
+public interface ICountryService
 {
-    public interface ICountryService
-    {
-        public Country GetCountry(int countryId);
-        public void FillCountryList();
-    }
+    public Country GetCountry(int countryId);
+    public void FillCountryList();
 }

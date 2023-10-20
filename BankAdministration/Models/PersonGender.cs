@@ -1,9 +1,8 @@
-﻿namespace BankAdministration.Models
+﻿namespace BankAdministration.Models;
+
+public enum PersonGender
 {
-    public enum PersonGender
-    {
-        Male,
-        Female,
-        Unspecified
-    }
+    Male,
+    Female,
+    Unspecified
 }

@@ -1,10 +1,9 @@
-﻿namespace BankAdministration.Services.CustomerService.GeoLocation
+﻿namespace BankAdministration.Services.CustomerService.GeoLocation;
+
+public interface ILocationService
 {
-    public interface ILocationService
-    {
-        public int NumberOfSwedishCustomers();
-        public int NumberOfNorwegianCustomers();
-        public int NumberOfDanishCustomers();
-        public int NumberOfFinnishCustomers();
-    }
+    public int NumberOfSwedishCustomers();
+    public int NumberOfNorwegianCustomers();
+    public int NumberOfDanishCustomers();
+    public int NumberOfFinnishCustomers();
 }

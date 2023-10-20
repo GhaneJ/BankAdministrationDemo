@@ -1,7 +1,5 @@
-﻿namespace BankAdministration.Infrastructure.Profiles
+﻿namespace BankAdministration.Infrastructure.Profiles;
+
+public class PersonProfile
 {
-    public class PersonProfile
-    {
-        
-    }
 }

@@ -1,10 +1,9 @@
-﻿namespace BankAdministration.Services.StatisticsService.EconomyStatistics
+﻿namespace BankAdministration.Services.StatisticsService.EconomyStatistics;
+
+public interface IEconomyStatisticsService
 {
-    public interface IEconomyStatisticsService
-    {
-        public int NumberOfAvailabeAccounts();
-        public string SumOfAccountBalances();
-        public int NumberOfIssuedCards();
-        public int NumberOfLoans();
-    }
+    public int NumberOfAvailabeAccounts();
+    public string SumOfAccountBalances();
+    public int NumberOfIssuedCards();
+    public int NumberOfLoans();
 }

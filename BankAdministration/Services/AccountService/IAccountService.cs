@@ -1,8 +1,6 @@
-﻿using BankAdministration.Data;
-using BankAdministration.Infrastructure.Paging;
-using BankAdministration.Models;
+﻿namespace BankAdministration.Services;
 
-namespace BankAdministration.Services;
+using BankAdministration.Models;
 
 public interface IAccountService
 {

@@ -3,9 +3,6 @@
 public interface IRealAccountService
 {
     bool Deposit(int accountId, int belopp);
-
-
-
     bool CanWithdraw(int accountId, int belopp);
 
     public enum ErrorCode {

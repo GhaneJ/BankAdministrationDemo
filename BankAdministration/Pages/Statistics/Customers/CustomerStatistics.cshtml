@@ -3,24 +3,8 @@
 @{
 }
 
-@*<div class="container-fluid d-flex justify-content-around">
-
-    <div class="card text-center rounded-3 h-100 mb-0 alert-yellow mb-3 mt-5" style="max-width: 18rem;">
-        <div class="card-header">Kund</div>
-        <div class="card-body">
-            <h5 class="card-title">Antal befintliga kunder</h5>
-            <p class="display-6 mb-0">@Model.ActiveCustomers</p>
-        </div>
-        <div class="card-footer">
-            <p class="display-6 mb-1">@Model.MaleCustomers m</p>
-            <p class="display-6 mb-1">@Model.FemaleCustomers f</p>
-        </div>
-    </div>
-
-</div>*@
-
 <table class="table table-responsive table-hover caption-top">
-  <caption>Kundlista</caption>
+  <caption>Kundstatistik</caption>
   <thead>
     <tr>
       <th scope="col">Kunder</th>
@@ -35,7 +19,7 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
+      <th scope="row"></th>
       <td>@Model.ActiveCustomers</td>
       <td>@Model.MaleCustomers män</td>
       <td>@Model.FemaleCustomers kvinnor</td>

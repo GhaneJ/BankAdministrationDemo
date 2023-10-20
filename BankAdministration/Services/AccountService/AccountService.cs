@@ -1,17 +1,12 @@
-﻿using System.Collections.Immutable;
-using System.Linq;
-using BankAdministration.Data;
-using BankAdministration.Infrastructure.Paging;
+﻿namespace BankAdministration.Services;
+
 using BankAdministration.Models;
-using BankAdministration.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BankAdministration.Services;
 [BindProperties]
 public class AccountService : IAccountService
 {
-
     private readonly BankContext _context;
     private readonly ICustomerService _customerService;
 
@@ -25,11 +20,11 @@ public class AccountService : IAccountService
         _customerService = customerService;
 
     }
+
     public List<Account> GetAll()
     {
         return _context.Accounts.ToList();
     }
-
 
     public void Update(Account account)
     {

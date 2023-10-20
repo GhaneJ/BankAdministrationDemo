@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace BankAdministration.Models;
 
-namespace BankAdministration.Models
+public partial class Loan
 {
-    public partial class Loan
-    {
-        public int LoanId { get; set; }
-        public int AccountId { get; set; }
-        public DateTime Date { get; set; }
-        public decimal Amount { get; set; }
-        public int Duration { get; set; }
-        public decimal Payments { get; set; }
-        public string Status { get; set; } = null!;
+    public int LoanId { get; set; }
+    public int AccountId { get; set; }
+    public DateTime Date { get; set; }
+    public decimal Amount { get; set; }
+    public int Duration { get; set; }
+    public decimal Payments { get; set; }
+    public string Status { get; set; } = null!;
 
-        public virtual Account Account { get; set; } = null!;
-    }
+    public virtual Account Account { get; set; } = null!;
 }

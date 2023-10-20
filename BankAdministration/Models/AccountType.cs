@@ -1,8 +1,7 @@
-﻿namespace BankAdministration.Models
+﻿namespace BankAdministration.Models;
+
+public enum AccountType
 {
-    public enum AccountType
-    {
-        Credit,
-        Debit
-    }
+    Credit,
+    Debit
 }
